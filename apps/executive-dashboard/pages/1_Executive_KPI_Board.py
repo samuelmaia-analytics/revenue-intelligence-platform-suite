@@ -7,6 +7,9 @@ import streamlit as st
 
 st.set_page_config(page_title="Executive KPI Board", layout="wide")
 
+if st.button("← Back to Home"):
+    st.switch_page("app.py")
+
 ROOT = Path(__file__).resolve().parents[3]
 SALES_PATH = ROOT / "modules" / "analise-vendas-python" / "dados_processados" / "vendas_simples.csv"
 CUSTOMER_PATH = (

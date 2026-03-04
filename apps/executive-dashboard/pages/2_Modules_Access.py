@@ -4,6 +4,9 @@ import streamlit as st
 
 st.set_page_config(page_title="Modules Access", layout="wide")
 
+if st.button("← Back to Home"):
+    st.switch_page("app.py")
+
 ROOT = Path(__file__).resolve().parents[3]
 
 st.title("Modules Access")
