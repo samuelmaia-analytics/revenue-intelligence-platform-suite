@@ -1,6 +1,7 @@
 from pathlib import Path
 import json
 
+import altair as alt
 import pandas as pd
 import streamlit as st
 
@@ -146,7 +147,25 @@ st.subheader("Leadership Actions This Week")
 action_counts = (
     top_priorities["Recommended Action"].value_counts().rename_axis("Action").reset_index(name="Accounts")
 )
-st.bar_chart(action_counts.set_index("Action")["Accounts"])
+action_alias = {
+    "Executive Save Offer": "Exec Save Offer",
+    "CSM Priority Call": "CSM Priority Call",
+    "Nurture Campaign": "Nurture Campaign",
+}
+action_counts["Action Short"] = action_counts["Action"].map(action_alias).fillna(action_counts["Action"])
+
+action_chart = (
+    alt.Chart(action_counts)
+    .mark_bar(cornerRadiusTopLeft=4, cornerRadiusTopRight=4)
+    .encode(
+        x=alt.X("Action Short:N", sort="-y", title="Recommended Action"),
+        y=alt.Y("Accounts:Q", title="Accounts"),
+        tooltip=["Action:N", "Accounts:Q"],
+    )
+    .properties(height=260)
+)
+st.altair_chart(action_chart, width="stretch")
+st.dataframe(action_counts[["Action", "Accounts"]], width="stretch", hide_index=True)
 
 action_notes = [
     "Approve targeted retention offers for top 10 accounts by expected recovery.",
