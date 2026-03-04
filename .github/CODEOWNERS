@@ -1,0 +1,17 @@
+# Global ownership fallback
+* @samuelmaia-data-analyst
+
+# Platform layers
+/platform/ @samuelmaia-data-analyst
+/packages/common/ @samuelmaia-data-analyst
+/apps/ @samuelmaia-data-analyst
+
+# Module ownership
+/modules/revenue-intelligence/ @samuelmaia-data-analyst
+/modules/churn-prediction/ @samuelmaia-data-analyst
+/modules/amazon-sales-analysis/ @samuelmaia-data-analyst
+/modules/analise-vendas-python/ @samuelmaia-data-analyst
+/modules/data-senior-analytics/ @samuelmaia-data-analyst
+
+# Governance docs
+/docs/ @samuelmaia-data-analyst

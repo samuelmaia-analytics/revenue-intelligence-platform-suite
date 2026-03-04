@@ -15,6 +15,8 @@ Plataforma unificada de Revenue + Retention Intelligence, consolidando engenhari
 - [Modulos](#modulos)
 - [Estrutura do Monorepo](#estrutura-do-monorepo)
 - [Documentos Executivos](#documentos-executivos)
+- [Governanca e Seguranca](#governanca-e-seguranca)
+- [Casos de Uso](#casos-de-uso)
 - [Quickstart](#quickstart)
 - [Atualizacao de Subtree](#atualizacao-de-subtree)
 - [Resultados de Negocio](#resultados-de-negocio)
@@ -111,6 +113,18 @@ revenue-intelligence-platform-suite/
 
 - [Executive Brief](./docs/executive-brief.md)
 - [KPI Scorecard](./docs/kpi-scorecard.md)
+- [Governance RACI](./docs/governance-raci.md)
+
+## Governanca e Seguranca
+
+- [CODEOWNERS](./.github/CODEOWNERS)
+- [Security Policy](./SECURITY.md)
+- [Compliance Checklist (LGPD/GDPR)](./docs/compliance-checklist.md)
+
+## Casos de Uso
+
+- [Case Study 01 - Churn Retention Prioritization](./docs/case-studies/case-study-01-churn-retention-prioritization.md)
+- [Case Study 02 - Discount Leakage Revenue Recovery](./docs/case-studies/case-study-02-discount-leakage-revenue-recovery.md)
 
 ## Quickstart
 

@@ -15,6 +15,8 @@ Unified Revenue + Retention Intelligence platform, consolidating data engineerin
 - [Modules](#modules)
 - [Monorepo Layout](#monorepo-layout)
 - [Executive Docs](#executive-docs)
+- [Governance and Security](#governance-and-security)
+- [Case Studies](#case-studies)
 - [Quickstart](#quickstart)
 - [Subtree Update Example](#subtree-update-example)
 - [Business Outcomes](#business-outcomes)
@@ -111,6 +113,18 @@ revenue-intelligence-platform-suite/
 
 - [Executive Brief](./docs/executive-brief.md)
 - [KPI Scorecard](./docs/kpi-scorecard.md)
+- [Governance RACI](./docs/governance-raci.md)
+
+## Governance and Security
+
+- [CODEOWNERS](./.github/CODEOWNERS)
+- [Security Policy](./SECURITY.md)
+- [Compliance Checklist (LGPD/GDPR)](./docs/compliance-checklist.md)
+
+## Case Studies
+
+- [Case Study 01 - Churn Retention Prioritization](./docs/case-studies/case-study-01-churn-retention-prioritization.md)
+- [Case Study 02 - Discount Leakage Revenue Recovery](./docs/case-studies/case-study-02-discount-leakage-revenue-recovery.md)
 
 ## Quickstart
 
