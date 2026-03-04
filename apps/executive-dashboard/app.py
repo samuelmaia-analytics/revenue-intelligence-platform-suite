@@ -1,6 +1,10 @@
 import streamlit as st
 
-st.set_page_config(page_title="Revenue-Intelligence-Platform-Suite", layout="wide")
+st.set_page_config(
+    page_title="Revenue-Intelligence-Platform-Suite",
+    layout="wide",
+    initial_sidebar_state="expanded",
+)
 
 st.title("Revenue-Intelligence-Platform-Suite")
 st.caption("Unified portal for Revenue + Retention decision systems.")
@@ -15,28 +19,37 @@ st.markdown(
 )
 
 st.info(
-    "Use the left sidebar pages to navigate: `Executive KPI Board` and `Modules Access`."
+    "Use the sidebar pages or the buttons below to open `Executive KPI Board` and `Modules Access`."
 )
 
 col1, col2 = st.columns(2)
 with col1:
     st.subheader("Primary Navigation")
-    st.markdown(
-        """
-- Open **Executive KPI Board** in the left sidebar
-- Open **Modules Access** in the left sidebar
-"""
-    )
-    st.caption("Navigation is handled by Streamlit multipage sidebar.")
+    c1, c2 = st.columns(2)
+    with c1:
+        if st.button("Open Executive KPI Board", use_container_width=True):
+            st.switch_page("pages/1_Executive_KPI_Board.py")
+    with c2:
+        if st.button("Open Modules Access", use_container_width=True):
+            st.switch_page("pages/2_Modules_Access.py")
+    st.caption("If the sidebar is collapsed, click the top-left `>` icon to expand it.")
 
 with col2:
     st.subheader("Public Demos")
-    st.markdown(
-        """
-- Revenue Intelligence: https://revenue-intelligence-platform.streamlit.app/
-- Data Senior Analytics: https://data-analytics-sr.streamlit.app
-- Sales Analytics: https://analys-vendas-python.streamlit.app/
-"""
+    st.link_button(
+        "Revenue Intelligence Demo",
+        "https://revenue-intelligence-platform.streamlit.app/",
+        use_container_width=True,
+    )
+    st.link_button(
+        "Data Senior Analytics Demo",
+        "https://data-analytics-sr.streamlit.app",
+        use_container_width=True,
+    )
+    st.link_button(
+        "Sales Analytics Demo",
+        "https://analys-vendas-python.streamlit.app/",
+        use_container_width=True,
     )
 
 st.markdown("---")
