@@ -7,7 +7,7 @@ import streamlit as st
 
 st.set_page_config(page_title="Executive KPI Board", layout="wide")
 
-if st.button("← Back to Home"):
+if st.button("<- Back to Home"):
     st.switch_page("app.py")
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -110,6 +110,61 @@ col4.metric("Value at Risk", f"${value_at_risk:,.0f}")
 col5.metric("Expected Recovery", f"${expected_recovery:,.0f}", delta=f"ROI {roi*100:.0f}%")
 
 st.markdown("---")
+st.subheader("KPI Target vs Actual")
+
+revenue_target = current_revenue * 1.08
+nrr_target = 0.92
+churn_target = 0.08
+recovery_target = value_at_risk * 0.12
+
+kpi_table = pd.DataFrame(
+    [
+        {
+            "KPI": "Revenue (Latest Month)",
+            "Target": revenue_target,
+            "Actual": current_revenue,
+            "Gap": current_revenue - revenue_target,
+            "Owner": "Revenue Lead",
+            "Deadline": "Q2",
+        },
+        {
+            "KPI": "NRR Proxy",
+            "Target": nrr_target,
+            "Actual": current_nrr,
+            "Gap": current_nrr - nrr_target,
+            "Owner": "Retention Lead",
+            "Deadline": "Q2",
+        },
+        {
+            "KPI": "Gross Churn Proxy",
+            "Target": churn_target,
+            "Actual": gross_churn,
+            "Gap": churn_target - gross_churn,
+            "Owner": "Retention Ops",
+            "Deadline": "Q2",
+        },
+        {
+            "KPI": "Expected Recovery",
+            "Target": recovery_target,
+            "Actual": expected_recovery,
+            "Gap": expected_recovery - recovery_target,
+            "Owner": "Growth Lead",
+            "Deadline": "Q2",
+        },
+    ]
+)
+
+display_kpis = kpi_table.copy()
+pct_mask = display_kpis["KPI"].str.contains("NRR|Churn")
+display_kpis.loc[pct_mask, "Target"] = (display_kpis.loc[pct_mask, "Target"] * 100).round(1)
+display_kpis.loc[pct_mask, "Actual"] = (display_kpis.loc[pct_mask, "Actual"] * 100).round(1)
+display_kpis.loc[pct_mask, "Gap"] = (display_kpis.loc[pct_mask, "Gap"] * 100).round(1)
+display_kpis.loc[~pct_mask, ["Target", "Actual", "Gap"]] = (
+    display_kpis.loc[~pct_mask, ["Target", "Actual", "Gap"]].round(0)
+)
+st.dataframe(display_kpis, width="stretch", hide_index=True)
+
+st.markdown("---")
 left, right = st.columns([2, 1])
 with left:
     st.subheader("Revenue Trend (Real Data)")
@@ -170,13 +225,49 @@ action_chart = (
 st.altair_chart(action_chart, width="stretch")
 st.dataframe(action_counts[["Action", "Accounts"]], width="stretch", hide_index=True)
 
-action_notes = [
-    "Approve targeted retention offers for top 10 accounts by expected recovery.",
-    "Assign CSM owners to all accounts with Risk Score >= 0.60.",
-    "Run pricing review for customers flagged with high risk and high spend.",
+st.subheader("Action Register")
+register = top_priorities.head(8).copy()
+owners = ["CSM Team A", "CSM Team B", "CSM Team A", "Retention Ops", "Retention Ops", "CSM Team B", "Growth Squad", "Growth Squad"]
+etas = ["3d", "5d", "7d", "5d", "10d", "7d", "14d", "14d"]
+statuses = ["Approved", "In Progress", "In Progress", "Planned", "Planned", "In Progress", "Planned", "Planned"]
+register["Owner"] = owners[: len(register)]
+register["ETA"] = etas[: len(register)]
+register["Status"] = statuses[: len(register)]
+register = register[
+    [
+        "Customer ID",
+        "Recommended Action",
+        "Expected Recovery (USD)",
+        "Risk Score",
+        "Owner",
+        "ETA",
+        "Status",
+    ]
 ]
-for idx, note in enumerate(action_notes, start=1):
-    st.write(f"{idx}. {note}")
+st.dataframe(register, width="stretch", hide_index=True)
+
+st.markdown("---")
+st.subheader("Scenario Analysis")
+scenario_df = pd.DataFrame(
+    [
+        {"Scenario": "Conservative", "Uplift %": 5, "Budget (USD)": budget * 0.8},
+        {"Scenario": "Base", "Uplift %": uplift, "Budget (USD)": budget},
+        {"Scenario": "Aggressive", "Uplift %": min(30, uplift + 7), "Budget (USD)": budget * 1.3},
+    ]
+)
+scenario_df["Expected Recovery (USD)"] = (
+    value_at_risk * (scenario_df["Uplift %"] / 100)
+).round(2)
+scenario_df["ROI"] = (
+    (scenario_df["Expected Recovery (USD)"] - scenario_df["Budget (USD)"]) / scenario_df["Budget (USD)"]
+).round(2)
+st.dataframe(scenario_df, width="stretch", hide_index=True)
+st.download_button(
+    "Download Scenario Analysis (CSV)",
+    data=scenario_df.to_csv(index=False).encode("utf-8"),
+    file_name="scenario_analysis.csv",
+    mime="text/csv",
+)
 
 st.markdown("---")
 a, b, c = st.columns(3)
