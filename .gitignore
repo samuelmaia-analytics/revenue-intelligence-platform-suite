@@ -1,0 +1,30 @@
+﻿# Python artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# IDE
+.idea/
+.vscode/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Data folders not tracked
+data/raw/
+data/external/
+
+# Generated reports
+reports/figures/
+reports/tables/
+reports/metrics/
+
+# OS files
+.DS_Store
+Thumbs.db

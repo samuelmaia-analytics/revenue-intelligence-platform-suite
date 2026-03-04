@@ -1,0 +1,54 @@
+﻿:root {
+    --amazon-orange: #ff9900;
+    --amazon-blue: #146eb4;
+    --ink-dark: #101828;
+    --slate: #475467;
+    --cloud: #f2f4f7;
+    --white: #ffffff;
+}
+
+.main-header {
+    font-size: 2.8rem;
+    font-weight: 900;
+    margin-bottom: 0.1rem;
+    background: linear-gradient(90deg, var(--amazon-orange), var(--amazon-blue));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.sub-header {
+    color: var(--slate);
+    font-size: 1.08rem;
+    margin-top: 0.2rem;
+    margin-bottom: 1.2rem;
+}
+
+[data-testid="stMetric"] {
+    background: linear-gradient(165deg, var(--white), var(--cloud));
+    border: 1px solid #e4e7ec;
+    border-radius: 12px;
+    padding: 0.5rem;
+    box-shadow: 0 1px 8px rgba(16, 24, 40, 0.08);
+}
+
+.stTabs [data-baseweb="tab-list"] {
+    gap: 14px;
+}
+
+.stTabs [data-baseweb="tab"] {
+    border-radius: 10px 10px 0 0;
+    font-weight: 600;
+}
+
+.stTabs [aria-selected="true"] {
+    background-color: var(--amazon-orange);
+    color: white !important;
+}
+
+[data-testid="stSidebar"] {
+    border-right: 1px solid #e4e7ec;
+}
+
+[data-testid="stSidebar"] h3 {
+    margin-top: 0.2rem;
+}
