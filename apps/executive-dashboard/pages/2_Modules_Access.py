@@ -4,8 +4,12 @@ import streamlit as st
 
 st.set_page_config(page_title="Modules Access", layout="wide")
 
-if st.button("← Back to Home"):
+if st.button("Voltar para Revenue-Intelligence-Platform-Suite"):
     st.switch_page("app.py")
+
+with st.sidebar:
+    if st.button("Home: Revenue-Intelligence-Platform-Suite"):
+        st.switch_page("app.py")
 
 ROOT = Path(__file__).resolve().parents[3]
 
