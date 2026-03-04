@@ -1,44 +1,45 @@
-Ôªø# Amazon Sales Analysis (PT-BR)
+# Amazon Sales Analysis (PT-BR)
 
 ## Troca de Idioma
 - README principal: [../README.md](../README.md)
 - English: [README.en.md](README.en.md)
+- Portugues (PT): [README.pt-PT.md](README.pt-PT.md)
 
 ## Resumo Executivo
-- Problema de neg√≥cio: leakage de receita por descontos.
-- P√∫blico-alvo: lideran√ßa comercial, Revenue Ops e gestores de categoria.
+- Problema de negÛcio: leakage de receita por descontos.
+- P˙blico-alvo: lideranÁa comercial, Revenue Ops e gestores de categoria.
 - North Star Metric: Net Revenue Retained (NRR).
 - Potencial financeiro: +$252,3K ao recuperar 5% do leakage.
 
-## M√©tricas de Neg√≥cio
-- Receita L√≠quida: **$32,87M**
+## MÈtricas de NegÛcio
+- Receita LÌquida: **$32,87M**
 - Leakage de Desconto: **$5,05M**
 - North Star (NRR): **86,69%**
-- Upside com 5% de recupera√ß√£o: **+$252,3K**
+- Upside com 5% de recuperaÁ„o: **+$252,3K**
 
-## Sum√°rio
-- [Vis√£o do Projeto](#vis√£o-do-projeto)
+## Sum·rio
+- [Vis„o do Projeto](#vis„o-do-projeto)
 - [Diferenciais para Recrutadores e Leads](#diferenciais-para-recrutadores-e-leads)
 - [Fonte do Dataset](#fonte-do-dataset)
 - [Executar Localmente](#executar-localmente)
 - [Qualidade e Contratos](#qualidade-e-contratos)
-- [CI e M√©tricas de Produto](#ci-e-m√©tricas-de-produto)
+- [CI e MÈtricas de Produto](#ci-e-mÈtricas-de-produto)
 - [Processo de Release](#processo-de-release)
 - [Stack](#stack)
 - [Contato](#contato)
 
-## Vis√£o do Projeto
+## Vis„o do Projeto
 Este projeto demonstra um fluxo completo de dados aplicado a vendas da Amazon:
-- ingest√£o automatizada via Kaggle Hub;
-- limpeza com regras de consist√™ncia;
-- an√°lise explorat√≥ria e visualiza√ß√µes executivas;
-- dashboard Streamlit com foco em decis√£o e storytelling de neg√≥cio.
+- ingest„o automatizada via Kaggle Hub;
+- limpeza com regras de consistÍncia;
+- an·lise exploratÛria e visualizaÁıes executivas;
+- dashboard Streamlit com foco em decis„o e storytelling de negÛcio.
 
 ## Diferenciais para Recrutadores e Leads
-- Estrutura em camadas, orientada √† manuten√ß√£o.
-- Pipeline reproduz√≠vel (`scripts/run_pipeline.py`).
+- Estrutura em camadas, orientada ‡ manutenÁ„o.
+- Pipeline reproduzÌvel (`scripts/run_pipeline.py`).
 - Qualidade de dados validada por testes.
-- App com filtros de neg√≥cio e m√©tricas acion√°veis.
+- App com filtros de negÛcio e mÈtricas acion·veis.
 
 ## Fonte do Dataset
 - Kaggle: `aliiihussain/amazon-sales-dataset`
@@ -55,11 +56,11 @@ streamlit run app/streamlit_app.py
 
 ## Qualidade e Contratos
 - Contrato do dataset bruto: `contracts/sales_dataset.contract.json`
-- Contrato de m√©tricas: `contracts/product_metrics.contract.json`
+- Contrato de mÈtricas: `contracts/product_metrics.contract.json`
 - Gates no pipeline:
-  - valida√ß√£o de esquema de entrada
-  - valida√ß√µes de dom√≠nio no dataset limpo
-  - gera√ß√£o de m√©tricas em `reports/metrics/product_metrics.json`
+  - validaÁ„o de esquema de entrada
+  - validaÁıes de domÌnio no dataset limpo
+  - geraÁ„o de mÈtricas em `reports/metrics/product_metrics.json`
 
 ### Comandos de Qualidade
 ```bash
@@ -71,16 +72,16 @@ mypy src scripts
 pytest
 ```
 
-## CI e M√©tricas de Produto
+## CI e MÈtricas de Produto
 - Workflow: `.github/workflows/ci.yml`
-- Gates: formata√ß√£o, lint, tipagem, testes e cobertura (`>=70%`)
+- Gates: formataÁ„o, lint, tipagem, testes e cobertura (`>=70%`)
 - Artefatos de CI:
   - `reports/metrics/coverage.xml`
   - `reports/metrics/pytest-results.xml`
 
 ## Processo de Release
-1. Atualizar o `CHANGELOG.md` com a nova vers√£o.
-2. Atualizar vers√£o:
+1. Atualizar o `CHANGELOG.md` com a nova vers„o.
+2. Atualizar vers„o:
    ```bash
    python scripts/bump_version.py 0.2.0
    ```
@@ -89,7 +90,7 @@ pytest
    git tag v0.2.0
    git push origin main --tags
    ```
-4. O workflow `.github/workflows/release.yml` valida coer√™ncia de vers√£o/changelog e publica o release.
+4. O workflow `.github/workflows/release.yml` valida coerÍncia de vers„o/changelog e publica o release.
 
 ## Stack
 Python, Pandas, Plotly, Streamlit, Seaborn, Matplotlib, Pytest.
@@ -98,6 +99,7 @@ Python, Pandas, Plotly, Streamlit, Seaborn, Matplotlib, Pytest.
 - GitHub: https://github.com/samuelmaia-data-analyst
 - LinkedIn: https://linkedin.com/in/samuelmaia-data-analyst
 - Email: smaia2@gmail.com
+
 
 
 

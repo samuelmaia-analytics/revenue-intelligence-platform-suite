@@ -1,4 +1,4 @@
-"""Local entrypoint for the Customer Intelligence Platform."""
+"""Local entrypoint for the Revenue-Intelligence-Platform-Suite."""
 
 
 def main() -> None:
@@ -8,4 +8,5 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
 

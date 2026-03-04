@@ -1,4 +1,4 @@
-> This repository is part of the **Customer Intelligence Platform**
+> This repository is part of the **Revenue-Intelligence-Platform-Suite**
 > Main platform: ../../README.md
 
 # Revenue Intelligence Platform - Executive Analytics & ML System
@@ -9,7 +9,10 @@
 [![Docker](https://img.shields.io/badge/Docker-ready-2496ED?logo=docker&logoColor=white)](https://www.docker.com/)
 [![License](https://img.shields.io/badge/License-MIT-black.svg)](LICENSE)
 
-[Leia em Português](README.pt-BR.md)
+## Language
+- English: [README.md](README.md)
+- Portugues (BR): [README.pt-BR.md](README.pt-BR.md)
+- Portugues (PT): [README.pt-PT.md](README.pt-PT.md)
 
 ## Product Preview
 
@@ -325,6 +328,8 @@ flowchart LR
 - Layer: App + ML + Serving
 - Inputs: CRM/ERP extracts, sales transactions, marketing spend, customer behavior events
 - Outputs: Executive dashboards, prioritized action lists, revenue intelligence metrics and model scores
+
+
 
 
 

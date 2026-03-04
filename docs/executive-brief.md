@@ -1,8 +1,8 @@
-# Executive Brief - Customer Intelligence Platform
+# Executive Brief - Revenue-Intelligence-Platform-Suite
 
 ## Executive Summary
 
-A Customer Intelligence Platform unifica dados de receita, vendas e retencao em um fluxo unico de decisao para reduzir churn, aumentar receita incremental e acelerar a execucao comercial.
+A Revenue-Intelligence-Platform-Suite unifica dados de receita, vendas e retencao em um fluxo unico de decisao para reduzir churn, aumentar receita incremental e acelerar a execucao comercial.
 
 ## Strategic Objectives
 
@@ -67,3 +67,4 @@ A Customer Intelligence Platform unifica dados de receita, vendas e retencao em 
 - Architecture baseline: complete
 - Module consolidation (subtree): complete
 - Executive KPI baseline: in progress
+

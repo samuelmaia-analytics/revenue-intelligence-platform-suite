@@ -1,4 +1,4 @@
-# Revenue Intelligence Platform - Sistema Executivo de Analytics e ML
+# Revenue Intelligence Platform - Sistema Executivo de Analitica e ML (PT-PT)
 
 [![Python](https://img.shields.io/badge/Python-3.11-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 [![Streamlit](https://img.shields.io/badge/Streamlit-1.43-FF4B4B?logo=streamlit&logoColor=white)](https://streamlit.io/)
@@ -319,5 +319,6 @@ flowchart LR
 - Modo de idioma da aplicação:
   - `RIP_APP_LANG_MODE=bilingual`: seletor com `Portuguese (BR)` e `International (EN)`
   - `RIP_APP_LANG_MODE=international`: app bloqueado apenas em inglês
+
 
 

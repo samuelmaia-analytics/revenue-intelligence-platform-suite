@@ -1,15 +1,16 @@
-> This repository is part of the **Customer Intelligence Platform**
+> This repository is part of the **Revenue-Intelligence-Platform-Suite**
 > Main platform: ../../README.md
 
-# Amazon Sales Analytics | Business Impact Portfolio
+# Churn Prediction | Business Impact Portfolio
 
 ## Language
 - English: [docs/README.en.md](docs/README.en.md)
-- Português (BR): [docs/README.pt-BR.md](docs/README.pt-BR.md)
+- Portugues (BR): [docs/README.pt-BR.md](docs/README.pt-BR.md)
+- Portugues (PT): [docs/README.pt-PT.md](docs/README.pt-PT.md)
 
 ## Summary
-- Business problem: revenue leakage from discount strategy.
-- Audience: Revenue Ops, Sales Leadership, Category Managers.
+- Business problem: customer churn drives preventable revenue loss.
+- Audience: Retention Ops, CRM leadership, and growth managers.
 - North Star Metric: Net Revenue Retained (NRR).
 - Financial upside: +$252.3K with 5% leakage recovery scenario.
 
@@ -208,6 +209,9 @@ Samuel Maia
 - Layer: Pipeline + ML + Orchestration + Quality
 - Inputs: Raw telecom/customer data, engineered silver features, historical churn labels
 - Outputs: Gold datasets, churn predictions, MLflow runs, Prefect flow artifacts
+
+
+
 
 
 

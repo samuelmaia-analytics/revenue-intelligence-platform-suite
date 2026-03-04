@@ -1,8 +1,9 @@
-﻿# Amazon Sales Analysis (EN)
+# Amazon Sales Analysis (EN)
 
 ## Language Switch
 - Main README: [../README.md](../README.md)
 - Portugues (BR): [README.pt-BR.md](README.pt-BR.md)
+- Portugues (PT): [README.pt-PT.md](README.pt-PT.md)
 
 ## Summary
 - Business problem: discount leakage impacting net revenue.
@@ -128,6 +129,7 @@ pytest
 - GitHub: https://github.com/samuelmaia-data-analyst
 - LinkedIn: https://linkedin.com/in/samuelmaia-data-analyst
 - Email: smaia2@gmail.com
+
 
 
 

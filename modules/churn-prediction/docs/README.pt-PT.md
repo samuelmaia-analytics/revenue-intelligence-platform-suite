@@ -1,4 +1,4 @@
-# Churn Prediction (PT-BR)
+# Churn Prediction (PT-PT)
 
 ## Troca de Idioma
 - README principal: [../README.md](../README.md)
@@ -99,6 +99,7 @@ Python, Pandas, Plotly, Streamlit, Seaborn, Matplotlib, Pytest.
 - GitHub: https://github.com/samuelmaia-data-analyst
 - LinkedIn: https://linkedin.com/in/samuelmaia-data-analyst
 - Email: smaia2@gmail.com
+
 
 
 

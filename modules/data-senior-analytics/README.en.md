@@ -1,6 +1,9 @@
-﻿# Data Senior Analytics
+# Data Senior Analytics
 
-[Versao em Portugues](README.md)
+## Language
+- English: [README.en.md](README.en.md)
+- Portugues (BR): [README.md](README.md)
+- Portugues (PT): [README.pt-PT.md](README.pt-PT.md)
 
 [![CI](https://github.com/samuelmaia-data-analyst/data-senior-analytics/actions/workflows/ci.yml/badge.svg)](https://github.com/samuelmaia-data-analyst/data-senior-analytics/actions/workflows/ci.yml)
 [![Coverage](https://codecov.io/gh/samuelmaia-data-analyst/data-senior-analytics/branch/main/graph/badge.svg)](https://codecov.io/gh/samuelmaia-data-analyst/data-senior-analytics)
@@ -10,6 +13,13 @@
 Business-focused analytics project that turns raw tabular files into decision-ready insights with a reproducible pipeline and interactive dashboard.
 
 Live demo: https://data-analytics-sr.streamlit.app
+
+## Summary
+- [Executive Summary](#executive-summary)
+- [Impact](#impact)
+- [Screenshots / Demo](#screenshots--demo)
+- [Architecture Proof](#architecture-proof)
+- [Reproducible Run](#reproducible-run)
 
 ## Executive Summary
 - Problem: teams depend on slow spreadsheet workflows and non-standard analysis quality.
@@ -72,3 +82,5 @@ Copy `.env.example` to `.env` and adjust values for your environment.
 
 ## License
 Licensed under MIT. See [LICENSE](LICENSE).
+
+

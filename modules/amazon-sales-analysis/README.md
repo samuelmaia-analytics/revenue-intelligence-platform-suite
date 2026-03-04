@@ -1,11 +1,12 @@
-> This repository is part of the **Customer Intelligence Platform**
+> This repository is part of the **Revenue-Intelligence-Platform-Suite**
 > Main platform: ../../README.md
 
 # Amazon Sales Analytics | Business Impact Portfolio
 
 ## Language
 - English: [docs/README.en.md](docs/README.en.md)
-- Português (BR): [docs/README.pt-BR.md](docs/README.pt-BR.md)
+- Portugues (BR): [docs/README.pt-BR.md](docs/README.pt-BR.md)
+- Portugues (PT): [docs/README.pt-PT.md](docs/README.pt-PT.md)
 
 ## Summary
 - Business problem: revenue leakage from discount strategy.
@@ -208,6 +209,8 @@ Samuel Maia
 - Layer: Pipeline + App + Quality
 - Inputs: Amazon sales raw files (orders, products, discounts, channels)
 - Outputs: KPI tables, leakage analysis, Streamlit analytics views, tested data contracts
+
+
 
 
 

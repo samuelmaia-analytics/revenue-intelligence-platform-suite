@@ -1,7 +1,7 @@
 > This repository is part of the **Revenue-Intelligence-Platform-Suite**
 > Main platform: ../../README.md
 
-# Data Senior Analytics
+# Data Senior Analytics (PT-PT)
 
 ## Language
 - English: [README.en.md](README.en.md)
@@ -91,6 +91,7 @@ Licensed under MIT. See [LICENSE](LICENSE).
 - Layer: Pipeline + App + Quality
 - Inputs: Business CSV/XLSX datasets from operational teams
 - Outputs: Decision-ready insights, curated datasets, governance-checked dashboard outputs
+
 
 
 

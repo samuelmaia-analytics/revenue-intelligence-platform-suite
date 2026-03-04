@@ -1,11 +1,12 @@
-﻿# Amazon Sales Analysis (EN)
+# Churn Prediction (EN)
 
 ## Language Switch
 - Main README: [../README.md](../README.md)
 - Portugues (BR): [README.pt-BR.md](README.pt-BR.md)
+- Portugues (PT): [README.pt-PT.md](README.pt-PT.md)
 
 ## Summary
-- Business problem: discount leakage impacting net revenue.
+- Business problem: customer churn impacting net revenue retention.
 - Audience: revenue leaders and category managers.
 - North Star Metric: Net Revenue Retained (NRR).
 - Value case: +$252.3K at 5% leakage recovery.
@@ -128,6 +129,8 @@ pytest
 - GitHub: https://github.com/samuelmaia-data-analyst
 - LinkedIn: https://linkedin.com/in/samuelmaia-data-analyst
 - Email: smaia2@gmail.com
+
+
 
 
 

@@ -1,5 +1,10 @@
-> This repository is part of the **Customer Intelligence Platform**
+> This repository is part of the **Revenue-Intelligence-Platform-Suite**
 > Main platform: ../../README.md
+
+## Language
+- English: [README.en.md](README.en.md)
+- Portugues (BR): [README.md](README.md)
+- Portugues (PT): [README.pt-PT.md](README.pt-PT.md)
 
 # 📊 Sales Analytics Dashboard – End-to-End Data Project
 
@@ -20,7 +25,14 @@ https://github.com/samuelmaiapro/analise-vendas-python
 
 ---
 
-# 🧭 Executive Summary
+## Summary
+- Executive Summary
+- Data Source
+- Tech Stack
+- How to Run
+- Where it fits in the platform
+
+## Executive Summary
 
 Projeto **end-to-end de Sales Analytics**, estruturado como um caso real de negócio.
 
@@ -200,6 +212,12 @@ Maturidade analítica e visão estratégica
 - Layer: App + Analytics
 - Inputs: Transactional sales data, product and channel dimensions
 - Outputs: Interactive sales dashboards, business KPIs, actionable analysis for leadership
+
+
+
+
+
+
 
 
 

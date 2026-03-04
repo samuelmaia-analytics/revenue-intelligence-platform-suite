@@ -1,4 +1,4 @@
-# Churn Prediction (PT-BR)
+# Amazon Sales Analysis (PT-PT)
 
 ## Troca de Idioma
 - README principal: [../README.md](../README.md)
@@ -6,8 +6,8 @@
 - Portugues (PT): [README.pt-PT.md](README.pt-PT.md)
 
 ## Resumo Executivo
-- Problema de negocio: churn de clientes reduz a retencao de receita.
-- Publico-alvo: lideranca de retencao, CRM e growth.
+- Problema de negócio: leakage de receita por descontos.
+- Público-alvo: liderança comercial, Revenue Ops e gestores de categoria.
 - North Star Metric: Net Revenue Retained (NRR).
 - Potencial financeiro: +$252,3K ao recuperar 5% do leakage.
 
