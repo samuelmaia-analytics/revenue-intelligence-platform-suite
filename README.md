@@ -1,13 +1,30 @@
 # Revenue-Intelligence-Platform-Suite
 
-Plataforma unica de Revenue + Retention Intelligence, consolidando engenharia de dados, analytics e ML em um monorepo modular.
+Unified Revenue + Retention Intelligence platform, consolidating data engineering, analytics, and ML into one modular monorepo.
+
+## Language
+- English: [README.md](README.md)
+- Portugues (BR): [README.pt-BR.md](README.pt-BR.md)
+- Portugues (PT): [README.pt-PT.md](README.pt-PT.md)
+
+## Summary
+- [What This Is](#what-this-is)
+- [Platform Architecture](#platform-architecture)
+- [How Repositories Compose The Platform](#how-repositories-compose-the-platform)
+- [Modules](#modules)
+- [Monorepo Layout](#monorepo-layout)
+- [Executive Docs](#executive-docs)
+- [Quickstart](#quickstart)
+- [Subtree Update Example](#subtree-update-example)
+- [Business Outcomes](#business-outcomes)
+- [Tech Stack](#tech-stack)
 
 ## What This Is
 
-- Arquitetura em camadas: `raw -> bronze -> silver -> gold`
-- Modelos de negocio: churn, next purchase, LTV e priorizacao
-- Aplicacoes executivas e operacionais com Streamlit
-- Governanca tecnica: contratos de dados, testes e CI
+- Layered architecture: `raw -> bronze -> silver -> gold`
+- Business models: churn, next purchase, LTV, and prioritization
+- Executive and operational applications with Streamlit
+- Technical governance: data contracts, testing, and CI
 
 ## Platform Architecture
 
@@ -105,9 +122,9 @@ git subtree pull --prefix modules/churn-prediction churn-prediction main --squas
 
 ## Business Outcomes
 
-- Melhor priorizacao de clientes de alto valor e alto risco
-- Acoes mais rapidas de retencao e crescimento de receita
-- Reproducibilidade de pipeline e rastreabilidade de modelo
+- Better prioritization for high-value and high-risk customers
+- Faster retention and revenue-growth decisions
+- Reproducible pipelines and model traceability
 
 ## Tech Stack
 
