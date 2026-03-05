@@ -62,12 +62,10 @@ for module in modules:
     with col1:
         st.markdown(f"- Monorepo path: `{module['path']}`")
     with col2:
-        st.markdown(f"- Source repo: {module['repo']}")
+        st.markdown(f"- Source repo: [open repository]({module['repo']})")
     with col3:
         if module["demo"]:
-            st.markdown(f"- Public demo: {module['demo']}")
-        else:
-            st.markdown("- Public demo: available on request")
+            st.markdown(f"- Public demo: [open app]({module['demo']})")
     if not module_exists:
         st.caption("Module path not found in current deployment.")
     st.markdown("---")
