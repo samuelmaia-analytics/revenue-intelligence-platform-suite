@@ -5,3 +5,7 @@ __pycache__/
 .mypy_cache/
 *.pyc
 .idea/
+*.egg-info/
+reports/showcase/*.sqlite
+reports/showcase/action_adoption_log.csv
+reports/showcase/action_adoption_log.jsonl
