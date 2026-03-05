@@ -1,6 +1,7 @@
 # Revenue-Intelligence-Platform-Suite
 
-Plataforma unificada de Revenue + Retention Intelligence, consolidando engenharia de dados, analytics e ML em um unico monorepo modular.
+Plataforma flagship de decisao para Revenue e Retention.
+Este arquivo e a traducao em Portugues (BR) do README canonical em ingles.
 
 ## Idioma
 - English: [README.md](README.md)
@@ -9,6 +10,7 @@ Plataforma unificada de Revenue + Retention Intelligence, consolidando engenhari
 
 ## Sumario
 - [O Que E](#o-que-e)
+- [Status da Vitrine](#status-da-vitrine)
 - [Demo Executiva](#demo-executiva)
 - [Arquitetura da Plataforma](#arquitetura-da-plataforma)
 - [Como os Repositorios Compoem a Plataforma](#como-os-repositorios-compoem-a-plataforma)
@@ -28,6 +30,13 @@ Plataforma unificada de Revenue + Retention Intelligence, consolidando engenhari
 - Modelos de negocio: churn, next purchase, LTV e priorizacao
 - Apps executivos e operacionais com Streamlit
 - Governanca tecnica com contratos de dados, testes e CI
+
+## Status da Vitrine
+
+- README canonical internacional em ingles: [README.md](README.md)
+- Release atual: `v1.0.0` (2026-03-05)
+- Notas de release: [docs/releases/v1.0.0.md](./docs/releases/v1.0.0.md)
+- Notas trimestrais: [docs/releases/2026-Q1.md](./docs/releases/2026-Q1.md)
 
 ## Demo Executiva
 

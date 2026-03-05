@@ -1,95 +1,100 @@
 # Revenue-Intelligence-Platform-Suite
 
-Operating system for Revenue and Retention decisions.
+Flagship decision platform for Revenue and Retention leadership.
 
 ## Language
-- English: [README.md](README.md)
-- Portugues (BR): [README.pt-BR.md](README.pt-BR.md)
-- Portugues (PT): [README.pt-PT.md](README.pt-PT.md)
+- English (canonical): [README.md](README.md)
+- Portuguese (BR): [README.pt-BR.md](README.pt-BR.md)
+- Portuguese (PT): [README.pt-PT.md](README.pt-PT.md)
 
 ## Why This Exists
-
-Most analytics portfolios show isolated projects. This platform demonstrates an integrated decision system:
-
-- data pipeline reliability
-- model-driven prioritization
-- executive action board
-- governance and traceability
+Most portfolios show isolated analytics projects. This repository shows a production-minded platform:
+- integrated modules in one monorepo
+- executive decision layer with action prioritization
+- shared contracts, CI, governance, and release cadence
 
 ## Official Showcase Use Case
+Reduce B2B revenue churn by ranking retention actions by financial impact.
+- Definition: [docs/showcase-use-case.md](./docs/showcase-use-case.md)
+- Flagship app: `apps/executive-dashboard/app.py`
+- Executive board: `apps/executive-dashboard/pages/1_Executive_KPI_Board.py`
+- Modules portal: `apps/executive-dashboard/pages/2_Modules_Access.py`
 
-Reduce B2B revenue churn by prioritizing retention actions with financial impact.
+## Executive Questions This Platform Answers
+1. Which accounts have the highest revenue-at-risk this week?
+2. Which action should leadership execute first?
+3. What recovery and ROI are expected under each scenario?
 
-- Full definition: [Showcase Use Case](./docs/showcase-use-case.md)
-- Live app: `https://revenue-intelligence-platform-suite.streamlit.app/`
-- Portal pages:
-  - `apps/executive-dashboard/app.py` (home hub)
-  - `apps/executive-dashboard/pages/1_Executive_KPI_Board.py`
-  - `apps/executive-dashboard/pages/2_Modules_Access.py`
-
-## Executive Questions Answered
-
-1. Which accounts have the highest revenue at risk this week?
-2. What action should leadership execute first?
-3. How much revenue can be recovered under each scenario?
-
-## Product Architecture
-
+## Architecture
 ```mermaid
 flowchart TD
-  A[Module Data Sources] --> B[Data Quality + Transform]
-  B --> C[Risk and Value Scoring]
-  C --> D[Executive Dashboard]
-  D --> E[Leadership Actions]
+  A[Data Sources and Modules] --> B[Quality and Transformation]
+  B --> C[Scoring and Recommendation]
+  C --> D[Executive KPI Board]
+  D --> E[Leadership Action Adoption]
+```
+
+## Monorepo Structure
+```text
+revenue-intelligence-platform-suite/
+|- apps/                     # executive and operational apps
+|- modules/                  # integrated portfolio repositories
+|- platform/                 # platform architecture namespaces
+|- platform_connectors/      # runtime-safe telemetry connectors
+|- platform_observability/   # runtime-safe observability services
+|- packages/common/          # shared contracts and utilities
+|- reports/showcase/         # generated showcase artifacts
+|- docs/                     # architecture, governance, proof, releases
+`- tests/                    # root validation and smoke tests
 ```
 
 ## Core Modules
+- [modules/revenue-intelligence](./modules/revenue-intelligence)
+- [modules/churn-prediction](./modules/churn-prediction)
+- [modules/analise-vendas-python](./modules/analise-vendas-python)
+- [modules/amazon-sales-analysis](./modules/amazon-sales-analysis)
+- [modules/data-senior-analytics](./modules/data-senior-analytics)
 
-- [revenue-intelligence](./modules/revenue-intelligence)
-- [churn-prediction](./modules/churn-prediction)
-- [analise-vendas-python](./modules/analise-vendas-python)
+## Production-Grade Baseline
+- Enterprise-like telemetry connector: SQLite mock with connector interface
+- Contract testing: shared schemas in `packages/common/contracts`
+- Observability: action adoption events logged to CSV and JSONL
+- CI: root checks + per-module matrix + executive app smoke test
 
-Supporting modules remain integrated for portfolio coverage.
-
-## Unified Access
-
-The flagship Streamlit app now works as a single access point for the platform:
-
-- Executive KPI board
-- Modules access page
-- Public demo links
-- Governance and proof references
-
-## Run in 2 Steps
-
+## Quick Start (2 steps)
 1. Generate showcase artifacts:
 ```bash
 python scripts/run_showcase_demo.py
 ```
-
-2. Launch executive app:
+2. Launch the executive app:
 ```bash
 streamlit run apps/executive-dashboard/app.py
 ```
 
-## Evidence and Proof
+### Expected Outputs
+- `reports/showcase/summary.json`
+- `reports/showcase/enterprise_telemetry.sqlite`
+- `reports/showcase/top_actions.csv`
 
-- [Proof of Execution](./docs/proof.md)
-- [Executive Brief](./docs/executive-brief.md)
-- [KPI Scorecard](./docs/kpi-scorecard.md)
-- [Governance RACI](./docs/governance-raci.md)
-- [Security Policy](./SECURITY.md)
-- [Compliance Checklist](./docs/compliance-checklist.md)
+### Where to Click in the App
+- Click `Open Executive KPI Board` on the home page.
+- Review `Leadership Actions This Week`.
+- Use `Action Adoption Monitoring` to log outcomes by `action_id`.
 
-## Current Maturity
+## Evidence and Governance
+- [docs/proof.md](./docs/proof.md)
+- [docs/executive-brief.md](./docs/executive-brief.md)
+- [docs/kpi-scorecard.md](./docs/kpi-scorecard.md)
+- [docs/governance-raci.md](./docs/governance-raci.md)
+- [docs/compliance-checklist.md](./docs/compliance-checklist.md)
+- [SECURITY.md](./SECURITY.md)
 
-- Monorepo integration: complete
-- Executive dashboard (real module data): complete
-- Governance baseline: complete
-- Production operationalization with live enterprise sources: next phase
+## Release Cadence
+- Current release: `v1.0.0` (March 5, 2026)
+- Release notes: [docs/releases/v1.0.0.md](./docs/releases/v1.0.0.md)
+- Quarterly notes: [docs/releases/2026-Q1.md](./docs/releases/2026-Q1.md)
 
 ## Next Milestones
-
-1. Replace proxy KPIs with production telemetry.
-2. Add automated drift and action adoption monitoring.
-3. Publish quarterly release notes with business deltas.
+1. Replace SQLite mock with live enterprise warehouse/API connectors.
+2. Add automated drift monitoring for model and KPI quality.
+3. Publish realized business deltas each quarter.
