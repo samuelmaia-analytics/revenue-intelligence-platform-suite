@@ -2,6 +2,11 @@
 
 Flagship decision platform for Revenue and Retention leadership.
 
+[![ci](https://github.com/samuelmaia-data-analyst/revenue-intelligence-platform-suite/actions/workflows/ci.yml/badge.svg)](https://github.com/samuelmaia-data-analyst/revenue-intelligence-platform-suite/actions/workflows/ci.yml)
+[![publish-release](https://github.com/samuelmaia-data-analyst/revenue-intelligence-platform-suite/actions/workflows/publish-release.yml/badge.svg)](https://github.com/samuelmaia-data-analyst/revenue-intelligence-platform-suite/actions/workflows/publish-release.yml)
+[![showcase-monitoring](https://github.com/samuelmaia-data-analyst/revenue-intelligence-platform-suite/actions/workflows/showcase-monitoring.yml/badge.svg)](https://github.com/samuelmaia-data-analyst/revenue-intelligence-platform-suite/actions/workflows/showcase-monitoring.yml)
+[![Latest release](https://img.shields.io/github/v/release/samuelmaia-data-analyst/revenue-intelligence-platform-suite?label=latest%20release)](https://github.com/samuelmaia-data-analyst/revenue-intelligence-platform-suite/releases/tag/v1.0.0)
+
 ## Language
 - English (canonical): [README.md](README.md)
 - Portuguese (BR): [README.pt-BR.md](README.pt-BR.md)
@@ -27,11 +32,11 @@ Reduce B2B revenue churn by ranking retention actions by financial impact.
 
 ## Architecture
 ```mermaid
-flowchart TD
-  A[Data Sources and Modules] --> B[Quality and Transformation]
-  B --> C[Scoring and Recommendation]
-  C --> D[Executive KPI Board]
-  D --> E[Leadership Action Adoption]
+graph LR
+  DATA["Data Sources + Modules"] --> QUALITY["Quality + Transformation"]
+  QUALITY --> SCORE["Scoring + Recommendation"]
+  SCORE --> BOARD["Executive KPI Board"]
+  BOARD --> ADOPTION["Leadership Action Adoption"]
 ```
 
 ## Monorepo Structure
@@ -87,6 +92,7 @@ streamlit run apps/executive-dashboard/app.py
 - [docs/kpi-scorecard.md](./docs/kpi-scorecard.md)
 - [docs/governance-raci.md](./docs/governance-raci.md)
 - [docs/compliance-checklist.md](./docs/compliance-checklist.md)
+- [CONTRIBUTING.md](./CONTRIBUTING.md)
 - [SECURITY.md](./SECURITY.md)
 
 ## Release Cadence

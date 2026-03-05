@@ -1,0 +1,34 @@
+name: Feature request
+description: Propose an enhancement for platform capability or developer workflow.
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem statement
+      description: Which executive or engineering problem is not solved today?
+      placeholder: We cannot compare realized recovery vs expected ROI by action_id...
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: Describe the expected behavior and interfaces.
+      placeholder: Add a realized impact view in KPI Board using action_adoption_log...
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      placeholder: |
+        - New metric appears in executive board
+        - Monitoring summary includes realized delta
+        - Tests cover happy path and missing-data path
+  - type: textarea
+    id: risks
+    attributes:
+      label: Risks and dependencies
+      placeholder: Data availability, contract changes, CI/runtime impacts

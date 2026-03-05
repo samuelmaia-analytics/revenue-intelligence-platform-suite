@@ -26,6 +26,10 @@ jobs:
         with:
           fetch-depth: 0
 
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
       - name: Resolve tag and notes file
         id: vars
         shell: bash
@@ -43,12 +47,33 @@ jobs:
         run: |
           test -f "${{ steps.vars.outputs.notes_file }}"
 
+      - name: Generate showcase assets for release
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+          python scripts/run_showcase_demo.py
+
+      - name: Build showcase sample pack
+        shell: bash
+        run: |
+          mkdir -p dist
+          cp reports/showcase/summary.json dist/summary.json
+          cp reports/showcase/monthly_revenue.csv dist/monthly_revenue.csv
+          cp reports/showcase/top_actions.csv dist/top_actions.csv
+          cp reports/showcase/drift_report.json dist/drift_report.json
+          cp reports/showcase/action_adoption_metrics.json dist/action_adoption_metrics.json
+          cp reports/showcase/monitoring_summary.json dist/monitoring_summary.json
+          tar -czf dist/showcase-sample-pack-${{ steps.vars.outputs.tag }}.tar.gz -C dist \
+            summary.json monthly_revenue.csv top_actions.csv drift_report.json \
+            action_adoption_metrics.json monitoring_summary.json
+
       - name: Create or update GitHub release
         uses: ncipollo/release-action@v1
         with:
           tag: ${{ steps.vars.outputs.tag }}
           name: ${{ steps.vars.outputs.tag }} - Flagship Platform Baseline
           bodyFile: ${{ steps.vars.outputs.notes_file }}
+          artifacts: "dist/*"
           allowUpdates: true
           updateOnlyUnreleased: false
           generateReleaseNotes: false

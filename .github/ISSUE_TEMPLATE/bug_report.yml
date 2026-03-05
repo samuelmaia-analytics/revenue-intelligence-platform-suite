@@ -1,0 +1,39 @@
+name: Bug report
+description: Report a defect or regression.
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: textarea
+    id: what_happened
+    attributes:
+      label: What happened?
+      description: Clear description of the bug and expected behavior.
+      placeholder: The executive dashboard page crashes when monitoring_summary.json is missing...
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Run ...
+        2. Open ...
+        3. Observe ...
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope and impact
+      description: Affected module(s), workflow(s), or artifacts.
+      placeholder: apps/executive-dashboard, showcase-monitoring workflow, reports/showcase/summary.json
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      placeholder: OS, Python version, local/CI, backend (sqlite/duckdb)
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: Paste stack trace, logs, or screenshots.
