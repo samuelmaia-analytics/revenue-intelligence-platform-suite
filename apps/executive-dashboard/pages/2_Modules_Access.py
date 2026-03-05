@@ -36,14 +36,14 @@ modules = [
         "name": "Churn Prediction",
         "path": "modules/churn-prediction",
         "role": "Churn modeling, orchestration patterns, ML tracking",
-        "demo": "",
+        "demo": "https://telecom-churn-prediction-samuelmaiapro.streamlit.app/",
         "repo": "https://github.com/samuelmaia-data-analyst/churn-prediction",
     },
     {
         "name": "Amazon Sales Analysis",
         "path": "modules/amazon-sales-analysis",
         "role": "Sales leakage and KPI analytics with contracts and CI patterns",
-        "demo": "",
+        "demo": "https://amazon-sales-analysis-samuemaiapro.streamlit.app/",
         "repo": "https://github.com/samuelmaia-data-analyst/amazon-sales-analysis",
     },
     {
