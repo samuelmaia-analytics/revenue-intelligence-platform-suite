@@ -1,0 +1,10 @@
+{
+  "status": "ok",
+  "drift_detected": false,
+  "drift_score": 0.0605,
+  "baseline_mean_revenue_usd": 343802.76,
+  "recent_mean_revenue_usd": 364585.7,
+  "baseline_window_months": 26,
+  "recent_window_months": 3,
+  "generated_at": "2026-03-05T15:03:30.042054+00:00"
+}

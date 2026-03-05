@@ -1,4 +1,5 @@
 import json
+import os
 import sys
 from pathlib import Path
 
@@ -19,7 +20,12 @@ if str(ROOT) not in sys.path:
 if str(ROOT / "packages") not in sys.path:
     sys.path.insert(0, str(ROOT / "packages"))
 
-from platform_connectors import SQLiteTelemetryConnector, seed_demo_telemetry  # noqa: E402
+from platform_connectors import (  # noqa: E402
+    DuckDBTelemetryConnector,
+    SQLiteTelemetryConnector,
+    seed_demo_telemetry,
+    seed_demo_telemetry_duckdb,
+)
 from platform_observability import ActionAdoptionLogger  # noqa: E402
 
 st.set_page_config(page_title="Executive KPI Board", layout="wide")
@@ -38,7 +44,9 @@ CUSTOMER_PATH = (
 METRICS_PATH = ROOT / "modules" / "revenue-intelligence" / "data" / "processed" / "metrics_report.json"
 SHOWCASE_SUMMARY_PATH = ROOT / "reports" / "showcase" / "summary.json"
 TELEMETRY_DB_PATH = ROOT / "reports" / "showcase" / "enterprise_telemetry.sqlite"
+TELEMETRY_DUCKDB_PATH = ROOT / "reports" / "showcase" / "enterprise_telemetry.duckdb"
 SHOWCASE_OUTPUT_DIR = ROOT / "reports" / "showcase"
+TELEMETRY_BACKEND = os.getenv("TELEMETRY_BACKEND", "sqlite").strip().lower()
 
 
 @st.cache_data(show_spinner=False)
@@ -60,7 +68,11 @@ def load_showcase_summary() -> dict:
 
 @st.cache_data(show_spinner=False)
 def load_enterprise_telemetry() -> pd.DataFrame:
-    connector = SQLiteTelemetryConnector(TELEMETRY_DB_PATH)
+    connector = (
+        DuckDBTelemetryConnector(TELEMETRY_DUCKDB_PATH)
+        if TELEMETRY_BACKEND == "duckdb"
+        else SQLiteTelemetryConnector(TELEMETRY_DB_PATH)
+    )
     return connector.fetch_monthly_revenue_telemetry()
 
 
@@ -104,7 +116,10 @@ risk_df = build_risk_score(customer_df)
 
 if telemetry_df.empty:
     try:
-        seed_demo_telemetry(TELEMETRY_DB_PATH, monthly_revenue)
+        if TELEMETRY_BACKEND == "duckdb":
+            seed_demo_telemetry_duckdb(TELEMETRY_DUCKDB_PATH, monthly_revenue)
+        else:
+            seed_demo_telemetry(TELEMETRY_DB_PATH, monthly_revenue)
         load_enterprise_telemetry.clear()
         telemetry_df = load_enterprise_telemetry()
     except Exception:
@@ -145,8 +160,8 @@ roi = ((expected_recovery - budget) / budget) if budget else 0.0
 
 col1, col2, col3, col4, col5 = st.columns(5)
 col1.metric("Revenue (Latest Month)", f"${current_revenue:,.0f}")
-col2.metric("NRR Proxy (MoM)", f"{current_nrr*100:.1f}%")
-col3.metric("Gross Revenue Churn Proxy", f"{gross_churn*100:.1f}%")
+col2.metric("NRR (Telemetry)", f"{current_nrr*100:.1f}%")
+col3.metric("Gross Revenue Churn (Telemetry)", f"{gross_churn*100:.1f}%")
 col4.metric("Value at Risk", f"${value_at_risk:,.0f}")
 col5.metric("Expected Recovery", f"${expected_recovery:,.0f}", delta=f"ROI {roi*100:.0f}%")
 
@@ -169,7 +184,7 @@ kpi_table = pd.DataFrame(
             "Deadline": "Q2",
         },
         {
-            "KPI": "NRR Proxy",
+            "KPI": "NRR",
             "Target": nrr_target,
             "Actual": current_nrr,
             "Gap": current_nrr - nrr_target,
@@ -177,7 +192,7 @@ kpi_table = pd.DataFrame(
             "Deadline": "Q2",
         },
         {
-            "KPI": "Gross Churn Proxy",
+            "KPI": "Gross Churn",
             "Target": churn_target,
             "Actual": gross_churn,
             "Gap": churn_target - gross_churn,

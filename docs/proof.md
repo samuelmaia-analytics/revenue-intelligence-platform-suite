@@ -17,6 +17,10 @@ Generated artifacts:
 - `reports/showcase/monthly_revenue.csv`
 - `reports/showcase/top_actions.csv`
 - `reports/showcase/summary.json`
+- `reports/showcase/drift_report.json`
+- `reports/showcase/action_adoption_metrics.json`
+- `reports/showcase/monitoring_summary.json`
+- `reports/showcase/enterprise_telemetry.sqlite` (or `.duckdb` when `TELEMETRY_BACKEND=duckdb`)
 
 ## Live App
 

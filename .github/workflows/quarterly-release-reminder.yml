@@ -1,0 +1,48 @@
+name: quarterly-release-reminder
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 9 1 1,4,7,10 *"
+
+permissions:
+  issues: write
+
+jobs:
+  open-quarterly-release-issue:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create quarterly release issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const now = new Date();
+            const quarter = Math.floor(now.getUTCMonth() / 3) + 1;
+            const year = now.getUTCFullYear();
+            const title = `[Release] Quarterly notes ${year}-Q${quarter}`;
+            const body = [
+              `Quarterly release process for ${year}-Q${quarter}.`,
+              ``,
+              `Checklist:`,
+              `- [ ] Update docs/releases/${year}-Q${quarter}.md using docs/releases/QUARTERLY_TEMPLATE.md`,
+              `- [ ] Validate showcase artifacts: reports/showcase/summary.json, drift_report.json, action_adoption_metrics.json`,
+              `- [ ] Tag and publish release notes`,
+              `- [ ] Update roadmap milestones for next quarter`,
+            ].join('\n');
+            const { data: issues } = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: "open",
+              per_page: 100,
+            });
+            if (issues.some((i) => i.title === title)) {
+              core.info(`Issue already exists: ${title}`);
+              return;
+            }
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title,
+              body,
+              labels: ["release", "quarterly"],
+            });

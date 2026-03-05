@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 import sys
 from pathlib import Path
 
@@ -11,7 +12,13 @@ sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "packages"))
 
 from common.contracts import validate_contract  # noqa: E402
-from platform_connectors import SQLiteTelemetryConnector, seed_demo_telemetry  # noqa: E402
+from platform_connectors import (  # noqa: E402
+    DuckDBTelemetryConnector,
+    SQLiteTelemetryConnector,
+    seed_demo_telemetry,
+    seed_demo_telemetry_duckdb,
+)
+from platform_observability import write_monitoring_outputs  # noqa: E402
 
 SALES_PATH = ROOT / "modules" / "analise-vendas-python" / "dados_processados" / "vendas_simples.csv"
 CUSTOMER_PATH = (
@@ -20,6 +27,8 @@ CUSTOMER_PATH = (
 MODEL_METRICS_PATH = ROOT / "modules" / "revenue-intelligence" / "data" / "processed" / "metrics_report.json"
 OUTPUT_DIR = ROOT / "reports" / "showcase"
 TELEMETRY_DB_PATH = OUTPUT_DIR / "enterprise_telemetry.sqlite"
+TELEMETRY_DUCKDB_PATH = OUTPUT_DIR / "enterprise_telemetry.duckdb"
+TELEMETRY_BACKEND = os.getenv("TELEMETRY_BACKEND", "sqlite").strip().lower()
 
 
 def build_risk_score(df: pd.DataFrame) -> pd.DataFrame:
@@ -69,8 +78,14 @@ def main() -> None:
     risk_df = build_risk_score(customer_df)
     top_actions = risk_df.sort_values("Revenue at Risk (USD)", ascending=False).head(50).copy()
 
-    seed_demo_telemetry(TELEMETRY_DB_PATH, monthly_revenue)
-    telemetry = SQLiteTelemetryConnector(TELEMETRY_DB_PATH)
+    if TELEMETRY_BACKEND == "duckdb":
+        seed_demo_telemetry_duckdb(TELEMETRY_DUCKDB_PATH, monthly_revenue)
+        telemetry = DuckDBTelemetryConnector(TELEMETRY_DUCKDB_PATH)
+        telemetry_artifact = TELEMETRY_DUCKDB_PATH
+    else:
+        seed_demo_telemetry(TELEMETRY_DB_PATH, monthly_revenue)
+        telemetry = SQLiteTelemetryConnector(TELEMETRY_DB_PATH)
+        telemetry_artifact = TELEMETRY_DB_PATH
     latest_kpis = telemetry.fetch_latest_kpis()
 
     with MODEL_METRICS_PATH.open("r", encoding="utf-8") as fp:
@@ -94,6 +109,7 @@ def main() -> None:
 
     monthly_revenue.to_csv(OUTPUT_DIR / "monthly_revenue.csv", index=False)
     top_actions.to_csv(OUTPUT_DIR / "top_actions.csv", index=False)
+    monitoring = write_monitoring_outputs(OUTPUT_DIR, monthly_revenue)
 
     errors = validate_contract(summary, "showcase_summary.schema.json")
     if errors:
@@ -106,7 +122,14 @@ def main() -> None:
     print(f"- {OUTPUT_DIR / 'monthly_revenue.csv'}")
     print(f"- {OUTPUT_DIR / 'top_actions.csv'}")
     print(f"- {OUTPUT_DIR / 'summary.json'}")
-    print(f"- {TELEMETRY_DB_PATH}")
+    print(f"- {telemetry_artifact}")
+    print(f"- {OUTPUT_DIR / 'drift_report.json'}")
+    print(f"- {OUTPUT_DIR / 'action_adoption_metrics.json'}")
+    print(
+        "Monitoring status: "
+        f"drift_detected={monitoring['drift']['drift_detected']}, "
+        f"adoption_events={monitoring['action_adoption']['total_events']}"
+    )
 
 
 if __name__ == "__main__":

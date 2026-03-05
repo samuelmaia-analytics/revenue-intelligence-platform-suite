@@ -24,7 +24,7 @@ Reduce revenue churn in B2B customers by prioritizing retention actions with fin
 
 ## Outputs
 
-- Executive KPI board with revenue, NRR proxy, churn proxy, value at risk.
+- Executive KPI board with telemetry-backed revenue, NRR, churn, and value at risk.
 - Top retention priorities with expected recovery per account.
 - Weekly leadership action plan.
 

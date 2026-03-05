@@ -1,0 +1,48 @@
+name: showcase-monitoring
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 10 * * 1"
+  push:
+    branches: [main]
+    paths:
+      - "scripts/run_showcase_demo.py"
+      - "platform_connectors/**"
+      - "platform_observability/**"
+      - "reports/showcase/**"
+      - "modules/analise-vendas-python/dados_processados/vendas_simples.csv"
+      - "modules/revenue-intelligence/data/raw/E-commerce Customer Behavior - Sheet1.csv"
+
+jobs:
+  monitoring:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        telemetry_backend: [sqlite, duckdb]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+      - name: Generate showcase monitoring artifacts
+        env:
+          TELEMETRY_BACKEND: ${{ matrix.telemetry_backend }}
+        run: python scripts/run_showcase_demo.py
+      - name: Upload monitoring artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: showcase-monitoring-${{ matrix.telemetry_backend }}
+          path: |
+            reports/showcase/summary.json
+            reports/showcase/monthly_revenue.csv
+            reports/showcase/top_actions.csv
+            reports/showcase/drift_report.json
+            reports/showcase/action_adoption_metrics.json
+            reports/showcase/monitoring_summary.json
+            reports/showcase/enterprise_telemetry.sqlite
+            reports/showcase/enterprise_telemetry.duckdb
