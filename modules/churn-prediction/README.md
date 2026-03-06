@@ -202,7 +202,7 @@ Use semantic commit messages:
 ## Author
 Samuel Maia
 - GitHub: https://github.com/samuelmaia-data-analyst
-- LinkedIn: https://linkedin.com/in/samuelmaia-data-analyst
+- LinkedIn: https://linkedin.com/in/samuelmaia-analytics
 - Email: smaia2@gmail.com
 
 ## Where it fits in the platform
