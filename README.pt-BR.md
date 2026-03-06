@@ -1,44 +1,52 @@
 # Revenue-Intelligence-Platform-Suite
 
-Plataforma flagship de decisao para Revenue e Retention.
-Este arquivo e a traducao em Portugues (BR) do README canonical em ingles.
+Plataforma flagship de decisão para Revenue e Retention.
+Este arquivo é a tradução em Português (BR) do README canonical em inglês.
 
 [![ci](https://github.com/samuelmaia-data-analyst/revenue-intelligence-platform-suite/actions/workflows/ci.yml/badge.svg)](https://github.com/samuelmaia-data-analyst/revenue-intelligence-platform-suite/actions/workflows/ci.yml)
 [![publish-release](https://github.com/samuelmaia-data-analyst/revenue-intelligence-platform-suite/actions/workflows/publish-release.yml/badge.svg)](https://github.com/samuelmaia-data-analyst/revenue-intelligence-platform-suite/actions/workflows/publish-release.yml)
 [![showcase-monitoring](https://github.com/samuelmaia-data-analyst/revenue-intelligence-platform-suite/actions/workflows/showcase-monitoring.yml/badge.svg)](https://github.com/samuelmaia-data-analyst/revenue-intelligence-platform-suite/actions/workflows/showcase-monitoring.yml)
 [![Latest release](https://img.shields.io/github/v/release/samuelmaia-data-analyst/revenue-intelligence-platform-suite?label=latest%20release)](https://github.com/samuelmaia-data-analyst/revenue-intelligence-platform-suite/releases/tag/v1.0.0)
 
+App executivo público (live): https://revenue-intelligence-platform.streamlit.app/
+
 ## Idioma
 - English: [README.md](README.md)
-- Portugues (BR): [README.pt-BR.md](README.pt-BR.md)
-- Portugues (PT): [README.pt-PT.md](README.pt-PT.md)
+- Português (BR): [README.pt-BR.md](README.pt-BR.md)
+- Português (PT): [README.pt-PT.md](README.pt-PT.md)
 
-## Sumario
-- [O Que E](#o-que-e)
+## Sumário
+- [O Que É](#o-que-e)
 - [Status da Vitrine](#status-da-vitrine)
 - [Demo Executiva](#demo-executiva)
 - [Arquitetura da Plataforma](#arquitetura-da-plataforma)
-- [Como os Repositorios Compoem a Plataforma](#como-os-repositorios-compoem-a-plataforma)
-- [Modulos](#modulos)
+- [Arquitetura de Analytics](#arquitetura-de-analytics)
+- [Como os Repositórios Compõem a Plataforma](#como-os-repositorios-compoem-a-plataforma)
+- [Módulos](#modulos)
+- [Navegação de Portfólio](#navegacao-de-portfolio)
 - [Estrutura do Monorepo](#estrutura-do-monorepo)
 - [Documentos Executivos](#documentos-executivos)
-- [Governanca e Seguranca](#governanca-e-seguranca)
+- [Governança e Segurança](#governanca-e-seguranca)
 - [Casos de Uso](#casos-de-uso)
 - [Quickstart](#quickstart)
-- [Atualizacao de Subtree](#atualizacao-de-subtree)
-- [Resultados de Negocio](#resultados-de-negocio)
-- [Stack Tecnologica](#stack-tecnologica)
+- [Atualização de Subtree](#atualizacao-de-subtree)
+- [Resultados de Negócio](#resultados-de-negocio)
+- [Deltas de Negócio por Release](#deltas-de-negocio-por-release)
+- [Métricas de Negócio](#metricas-de-negocio)
+- [Workflow de Analytics](#workflow-de-analytics)
+- [Destaques do Projeto](#destaques-do-projeto)
+- [Stack Tecnológica](#stack-tecnologica)
 
-## O Que E
+## O Que É
 
 - Arquitetura em camadas: `raw -> bronze -> silver -> gold`
-- Modelos de negocio: churn, next purchase, LTV e priorizacao
+- Modelos de negócio: churn, next purchase, LTV e priorização
 - Apps executivos e operacionais com Streamlit
-- Governanca tecnica com contratos de dados, testes e CI
+- Governança técnica com contratos de dados, testes e CI
 
 ## Status da Vitrine
 
-- README canonical internacional em ingles: [README.md](README.md)
+- README canonical internacional em inglês: [README.md](README.md)
 - Release atual: `v1.0.0` (2026-03-05)
 - Notas de release: [docs/releases/v1.0.0.md](./docs/releases/v1.0.0.md)
 - Notas trimestrais: [docs/releases/2026-Q1.md](./docs/releases/2026-Q1.md)
@@ -88,7 +96,20 @@ flowchart TD
   A2 --> D2
 ```
 
-## Como os Repositorios Compoem a Plataforma
+## Arquitetura de Analytics
+
+```mermaid
+flowchart LR
+  A[Coleta e Ingestão de Dados] --> B[Limpeza e Pré-processamento]
+  B --> C[Modelagem Analítica e Feature Engineering]
+  C --> D[Treinamento e Avaliação de Modelos]
+  D --> E[Camada de Insights e KPIs]
+  E --> F[Dashboard Interativo e Suporte à Decisão]
+```
+
+Esta arquitetura representa o pipeline analítico, o fluxo de dados ponta a ponta e a camada de decisão de analytics usada pela plataforma.
+
+## Como os Repositórios Compõem a Plataforma
 
 ```mermaid
 flowchart LR
@@ -99,7 +120,7 @@ flowchart LR
   R5[data-senior-analytics] --> P
 ```
 
-## Modulos
+## Módulos
 
 | Caminho do Modulo | Repositorio de Origem | Status |
 |---|---|---|
@@ -108,6 +129,18 @@ flowchart LR
 | [modules/amazon-sales-analysis](./modules/amazon-sales-analysis) | amazon-sales-analysis | Integrado via subtree |
 | [modules/analise-vendas-python](./modules/analise-vendas-python) | analise-vendas-python | Integrado via subtree |
 | [modules/data-senior-analytics](./modules/data-senior-analytics) | data-senior-analytics | Integrado via subtree |
+
+## Navegação de Portfólio
+
+Esta seção acelera a leitura para recrutadores e líderes, deixando explícito o valor que cada módulo comprova.
+
+| Módulo | O que este projeto prova |
+|---|---|
+| [modules/revenue-intelligence](./modules/revenue-intelligence) | Capacidade de desenhar um sistema completo de retenção de receita com priorização executiva baseada em impacto financeiro. |
+| [modules/churn-prediction](./modules/churn-prediction) | Qualidade de modelagem preditiva de churn com validação temporal e fluxo de scoring aplicável. |
+| [modules/amazon-sales-analysis](./modules/amazon-sales-analysis) | Diagnóstico analítico de e-commerce e identificação reproduzível de vazamentos de receita. |
+| [modules/analise-vendas-python](./modules/analise-vendas-python) | Profundidade em analytics comercial com storytelling orientado a decisão de vendas. |
+| [modules/data-senior-analytics](./modules/data-senior-analytics) | Maturidade em analytics sênior: transformar achados técnicos em decisão executiva e trade-off de negócio. |
 
 ## Estrutura do Monorepo
 
@@ -129,7 +162,7 @@ revenue-intelligence-platform-suite/
 - [KPI Scorecard](./docs/kpi-scorecard.md)
 - [Governance RACI](./docs/governance-raci.md)
 
-## Governanca e Seguranca
+## Governança e Segurança
 
 - [CODEOWNERS](./.github/CODEOWNERS)
 - [Security Policy](./SECURITY.md)
@@ -149,19 +182,56 @@ pip install -e ".[dev]"
 streamlit run apps/executive-dashboard/app.py
 ```
 
-## Atualizacao de Subtree
+## Atualização de Subtree
 
 ```bash
 git fetch churn-prediction main
 git subtree pull --prefix modules/churn-prediction churn-prediction main --squash
 ```
 
-## Resultados de Negocio
+## Resultados de Negócio
 
-- Melhor priorizacao de clientes de alto valor e alto risco
-- Decisoes mais rapidas para retencao e crescimento de receita
+- Melhor priorização de clientes de alto valor e alto risco
+- Decisões mais rápidas para retenção e crescimento de receita
 - Reprodutibilidade de pipelines e rastreabilidade de modelos
 
-## Stack Tecnologica
+## Deltas de Negócio por Release
+
+| Release | Delta de negócio publicado | Evidência |
+|---|---|---|
+| `v1.0.0` | Priorização executiva passou de insights estáticos para decisão orientada por telemetria; exposição atual quantificada em `$144,490.04` de receita em risco e `$29,130.33` no top-50 de contas prioritárias. | [docs/releases/v1.0.0.md](./docs/releases/v1.0.0.md), [reports/showcase/summary.json](./reports/showcase/summary.json) |
+| `2026-Q1` | Base operacional da plataforma consolidada para report trimestral recorrente (contratos, CI em matriz, logs de observabilidade). Rastreamento de adoção já em produção, com baseline inicial de `0` eventos no trimestre. | [docs/releases/2026-Q1.md](./docs/releases/2026-Q1.md), [reports/showcase/action_adoption_metrics.json](./reports/showcase/action_adoption_metrics.json) |
+
+## Métricas de Negócio
+
+Example KPIs analyzed in the project:
+- Revenue Growth Rate
+- Customer Lifetime Value (CLV)
+- Customer Churn Rate
+- Average Order Value (AOV)
+- Conversion Rate
+
+Business metrics help organizations understand performance trends and support data-driven decision making.
+
+## Workflow de Analytics
+
+1. Data collection and ingestion
+2. Data cleaning and preprocessing
+3. Exploratory data analysis (EDA)
+4. Feature engineering
+5. Machine learning model training
+6. Model evaluation
+7. Business insights generation
+8. Interactive dashboard development
+
+## Destaques do Projeto
+
+- End-to-end analytics workflow
+- Interactive analytics dashboard
+- Business-oriented metrics
+- Predictive analytics model
+- Structured project architecture
+
+## Stack Tecnológica
 
 Python, SQL, Streamlit, scikit-learn, Prefect, Pandera, MLflow, Pytest, Docker.
