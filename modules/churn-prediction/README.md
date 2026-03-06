@@ -135,7 +135,7 @@ Python, Pandas, Plotly, Streamlit, Seaborn, Matplotlib, Pytest.
 ## How to Run
 ### Local
 ```bash
-git clone https://github.com/samuelmaia-data-analyst/amazon-sales-analysis.git
+git clone https://github.com/samuelmaia-analytics/amazon-sales-analysis.git
 cd amazon-sales-analysis
 pip install -r requirements.txt
 python main.py
@@ -201,7 +201,7 @@ Use semantic commit messages:
 
 ## Author
 Samuel Maia
-- GitHub: https://github.com/samuelmaia-data-analyst
+- GitHub: https://github.com/samuelmaia-analytics
 - LinkedIn: https://linkedin.com/in/samuelmaia-analytics
 - Email: smaia2@gmail.com
 

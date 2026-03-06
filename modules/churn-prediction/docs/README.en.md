@@ -120,7 +120,7 @@ pytest
 4. Release workflow (`.github/workflows/release.yml`) validates tag/version/changelog consistency.
 
 ## Contact
-- GitHub: https://github.com/samuelmaia-data-analyst
+- GitHub: https://github.com/samuelmaia-analytics
 - LinkedIn: https://linkedin.com/in/samuelmaia-analytics
 - Email: smaia2@gmail.com
 

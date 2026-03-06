@@ -3,10 +3,10 @@
 Plataforma flagship de decisão para Revenue e Retention.
 Este ficheiro é a tradução em Português (PT) do README canonical em inglês.
 
-[![ci](https://github.com/samuelmaia-data-analyst/revenue-intelligence-platform-suite/actions/workflows/ci.yml/badge.svg)](https://github.com/samuelmaia-data-analyst/revenue-intelligence-platform-suite/actions/workflows/ci.yml)
-[![publish-release](https://github.com/samuelmaia-data-analyst/revenue-intelligence-platform-suite/actions/workflows/publish-release.yml/badge.svg)](https://github.com/samuelmaia-data-analyst/revenue-intelligence-platform-suite/actions/workflows/publish-release.yml)
-[![showcase-monitoring](https://github.com/samuelmaia-data-analyst/revenue-intelligence-platform-suite/actions/workflows/showcase-monitoring.yml/badge.svg)](https://github.com/samuelmaia-data-analyst/revenue-intelligence-platform-suite/actions/workflows/showcase-monitoring.yml)
-[![Latest release](https://img.shields.io/github/v/release/samuelmaia-data-analyst/revenue-intelligence-platform-suite?label=latest%20release)](https://github.com/samuelmaia-data-analyst/revenue-intelligence-platform-suite/releases/tag/v1.0.0)
+[![ci](https://github.com/samuelmaia-analytics/revenue-intelligence-platform-suite/actions/workflows/ci.yml/badge.svg)](https://github.com/samuelmaia-analytics/revenue-intelligence-platform-suite/actions/workflows/ci.yml)
+[![publish-release](https://github.com/samuelmaia-analytics/revenue-intelligence-platform-suite/actions/workflows/publish-release.yml/badge.svg)](https://github.com/samuelmaia-analytics/revenue-intelligence-platform-suite/actions/workflows/publish-release.yml)
+[![showcase-monitoring](https://github.com/samuelmaia-analytics/revenue-intelligence-platform-suite/actions/workflows/showcase-monitoring.yml/badge.svg)](https://github.com/samuelmaia-analytics/revenue-intelligence-platform-suite/actions/workflows/showcase-monitoring.yml)
+[![Latest release](https://img.shields.io/github/v/release/samuelmaia-analytics/revenue-intelligence-platform-suite?label=latest%20release)](https://github.com/samuelmaia-analytics/revenue-intelligence-platform-suite/releases/tag/v1.0.0)
 
 App executiva pública (live): https://revenue-intelligence-platform.streamlit.app/
 
