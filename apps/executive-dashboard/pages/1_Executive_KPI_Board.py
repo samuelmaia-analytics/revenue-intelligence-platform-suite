@@ -269,22 +269,36 @@ st.subheader("Leadership Actions This Week")
 action_counts = (
     top_priorities["Recommended Action"].value_counts().rename_axis("Action").reset_index(name="Accounts")
 )
-action_alias = {
-    "Executive Save Offer": "Exec Save Offer",
-    "CSM Priority Call": "CSM Priority Call",
-    "Nurture Campaign": "Nurture Campaign",
-}
-action_counts["Action Short"] = action_counts["Action"].map(action_alias).fillna(action_counts["Action"])
+# Keep all action categories visible even when count is zero.
+all_actions = pd.DataFrame(
+    {"Action": ["Executive Save Offer", "CSM Priority Call", "Nurture Campaign"]}
+)
+action_counts = (
+    all_actions.merge(action_counts, on="Action", how="left")
+    .fillna({"Accounts": 0})
+    .astype({"Accounts": "int64"})
+)
+action_counts = action_counts.sort_values(["Accounts", "Action"], ascending=[False, True]).reset_index(
+    drop=True
+)
 
 action_chart = (
     alt.Chart(action_counts)
-    .mark_bar(cornerRadiusTopLeft=4, cornerRadiusTopRight=4)
+    .mark_bar(cornerRadiusEnd=4)
     .encode(
-        x=alt.X("Action Short:N", sort="-y", title="Recommended Action"),
-        y=alt.Y("Accounts:Q", title="Accounts"),
+        x=alt.X("Accounts:Q", title="Accounts"),
+        y=alt.Y("Action:N", sort="-x", title="Recommended Action"),
+        color=alt.Color(
+            "Action:N",
+            legend=None,
+            scale=alt.Scale(
+                domain=["Executive Save Offer", "CSM Priority Call", "Nurture Campaign"],
+                range=["#1f77b4", "#2ca02c", "#ff7f0e"],
+            ),
+        ),
         tooltip=["Action:N", "Accounts:Q"],
     )
-    .properties(height=260)
+    .properties(height=220)
 )
 st.altair_chart(action_chart, width="stretch")
 st.dataframe(action_counts[["Action", "Accounts"]], width="stretch", hide_index=True)
