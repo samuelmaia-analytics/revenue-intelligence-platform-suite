@@ -274,6 +274,15 @@ python main.py
 python -m streamlit run .\app\streamlit_app.py
 ```
 
+Recommended setup (separate envs for app and dbt):
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\setup_envs.ps1
+```
+
+- app/pipeline env: `.venv`
+- dbt env: `.venv-dbt`
+
 Environment overrides:
 - `RIP_DATA_DIR`
 - `RIP_SEED`
@@ -306,7 +315,7 @@ powershell -ExecutionPolicy Bypass -File .\scripts\run_modern_data_stack_demo.ps
 ```
 
 Notes:
-- The script uses the repository root `.venv`.
+- The script uses `.venv` for app/pipeline and `.venv-dbt` for dbt.
 - For `-RunDbt`, it creates `dbt/profiles.yml` from `profiles.yml.example` when missing.
 - For warehouse targets, required credentials must be exported as environment variables.
 
@@ -315,25 +324,19 @@ Notes:
 Install:
 
 ```powershell
-python -m pip install -r requirements-dbt.txt
+powershell -ExecutionPolicy Bypass -File .\scripts\setup_envs.ps1
 ```
 
 Run:
 
 ```powershell
-cd .\dbt\
-Copy-Item .\profiles.yml.example "$HOME\\.dbt\\profiles.yml"
-dbt debug --target dev
-dbt run --target dev
-dbt test --target dev
+powershell -ExecutionPolicy Bypass -File .\scripts\run_dbt_local.ps1 -Target ci -WithTests
 ```
 
 Snowflake target:
 
 ```powershell
-dbt debug --target snowflake
-dbt run --target snowflake
-dbt test --target snowflake
+powershell -ExecutionPolicy Bypass -File .\scripts\run_dbt_local.ps1 -Target snowflake -WithTests
 ```
 
 Documentation and quality checks in dbt:

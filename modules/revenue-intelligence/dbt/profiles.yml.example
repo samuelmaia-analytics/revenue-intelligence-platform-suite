@@ -1,6 +1,11 @@
 revenue_intelligence:
   target: dev
   outputs:
+    ci:
+      type: duckdb
+      path: ".github/dbt/revenue_intelligence.duckdb"
+      schema: analytics
+      threads: 4
     dev:
       type: bigquery
       method: service-account

@@ -9,7 +9,8 @@ $ErrorActionPreference = "Stop"
 
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 $projectDir = Resolve-Path (Join-Path $scriptDir "..")
-$venvPython = Resolve-Path (Join-Path $projectDir "..\..\.venv\Scripts\python.exe")
+$appVenvPython = Resolve-Path (Join-Path $projectDir ".venv\Scripts\python.exe")
+$dbtVenvPython = Resolve-Path (Join-Path $projectDir ".venv-dbt\Scripts\python.exe")
 $dbtDir = Join-Path $projectDir "dbt"
 $profilesExample = Join-Path $dbtDir "profiles.yml.example"
 $profilesFile = Join-Path $dbtDir "profiles.yml"
@@ -19,22 +20,26 @@ Write-Host "Project dir: $projectDir"
 Write-Host "Warehouse target: $Target"
 Write-Host "Run dbt: $RunDbt"
 
-if (-not (Test-Path $venvPython)) {
-    throw "Python da .venv nao encontrado em $venvPython"
+if (-not (Test-Path $appVenvPython)) {
+    throw "Python da .venv nao encontrado em $appVenvPython"
+}
+
+if ($RunDbt -and -not (Test-Path $dbtVenvPython)) {
+    throw "Python da .venv-dbt nao encontrado em $dbtVenvPython"
 }
 
 if (-not $SkipInstall) {
     Write-Host "`n[1/4] Instalando dependencias Python"
-    & $venvPython -m pip install -r (Join-Path $projectDir "requirements.txt")
-    & $venvPython -m pip install -r (Join-Path $projectDir "requirements-warehouse.txt")
+    & $appVenvPython -m pip install -r (Join-Path $projectDir "requirements.txt")
+    & $appVenvPython -m pip install -r (Join-Path $projectDir "requirements-warehouse.txt")
     if ($RunDbt) {
-        & $venvPython -m pip install -r (Join-Path $projectDir "requirements-dbt.txt")
+        & $dbtVenvPython -m pip install -r (Join-Path $projectDir "requirements-dbt.txt")
     }
 }
 
 Write-Host "`n[2/4] Executando pipeline Python"
 $env:RIP_WAREHOUSE_PROVIDER = $Target
-& $venvPython (Join-Path $projectDir "main.py")
+& $appVenvPython (Join-Path $projectDir "main.py")
 
 if (-not $RunDbt) {
     Write-Host "`nPipeline finalizado. dbt nao executado (use -RunDbt para habilitar)."
@@ -48,14 +53,22 @@ if (-not (Test-Path $profilesFile)) {
 }
 
 $env:DBT_PROFILES_DIR = $dbtDir
-$dbtTarget = if ($Target -eq "snowflake") { "snowflake" } else { "dev" }
+$dbtTarget = if ($Target -eq "snowflake") {
+    "snowflake"
+}
+elseif ($Target -eq "bigquery") {
+    "dev"
+}
+else {
+    "ci"
+}
 
 Write-Host "`n[4/4] Executando dbt (target: $dbtTarget)"
 Push-Location $dbtDir
 try {
-    & $venvPython -m dbt debug --target $dbtTarget
-    & $venvPython -m dbt run --target $dbtTarget
-    & $venvPython -m dbt test --target $dbtTarget
+    & $dbtVenvPython -m dbt debug --target $dbtTarget
+    & $dbtVenvPython -m dbt run --target $dbtTarget
+    & $dbtVenvPython -m dbt test --target $dbtTarget
 }
 finally {
     Pop-Location
