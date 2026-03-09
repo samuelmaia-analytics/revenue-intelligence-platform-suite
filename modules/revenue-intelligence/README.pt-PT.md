@@ -370,3 +370,20 @@ powershell -ExecutionPolicy Bypass -File .\scripts\run_modern_data_stack_demo.ps
 - URL publicada dos docs: https://samuelmaia-analytics.github.io/revenue-intelligence-platform-suite/
 - Workflow de publicacao: `.github/workflows/dbt-docs.yml`
 - Validacao no CI: job `dbt-parse` em `.github/workflows/ci.yml`
+
+## Setup Local Recomendado (app + dbt)
+
+Para evitar conflitos de dependencias no ambiente local:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\setup_envs.ps1
+```
+
+- app/pipeline: `.venv`
+- dbt: `.venv-dbt`
+
+Rodar dbt localmente:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\run_dbt_local.ps1 -Target ci -WithTests
+```

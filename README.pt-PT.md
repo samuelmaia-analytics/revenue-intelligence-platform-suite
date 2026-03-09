@@ -202,6 +202,18 @@ Demo Modern Data Stack (1 comando):
 powershell -ExecutionPolicy Bypass -File .\modules\revenue-intelligence\scripts\run_modern_data_stack_demo.ps1
 ```
 
+Setup local recomendado (sem conflito de dependencias entre app e dbt):
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\modules\revenue-intelligence\scripts\setup_envs.ps1
+```
+
+Execucao local do dbt:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\modules\revenue-intelligence\scripts\run_dbt_local.ps1 -Target ci -WithTests
+```
+
 Publicacao de docs dbt no GitHub Pages:
 - Workflow: `.github/workflows/dbt-docs.yml`
 - Guia: [docs/dbt-docs-publishing.md](./docs/dbt-docs-publishing.md)

@@ -145,6 +145,15 @@ Modern Data Stack demo (single command):
 powershell -ExecutionPolicy Bypass -File .\modules\revenue-intelligence\scripts\run_modern_data_stack_demo.ps1
 ```
 
+Recommended local setup (no dependency conflicts between app and dbt):
+```powershell
+powershell -ExecutionPolicy Bypass -File .\modules\revenue-intelligence\scripts\setup_envs.ps1
+```
+dbt local run helper:
+```powershell
+powershell -ExecutionPolicy Bypass -File .\modules\revenue-intelligence\scripts\run_dbt_local.ps1 -Target ci -WithTests
+```
+
 dbt lineage docs are publishable via GitHub Pages using `.github/workflows/dbt-docs.yml`.
 Setup guide: [docs/dbt-docs-publishing.md](./docs/dbt-docs-publishing.md)
 Published docs URL: https://samuelmaia-analytics.github.io/revenue-intelligence-platform-suite/
