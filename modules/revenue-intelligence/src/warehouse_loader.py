@@ -28,7 +28,7 @@ class WarehouseConfig:
     sf_role: str | None = None
 
     @classmethod
-    def from_env(cls) -> "WarehouseConfig":
+    def from_env(cls) -> WarehouseConfig:
         provider = os.getenv("RIP_WAREHOUSE_PROVIDER", "none").strip().lower()
         if provider not in {"none", "bigquery", "snowflake"}:
             raise ValueError(
