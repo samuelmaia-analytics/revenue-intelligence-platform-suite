@@ -2,30 +2,70 @@ version: 2
 
 sources:
   - name: raw
+    description: Raw ingestion tables loaded by the Python pipeline.
     schema: "{{ var('raw_schema', target.schema) }}"
     tables:
       - name: customers
+        description: Customer-level acquisition and profile attributes.
       - name: orders
+        description: Transaction-level order events.
       - name: marketing_spend
+        description: Marketing investment by acquisition channel.
 
 models:
   - name: stg_customers
+    description: Standardized customer entities for downstream joins.
     columns:
       - name: customer_id
+        description: Surrogate customer identifier from source systems.
         tests:
           - not_null
           - unique
+      - name: signup_date
+        description: Customer signup date normalized to date type.
+        tests:
+          - not_null
+      - name: channel
+        description: Acquisition channel assigned to the customer.
+        tests:
+          - not_null
+      - name: segment
+        description: Business segment used for revenue and churn analysis.
+        tests:
+          - not_null
   - name: stg_orders
+    description: Standardized order facts at one row per order.
     columns:
       - name: order_id
+        description: Order unique identifier.
         tests:
           - not_null
           - unique
       - name: customer_id
+        description: Customer identifier associated with the order.
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_customers')
+                field: customer_id
+      - name: order_date
+        description: Date when the order was placed.
+        tests:
+          - not_null
+      - name: order_value
+        description: Monetary value of the order.
         tests:
           - not_null
   - name: stg_marketing_spend
+    description: Standardized spend table by marketing channel.
     columns:
       - name: channel
+        description: Marketing channel name.
+        tests:
+          - not_null
+          - unique
+      - name: marketing_spend
+        description: Marketing cost allocated to the channel.
         tests:
           - not_null

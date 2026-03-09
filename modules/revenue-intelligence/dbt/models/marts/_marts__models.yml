@@ -5,28 +5,84 @@ models:
     description: Monthly revenue KPIs by channel and segment.
     columns:
       - name: order_month
+        description: Aggregation month for revenue metrics.
+        tests:
+          - not_null
+      - name: channel
+        description: Acquisition channel dimension.
+        tests:
+          - not_null
+      - name: segment
+        description: Customer segment dimension.
         tests:
           - not_null
       - name: revenue
+        description: Total recognized revenue in the month/channel/segment slice.
         tests:
           - not_null
+      - name: orders
+        description: Number of unique orders in the period.
+        tests:
+          - not_null
+      - name: active_customers
+        description: Number of customers with at least one order in the period.
+        tests:
+          - not_null
+      - name: aov
+        description: Average order value for the slice.
   - name: mart_channel_efficiency
     description: Average LTV proxy by acquisition channel and segment.
     columns:
       - name: channel
+        description: Acquisition channel.
+        tests:
+          - not_null
+      - name: segment
+        description: Customer segment.
         tests:
           - not_null
       - name: avg_ltv
+        description: Average customer lifetime revenue.
+        tests:
+          - not_null
+      - name: avg_orders_per_customer
+        description: Average number of orders per customer.
+        tests:
+          - not_null
+      - name: customers
+        description: Number of customers in the slice.
         tests:
           - not_null
   - name: mart_churn_watchlist
     description: Customer list segmented by churn risk band for activation workflows.
     columns:
       - name: customer_id
+        description: Unique customer identifier.
         tests:
           - not_null
           - unique
+      - name: channel
+        description: Acquisition channel for customer context.
+        tests:
+          - not_null
+      - name: segment
+        description: Segment used for risk segmentation.
+        tests:
+          - not_null
+      - name: lifetime_revenue
+        description: Lifetime value proxy for prioritization.
+        tests:
+          - not_null
+      - name: total_orders
+        description: Total order count used in prioritization.
+        tests:
+          - not_null
+      - name: last_order_date
+        description: Most recent order date used for risk banding.
+        tests:
+          - not_null
       - name: churn_risk_band
+        description: Risk bucket derived from customer recency.
         tests:
           - accepted_values:
               arguments:

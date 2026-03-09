@@ -68,6 +68,13 @@ It also includes a Modern Data Stack path (`python ingestion -> warehouse -> dbt
 - Customer-level churn risk and next purchase probability
 - Executive narrative for weekly business reviews
 
+## Business Questions Answered
+
+- What is the monthly recurring revenue trend across channels and segments?
+- Which marketing channels drive the highest lifetime value efficiency?
+- Which customers are at highest risk of churn right now?
+- How efficient is acquisition spend versus customer value generated?
+
 ## Scope and Capabilities
 
 - Data ingestion from Kaggle source with synthetic fallback
@@ -328,6 +335,10 @@ dbt debug --target snowflake
 dbt run --target snowflake
 dbt test --target snowflake
 ```
+
+Documentation and quality checks in dbt:
+- model and column descriptions are declared in schema YAML files
+- core data tests include `not_null`, `unique`, `relationships`, and `accepted_values`
 
 dbt docs publish:
 - Workflow: `.github/workflows/dbt-docs.yml`
