@@ -41,6 +41,18 @@ graph LR
   BOARD --> ADOPTION["Leadership Action Adoption"]
 ```
 
+## Modern Data Stack Architecture
+```mermaid
+flowchart LR
+  DS[data_sources] --> PY[python ingestion]
+  PY --> WH[BigQuery / Snowflake]
+  WH --> DBT[dbt models<br/>staging -> intermediate -> marts]
+  DBT --> AN[analytics layer]
+  AN --> ST[Streamlit dashboards]
+```
+
+This architecture is implemented in the `modules/revenue-intelligence` module, with an optional warehouse loading step and a complete dbt project.
+
 ## Analytics Architecture
 ```mermaid
 flowchart LR
@@ -127,6 +139,14 @@ python scripts/run_showcase_demo.py
 ```bash
 streamlit run apps/executive-dashboard/app.py
 ```
+
+Modern Data Stack demo (single command):
+```powershell
+powershell -ExecutionPolicy Bypass -File .\modules\revenue-intelligence\scripts\run_modern_data_stack_demo.ps1
+```
+
+dbt lineage docs are publishable via GitHub Pages using `.github/workflows/dbt-docs.yml`.
+Setup guide: [docs/dbt-docs-publishing.md](./docs/dbt-docs-publishing.md)
 
 ### Expected Outputs
 - `reports/showcase/summary.json`

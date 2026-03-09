@@ -34,12 +34,14 @@
 - [Business Outcomes](#business-outcomes)
 - [Scope and Capabilities](#scope-and-capabilities)
 - [Architecture](#architecture)
+- [Modern Data Stack Architecture](#modern-data-stack-architecture)
 - [Data Lineage](#data-lineage)
 - [Repository Structure](#repository-structure)
 - [Data Source](#data-source)
 - [Star Schema (Gold)](#star-schema-gold)
 - [SQL Organization](#sql-organization)
 - [Local Run (Windows / PowerShell)](#local-run-windows--powershell)
+- [One-Command Demo](#one-command-demo)
 - [CLI](#cli)
 - [Engineering Quality](#engineering-quality)
 - [CI](#ci)
@@ -57,6 +59,7 @@ Streamlit Cloud:
 Revenue Intelligence Platform is an end-to-end decision system that converts customer behavior data into commercial priorities.
 
 This version includes a mature layered data architecture (`raw -> bronze -> silver -> gold`) with a formal Star Schema and structured SQL domains for analytics.
+It also includes a Modern Data Stack path (`python ingestion -> warehouse -> dbt -> analytics layer -> Streamlit`).
 
 ## Business Outcomes
 
@@ -93,6 +96,23 @@ flowchart LR
     H --> I
     I --> J[Docker / Cloud Deployment]
 ```
+
+## Modern Data Stack Architecture
+
+```mermaid
+flowchart LR
+    DS[data_sources] --> PI[python ingestion]
+    PI --> WH[BigQuery or Snowflake]
+    WH --> DBT[dbt models<br/>staging -> intermediate -> marts]
+    DBT --> AL[analytics layer]
+    AL --> ST[Streamlit dashboards]
+```
+
+### What was added
+
+- `dbt/` project with layered models (`staging`, `intermediate`, `marts`)
+- Optional warehouse loader in Python pipeline for `BigQuery` and `Snowflake`
+- Configurable runtime via environment variables for warehouse target and credentials
 
 ## Data Lineage
 
@@ -153,9 +173,15 @@ revenue-intelligence-platform/
 |- sql/
 |  |- ddl/
 |  \- analytics/
+|- dbt/
+|  |- models/staging/
+|  |- models/intermediate/
+|  \- models/marts/
 |- main.py
 |- requirements.txt
 |- requirements-dev.txt
+|- requirements-dbt.txt
+|- requirements-warehouse.txt
 |- pytest.ini
 |- Dockerfile
 |- README.md
@@ -246,6 +272,67 @@ Environment overrides:
 - `RIP_SEED`
 - `RIP_LOG_LEVEL`
 - `RIP_APP_LANG_MODE` (`bilingual` or `international`)
+- `RIP_WAREHOUSE_PROVIDER` (`none`, `bigquery`, `snowflake`)
+- `RIP_WAREHOUSE_DATASET`
+- `RIP_WAREHOUSE_SCHEMA`
+- `RIP_BQ_PROJECT`, `RIP_BQ_LOCATION`
+- `RIP_SF_ACCOUNT`, `RIP_SF_USER`, `RIP_SF_PASSWORD`, `RIP_SF_WAREHOUSE`, `RIP_SF_DATABASE`, `RIP_SF_ROLE`
+
+## One-Command Demo
+
+Run end-to-end with one command:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\run_modern_data_stack_demo.ps1
+```
+
+Run with BigQuery + dbt:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\run_modern_data_stack_demo.ps1 -Target bigquery -RunDbt
+```
+
+Run with Snowflake + dbt:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\run_modern_data_stack_demo.ps1 -Target snowflake -RunDbt
+```
+
+Notes:
+- The script uses the repository root `.venv`.
+- For `-RunDbt`, it creates `dbt/profiles.yml` from `profiles.yml.example` when missing.
+- For warehouse targets, required credentials must be exported as environment variables.
+
+## dbt Models
+
+Install:
+
+```powershell
+python -m pip install -r requirements-dbt.txt
+```
+
+Run:
+
+```powershell
+cd .\dbt\
+Copy-Item .\profiles.yml.example "$HOME\\.dbt\\profiles.yml"
+dbt debug --target dev
+dbt run --target dev
+dbt test --target dev
+```
+
+Snowflake target:
+
+```powershell
+dbt debug --target snowflake
+dbt run --target snowflake
+dbt test --target snowflake
+```
+
+dbt docs publish:
+- Workflow: `.github/workflows/dbt-docs.yml`
+- Output: GitHub Pages (lineage + model docs)
+- Setup guide: `docs/dbt-docs-publishing.md`
 
 ## CLI
 

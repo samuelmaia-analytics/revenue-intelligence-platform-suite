@@ -1,0 +1,82 @@
+name: dbt-docs
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "modules/revenue-intelligence/dbt/**"
+      - ".github/workflows/dbt-docs.yml"
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: dbt-docs-pages
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dbt deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r modules/revenue-intelligence/requirements-dbt.txt
+
+      - name: Create dbt profile for CI
+        env:
+          DBT_BIGQUERY_PROJECT: ${{ secrets.DBT_BIGQUERY_PROJECT }}
+          DBT_BIGQUERY_DATASET: ${{ secrets.DBT_BIGQUERY_DATASET }}
+          DBT_BIGQUERY_LOCATION: ${{ secrets.DBT_BIGQUERY_LOCATION }}
+          DBT_BIGQUERY_KEYFILE_JSON: ${{ secrets.DBT_BIGQUERY_KEYFILE_JSON }}
+        run: |
+          mkdir -p .github/dbt
+          echo "$DBT_BIGQUERY_KEYFILE_JSON" > .github/dbt/service_account.json
+          cat <<'EOF' > .github/dbt/profiles.yml
+          revenue_intelligence:
+            target: dev
+            outputs:
+              dev:
+                type: bigquery
+                method: service-account
+                keyfile: .github/dbt/service_account.json
+                project: ${DBT_BIGQUERY_PROJECT}
+                dataset: ${DBT_BIGQUERY_DATASET}
+                threads: 4
+                location: ${DBT_BIGQUERY_LOCATION}
+                priority: interactive
+          EOF
+
+      - name: Generate dbt docs
+        env:
+          DBT_PROFILES_DIR: .github/dbt
+        run: |
+          dbt deps --project-dir modules/revenue-intelligence/dbt
+          dbt parse --project-dir modules/revenue-intelligence/dbt --target dev
+          dbt docs generate --project-dir modules/revenue-intelligence/dbt --target dev
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: modules/revenue-intelligence/dbt/target
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

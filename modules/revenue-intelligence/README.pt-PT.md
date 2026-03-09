@@ -322,3 +322,45 @@ flowchart LR
 
 
 
+
+## Arquitetura Modern Data Stack
+
+```mermaid
+flowchart LR
+    DS[data_sources] --> PI[python ingestion]
+    PI --> WH[BigQuery ou Snowflake]
+    WH --> DBT[dbt models<br/>staging -> intermediate -> marts]
+    DBT --> AL[analytics layer]
+    AL --> ST[Streamlit dashboards]
+```
+
+## Warehouse + dbt
+
+- Projeto dbt com camadas: `staging`, `intermediate`, `marts`
+- Carga opcional no warehouse via variavel `RIP_WAREHOUSE_PROVIDER`
+- Targets suportados: `bigquery` e `snowflake`
+
+Variaveis de ambiente:
+- `RIP_WAREHOUSE_PROVIDER` (`none`, `bigquery`, `snowflake`)
+- `RIP_WAREHOUSE_DATASET`
+- `RIP_WAREHOUSE_SCHEMA`
+- `RIP_BQ_PROJECT`, `RIP_BQ_LOCATION`
+- `RIP_SF_ACCOUNT`, `RIP_SF_USER`, `RIP_SF_PASSWORD`, `RIP_SF_WAREHOUSE`, `RIP_SF_DATABASE`, `RIP_SF_ROLE`
+
+## Demo em Um Comando
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\run_modern_data_stack_demo.ps1
+```
+
+Com BigQuery + dbt:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\run_modern_data_stack_demo.ps1 -Target bigquery -RunDbt
+```
+
+Com Snowflake + dbt:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\run_modern_data_stack_demo.ps1 -Target snowflake -RunDbt
+```

@@ -16,6 +16,7 @@ from src.recommendation import build_recommendations
 from src.reporting import build_business_outcomes, build_executive_report, build_executive_summary
 from src.transformation import build_customer_features, build_silver_layer
 from src.warehouse import build_star_schema
+from src.warehouse_loader import WarehouseConfig, load_gold_to_warehouse
 
 LOGGER = logging.getLogger("revenue_intelligence.pipeline")
 
@@ -30,6 +31,7 @@ def configure_logging(level: str = "INFO") -> None:
 def run_pipeline(cfg: PipelineConfig) -> None:
     configure_logging(cfg.log_level)
     cfg.processed_dir.mkdir(parents=True, exist_ok=True)
+    warehouse_config = WarehouseConfig.from_env()
 
     LOGGER.info("Pipeline started with data dir: %s", cfg.data_dir)
     customers_path, orders_path, marketing_path = save_raw_datasets(cfg.raw_dir, seed=cfg.seed)
@@ -81,6 +83,7 @@ def run_pipeline(cfg: PipelineConfig) -> None:
         outcomes_path=cfg.processed_dir / "business_outcomes.json",
         top_actions_path=cfg.processed_dir / "top_10_actions.csv",
     )
+    load_gold_to_warehouse(cfg.gold_dir, warehouse_config)
 
     LOGGER.info("Pipeline completed successfully.")
     LOGGER.info("Churn split strategy: %s", churn_results["split_strategy"])

@@ -20,6 +20,7 @@ App executivo público (live): https://revenue-intelligence-platform.streamlit.a
 - [Status da Vitrine](#status-da-vitrine)
 - [Demo Executiva](#demo-executiva)
 - [Arquitetura da Plataforma](#arquitetura-da-plataforma)
+- [Arquitetura Modern Data Stack](#arquitetura-modern-data-stack)
 - [Arquitetura de Analytics](#arquitetura-de-analytics)
 - [Como os Repositórios Compõem a Plataforma](#como-os-repositorios-compoem-a-plataforma)
 - [Módulos](#modulos)
@@ -95,6 +96,19 @@ flowchart TD
   A2 --> D1
   A2 --> D2
 ```
+
+## Arquitetura Modern Data Stack
+
+```mermaid
+flowchart LR
+  DS[data_sources] --> PY[python ingestion]
+  PY --> WH[BigQuery / Snowflake]
+  WH --> DBT[dbt models<br/>staging -> intermediate -> marts]
+  DBT --> AN[analytics layer]
+  AN --> ST[Streamlit dashboards]
+```
+
+Implementacao no modulo `modules/revenue-intelligence`, com carga opcional em warehouse e projeto `dbt` completo.
 
 ## Arquitetura de Analytics
 
@@ -181,6 +195,16 @@ python -m venv .venv
 pip install -e ".[dev]"
 streamlit run apps/executive-dashboard/app.py
 ```
+
+Demo Modern Data Stack (1 comando):
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\modules\revenue-intelligence\scripts\run_modern_data_stack_demo.ps1
+```
+
+Publicacao de docs dbt no GitHub Pages:
+- Workflow: `.github/workflows/dbt-docs.yml`
+- Guia: [docs/dbt-docs-publishing.md](./docs/dbt-docs-publishing.md)
 
 ## Atualização de Subtree
 

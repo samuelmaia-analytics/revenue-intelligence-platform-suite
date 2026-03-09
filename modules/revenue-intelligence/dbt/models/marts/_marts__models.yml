@@ -1,0 +1,32 @@
+version: 2
+
+models:
+  - name: mart_revenue_kpis
+    description: Monthly revenue KPIs by channel and segment.
+    columns:
+      - name: order_month
+        tests:
+          - not_null
+      - name: revenue
+        tests:
+          - not_null
+  - name: mart_channel_efficiency
+    description: Average LTV proxy by acquisition channel and segment.
+    columns:
+      - name: channel
+        tests:
+          - not_null
+      - name: avg_ltv
+        tests:
+          - not_null
+  - name: mart_churn_watchlist
+    description: Customer list segmented by churn risk band for activation workflows.
+    columns:
+      - name: customer_id
+        tests:
+          - not_null
+          - unique
+      - name: churn_risk_band
+        tests:
+          - accepted_values:
+              values: ['low', 'medium', 'high']

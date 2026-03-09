@@ -1,0 +1,31 @@
+version: 2
+
+sources:
+  - name: raw
+    schema: "{{ var('raw_schema', target.schema) }}"
+    tables:
+      - name: customers
+      - name: orders
+      - name: marketing_spend
+
+models:
+  - name: stg_customers
+    columns:
+      - name: customer_id
+        tests:
+          - not_null
+          - unique
+  - name: stg_orders
+    columns:
+      - name: order_id
+        tests:
+          - not_null
+          - unique
+      - name: customer_id
+        tests:
+          - not_null
+  - name: stg_marketing_spend
+    columns:
+      - name: channel
+        tests:
+          - not_null

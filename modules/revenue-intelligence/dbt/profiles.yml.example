@@ -1,0 +1,22 @@
+revenue_intelligence:
+  target: dev
+  outputs:
+    dev:
+      type: bigquery
+      method: service-account
+      keyfile: '{{ env_var("DBT_BIGQUERY_KEYFILE") }}'
+      project: '{{ env_var("DBT_BIGQUERY_PROJECT") }}'
+      dataset: '{{ env_var("DBT_BIGQUERY_DATASET", "revenue_intelligence") }}'
+      threads: 4
+      location: '{{ env_var("DBT_BIGQUERY_LOCATION", "US") }}'
+      priority: interactive
+    snowflake:
+      type: snowflake
+      account: '{{ env_var("DBT_SNOWFLAKE_ACCOUNT") }}'
+      user: '{{ env_var("DBT_SNOWFLAKE_USER") }}'
+      password: '{{ env_var("DBT_SNOWFLAKE_PASSWORD") }}'
+      role: '{{ env_var("DBT_SNOWFLAKE_ROLE", "ANALYST") }}'
+      database: '{{ env_var("DBT_SNOWFLAKE_DATABASE", "REVENUE_INTELLIGENCE") }}'
+      warehouse: '{{ env_var("DBT_SNOWFLAKE_WAREHOUSE", "COMPUTE_WH") }}'
+      schema: '{{ env_var("DBT_SNOWFLAKE_SCHEMA", "ANALYTICS") }}'
+      threads: 4

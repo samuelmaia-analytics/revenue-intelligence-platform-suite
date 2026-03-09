@@ -9,3 +9,6 @@ __pycache__/
 reports/showcase/*.sqlite
 reports/showcase/action_adoption_log.csv
 reports/showcase/action_adoption_log.jsonl
+modules/revenue-intelligence/dbt/target/
+modules/revenue-intelligence/dbt/dbt_packages/
+modules/revenue-intelligence/dbt/logs/
