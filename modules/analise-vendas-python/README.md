@@ -18,7 +18,7 @@
 ![License](https://img.shields.io/badge/License-MIT-lightgrey)
 
 🚀 **Deploy:**  
-https://analys-vendas-python.streamlit.app/
+https://sales-analytics-dashboardd.streamlit.app/
 
 📂 **Repositório:**  
 https://github.com/samuelmaiapro/analise-vendas-python

@@ -69,7 +69,7 @@ with col2:
     )
     st.link_button(
         "Sales Analytics Demo",
-        "https://analys-vendas-python.streamlit.app/",
+        "https://sales-analytics-dashboardd.streamlit.app/",
         use_container_width=True,
     )
 

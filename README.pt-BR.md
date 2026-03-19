@@ -57,7 +57,7 @@ App executivo público (live): https://revenue-intelligence-platform.streamlit.a
 - Dashboard executivo (app flagship): `apps/executive-dashboard/app.py`
 - Demo Revenue Intelligence: https://revenue-intelligence-platform.streamlit.app/
 - Demo Data Senior Analytics: https://data-analytics-sr.streamlit.app
-- Demo Sales Analytics: https://analys-vendas-python.streamlit.app/
+- Demo Sales Analytics: https://sales-analytics-dashboardd.streamlit.app/
 
 ## Arquitetura da Plataforma
 

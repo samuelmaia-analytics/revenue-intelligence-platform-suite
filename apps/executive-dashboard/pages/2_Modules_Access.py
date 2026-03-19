@@ -50,7 +50,7 @@ modules = [
         "name": "Analise Vendas Python",
         "path": "modules/analise-vendas-python",
         "role": "Operational sales analytics and processed star-style datasets",
-        "demo": "https://analys-vendas-python.streamlit.app/",
+        "demo": "https://sales-analytics-dashboardd.streamlit.app/",
         "repo": "https://github.com/samuelmaia-analytics/analise-vendas-python",
     },
     {
