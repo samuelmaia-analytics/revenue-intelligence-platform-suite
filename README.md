@@ -1,202 +1,311 @@
-# Revenue-Intelligence-Platform-Suite
+# Revenue Intelligence Platform Suite
 
-Flagship analytics platform for revenue performance, retention exposure, governance, and executive decision support.
+Enterprise-grade analytics platform template for revenue, retention, KPI governance, and recurring executive decision support.
 
 [![ci](https://github.com/samuelmaia-analytics/revenue-intelligence-platform-suite/actions/workflows/ci.yml/badge.svg)](https://github.com/samuelmaia-analytics/revenue-intelligence-platform-suite/actions/workflows/ci.yml)
 [![publish-release](https://github.com/samuelmaia-analytics/revenue-intelligence-platform-suite/actions/workflows/publish-release.yml/badge.svg)](https://github.com/samuelmaia-analytics/revenue-intelligence-platform-suite/actions/workflows/publish-release.yml)
 [![showcase-monitoring](https://github.com/samuelmaia-analytics/revenue-intelligence-platform-suite/actions/workflows/showcase-monitoring.yml/badge.svg)](https://github.com/samuelmaia-analytics/revenue-intelligence-platform-suite/actions/workflows/showcase-monitoring.yml)
 [![Latest release](https://img.shields.io/github/v/release/samuelmaia-analytics/revenue-intelligence-platform-suite?label=latest%20release)](https://github.com/samuelmaia-analytics/revenue-intelligence-platform-suite/releases/tag/v1.0.0)
 
-Live demo: https://revenue-intelligence-platform-suite.streamlit.app/
+Live demo: https://revenue-intelligence-platform.streamlit.app/
+
+Copyright notice: the public Streamlit app is available for viewing, but the platform, source code, generated assets, and commercial materials remain proprietary to Samuel Maia under the root [LICENSE](./LICENSE).
 
 ## Language
-
 - English (canonical): [README.md](README.md)
 - Portuguese (BR): [README.pt-BR.md](README.pt-BR.md)
 - Portuguese (PT): [README.pt-PT.md](README.pt-PT.md)
 
-## Executive Summary
+## What This Platform Is
+This repository is built as a reusable analytics product foundation, not a standalone dashboard or isolated ML project. It is designed to be adapted into client-facing solutions such as:
+- revenue command centers
+- retention intelligence programs
+- executive KPI governance layers
+- commercial performance analytics systems
 
-This repository is the strongest platform-level proof in the portfolio.
-It presents a production-minded analytical system that brings together revenue analytics, retention prioritization, governance artifacts, quality controls, shared contracts, observability, and executive-facing applications.
+It brings together:
+- a multi-module monorepo
+- executive and operational applications
+- governed metrics, contracts, and observability
+- a FastAPI serving surface
+- reusable executive, commercial, and go-to-market assets
+- repository-level controls for LGPD baseline, governance, and proprietary authorship
+- optional enterprise SSO enforcement for protected client environments
 
-Instead of showing isolated analytics projects, it shows how multiple analytical capabilities can be organized as one decision platform.
+## Who It Is For
+- CROs, revenue leaders, and RevOps teams
+- customer success and retention leadership
+- COOs, CFOs, strategy teams, and executive PMOs
+- analytics consultancies and productized data service teams
+- SaaS, healthtech, retail, and recurring-revenue operators
 
-## Business Context
+## Business Outcomes
+- reduce revenue exposure by ranking the highest-value actions first
+- shorten executive decision cycles with trusted KPI definitions
+- operationalize recurring reviews around risk, opportunity, and adoption
+- accelerate client delivery with reusable white-label assets
 
-The showcase use case is explicit: reduce B2B revenue churn by ranking retention actions by financial impact.
+## The Executive Lens
+The platform is designed around the questions executive teams actually ask:
+- what is at risk
+- why it matters
+- what should happen next
+- who owns the action
+- whether the action changed the outcome
 
-- Use case definition: [docs/showcase-use-case.md](./docs/showcase-use-case.md)
-- Executive app: `apps/executive-dashboard/app.py`
-- KPI board: `apps/executive-dashboard/pages/1_Executive_KPI_Board.py`
-- Modules portal: `apps/executive-dashboard/pages/2_Modules_Access.py`
+The flagship showcase answers:
+1. Which accounts currently carry the highest revenue-at-risk?
+2. Which actions should leadership prioritize first?
+3. How much value can realistically be recovered under different scenarios?
+4. Is the decision layer healthy enough to be trusted in an executive cadence?
 
-## What This Platform Answers
+## Solution Packages
+| Package | Primary buyer | Core promise |
+|---|---|---|
+| Revenue Command Center | CRO / RevOps | Turn fragmented revenue signals into a weekly executive operating system. |
+| Retention Intelligence | Customer Success leadership | Detect churn exposure early and rank save plays by financial impact. |
+| Executive KPI Governance | CEO / COO / CFO | Standardize definitions, freshness, ownership, and trusted KPI consumption. |
+| Commercial Performance Analytics | Sales / Commercial Ops | Improve seller, channel, segment, and margin performance visibility. |
 
-1. Which accounts have the highest revenue at risk this week?
-2. Which action should leadership execute first?
-3. What recovery and ROI are expected under each scenario?
-4. How can governance, contracts, and observability support repeatable analytical delivery?
+Supporting docs:
+- [docs/solutions/revenue-command-center.md](./docs/solutions/revenue-command-center.md)
+- [docs/solutions/retention-intelligence.md](./docs/solutions/retention-intelligence.md)
+- [docs/solutions/executive-kpi-governance.md](./docs/solutions/executive-kpi-governance.md)
+- [docs/solutions/commercial-performance-analytics.md](./docs/solutions/commercial-performance-analytics.md)
 
-## Why This Repository Matters
+## How It Turns Into A Client Solution
+The platform is structured for white-label delivery and multi-client reuse:
+- `global` configuration for shared platform defaults
+- `environment` configuration for local, demo, staging, and production behavior
+- `client` configuration for thresholds, branding, connectors, and KPI focus
+- `solution package` configuration for delivery model and executive narrative
 
-- It proves platform thinking, not only project execution.
-- It connects analytical outputs to executive prioritization.
-- It shows governance, release discipline, observability, and reusable contracts.
-- It organizes multiple repositories as one coherent analytical operating model.
+Reusable client assets already generated by the platform include:
+- `reports/showcase/summary.json`
+- `reports/showcase/solution_profile.json`
+- `reports/showcase/data_quality_scorecard.json`
+- `reports/showcase/executive_insights.json`
+- `dist/executive-review-pack/`
+- `dist/client-proposal-pack/`
+- `dist/client-microsite/`
+- `dist/deal-rooms/<deal-slug>/`
 
-## Platform Architecture
-
-```mermaid
-graph LR
-  DATA["Data Sources + Modules"] --> QUALITY["Quality + Transformation"]
-  QUALITY --> SCORE["Scoring + Recommendation"]
-  SCORE --> BOARD["Executive KPI Board"]
-  BOARD --> ADOPTION["Leadership Action Adoption"]
-```
-
-The platform architecture connects source modules, quality controls, scoring logic, executive KPI visibility, and action adoption monitoring.
-
-## Modern Data Stack Path
-
+## Architecture
 ```mermaid
 flowchart LR
-  DS[data_sources] --> PY[python ingestion]
-  PY --> WH[BigQuery / Snowflake]
-  WH --> DBT[dbt models<br/>staging -> intermediate -> marts]
-  DBT --> AN[analytics layer]
-  AN --> ST[Streamlit dashboards]
+  SRC[Operational Sources and Client Systems] --> ING[Ingestion and Connector Layer]
+  ING --> BRZ[Bronze Raw Zone]
+  BRZ --> SLV[Silver Validated Models]
+  SLV --> GLD[Gold Executive Metrics and Semantic Layer]
+  GLD --> INS[Executive Insight and Recommendation Layer]
+  GLD --> OBS[Observability and Quality Scorecards]
+  INS --> APP[Executive and Operational Apps]
+  OBS --> APP
+  APP --> ACT[Action Adoption Telemetry]
+  ACT --> OBS
 ```
 
-This path is implemented in `modules/revenue-intelligence`, including optional warehouse loading and a complete dbt project.
+Core enterprise blueprint:
+- ingestion and connector abstraction
+- raw-to-curated data promotion
+- semantic metric governance
+- recommendation and executive insight generation
+- observability, freshness, contracts, and action telemetry
+- executive and commercial serving surfaces
 
-## Analytical System Flow
+Detailed architecture: [docs/architecture.md](./docs/architecture.md)
 
-```mermaid
-flowchart LR
-  A[Data Collection and Ingestion] --> B[Data Cleaning and Preprocessing]
-  B --> C[Analytics Modeling and Feature Engineering]
-  C --> D[Model Training and Evaluation]
-  D --> E[Business Insights and KPI Layer]
-  E --> F[Interactive Dashboard and Decision Support]
-```
+Static blueprint:
+- ![Platform blueprint](./docs/assets/platform-blueprint.svg)
 
-## Monorepo Structure
-
+## Repository Structure
 ```text
 revenue-intelligence-platform-suite/
-|- apps/                     # executive and operational apps
-|- modules/                  # integrated portfolio repositories
-|- platform/                 # platform architecture namespaces
-|- platform_connectors/      # runtime-safe telemetry connectors
-|- platform_observability/   # runtime-safe observability services
-|- packages/common/          # shared contracts and utilities
+|- apps/                     # executive apps, API, and operational surfaces
+|- modules/                  # flagship domain modules and integrated portfolio assets
+|- packages/common/          # contracts, configuration, and productization logic
+|- platform/                 # blueprint-aligned platform namespaces
+|- platform_connectors/      # runtime-safe connectors
+|- platform_observability/   # monitoring and action adoption services
 |- reports/showcase/         # generated showcase artifacts
-|- docs/                     # architecture, governance, proof, releases
-`- tests/                    # root validation and smoke tests
+|- docs/                     # architecture, commercial, governance, and release docs
+`- tests/                    # smoke, contract, and platform validation
 ```
 
-## Core Modules
+## Delivery Model
+- discovery and KPI framing
+- source mapping and contract definition
+- client adaptation by profile and package
+- executive dashboard and API deployment
+- weekly operating cadence with action telemetry
+- quarterly proof, release evidence, and realized-outcome review
 
-- [modules/revenue-intelligence](./modules/revenue-intelligence)
-- [modules/churn-prediction](./modules/churn-prediction)
-- [modules/analise-vendas-python](./modules/analise-vendas-python)
-- [modules/amazon-sales-analysis](./modules/amazon-sales-analysis)
-- [modules/data-senior-analytics](./modules/data-senior-analytics)
+Commercial references:
+- [docs/commercial/executive_one_pager.md](./docs/commercial/executive_one_pager.md)
+- [docs/commercial/client_use_cases.md](./docs/commercial/client_use_cases.md)
+- [docs/commercial/service_packaging.md](./docs/commercial/service_packaging.md)
+- [docs/commercial/pricing_logic.md](./docs/commercial/pricing_logic.md)
+- [docs/commercial/implementation_roadmap.md](./docs/commercial/implementation_roadmap.md)
+- [docs/approval-workflow.md](./docs/approval-workflow.md)
 
-## What Each Module Proves
+Commercial and delivery visuals:
+- ![Delivery motion](./docs/assets/delivery-motion.svg)
+- ![Client solution flow](./docs/assets/client-solution-flow.svg)
 
-| Module | What it proves |
-|---|---|
-| [modules/revenue-intelligence](./modules/revenue-intelligence) | End-to-end revenue retention system design, from KPI board to prioritized executive actions. |
-| [modules/churn-prediction](./modules/churn-prediction) | Churn-risk modeling quality with temporal validation and deployable scoring workflow. |
-| [modules/analise-vendas-python](./modules/analise-vendas-python) | Commercial analytics depth in Python with KPI storytelling for sales leadership. |
-| [modules/amazon-sales-analysis](./modules/amazon-sales-analysis) | Revenue leakage diagnostics and category-level opportunity sizing with reproducible analysis. |
-| [modules/data-senior-analytics](./modules/data-senior-analytics) | Senior analytics framing: translating technical outputs into executive tradeoffs and decisions. |
+## Industry Adaptation Paths
+- SaaS: NRR, churn exposure, expansion motion, lifecycle health
+- Healthtech: lifecycle usage decline, retention exposure, operational revenue leakage
+- Retail and e-commerce: repeat-purchase risk, channel efficiency, recovery campaigns
+- Commercial operations: seller performance, pipeline velocity, margin leakage
+- Recurring service businesses: renewal risk, save actions, account prioritization
 
-## Governance, Quality, and CI/CD
+## Recurring Service Operating Model
+- weekly executive review with KPI board and action register
+- monthly quality and freshness review
+- quarterly release evidence and realized-outcome review
+- ongoing connector expansion and client-specific semantic tuning
 
-- Shared contracts in `packages/common/contracts`
-- Root CI plus per-module validation matrix
-- Executive app smoke testing
-- Observability logs for action adoption events
-- Release workflow and quarterly operating cadence
-- Security and contribution guidance in [SECURITY.md](./SECURITY.md) and [CONTRIBUTING.md](./CONTRIBUTING.md)
+## Demo And Proof Surfaces
+Primary surfaces:
+- `apps/executive-dashboard/app.py`
+- `apps/executive-dashboard/pages/1_Executive_KPI_Board.py`
+- `apps/executive_api/main.py`
 
-## Business Evidence
-
-### Current Operating Baseline
-
-- Current release: `v1.0.0` (March 5, 2026)
-- Release notes: [docs/releases/v1.0.0.md](./docs/releases/v1.0.0.md)
-- Quarterly notes: [docs/releases/2026-Q1.md](./docs/releases/2026-Q1.md)
-
-### Published Deltas
-
-| Release | Published delta | Evidence |
-|---|---|---|
-| `v1.0.0` | Executive prioritization moved from static mock insights to telemetry-backed decisioning; quantified exposure at `$144,490.04` total revenue at risk and `$29,130.33` in top-50 priority accounts. | [docs/releases/v1.0.0.md](./docs/releases/v1.0.0.md), [reports/showcase/summary.json](./reports/showcase/summary.json) |
-| `2026-Q1` | Platform operating baseline established for repeatable quarterly reporting, contracts, CI matrix, and observability logs. Action adoption tracking is live with a first-quarter baseline of `0` recorded events. | [docs/releases/2026-Q1.md](./docs/releases/2026-Q1.md), [reports/showcase/action_adoption_metrics.json](./reports/showcase/action_adoption_metrics.json) |
+Proof visuals:
+- ![Executive board placeholder](./docs/assets/executive-board-placeholder.svg)
+- ![Data quality placeholder](./docs/assets/data-quality-placeholder.svg)
+- ![Solution packages placeholder](./docs/assets/solution-packages-placeholder.svg)
+- ![Governance flow](./docs/assets/governance-flow.svg)
 
 ## Quick Start
-
-### 1. Generate showcase artifacts
-
+Install and validate:
 ```bash
-python scripts/run_showcase_demo.py
+make install
+make lint
+make test
 ```
 
-### 2. Launch the executive app
-
+Core showcase:
 ```bash
-streamlit run apps/executive-dashboard/app.py
+make showcase
+make app
+make api
 ```
 
-### 3. Optional Modern Data Stack demo
+Client-adapted showcase:
+```bash
+CLIENT_PROFILE=healthtech_growth SOLUTION_PACKAGE=retention_intelligence python scripts/run_showcase_demo.py
+```
 
+Local demo stack:
+```bash
+make demo-stack
+make protected-demo-stack
+make google-workspace-demo-stack
+```
+
+Executive and commercial asset generation:
+```bash
+make review-pack
+make proposal-pack PROPOSAL_CLIENT_NAME="Acme Corp"
+make microsite PROPOSAL_CLIENT_NAME="Acme Corp"
+make deal-room PROPOSAL_CLIENT_NAME="Acme Corp" DEAL_NAME="Acme Expansion FY26"
+make approval-pack PROPOSAL_CLIENT_NAME="Acme Corp" DEAL_NAME="Acme Expansion FY26"
+make publish-bundle PROPOSAL_CLIENT_NAME="Acme Corp" DEAL_NAME="Acme Expansion FY26" PUBLISH_BASE_URL="https://demo.example.com"
+make prepare-pages PROPOSAL_CLIENT_NAME="Acme Corp" DEAL_NAME="Acme Expansion FY26" PUBLISH_BASE_URL="https://your-user.github.io/your-repo"
+make sales-bundle PROPOSAL_CLIENT_NAME="Acme Corp" DEAL_NAME="Acme Expansion FY26"
+make gtm-exports PROPOSAL_CLIENT_NAME="Acme Corp" DEAL_NAME="Acme Expansion FY26"
+make evidence-pack RELEASE_TAG=v1.0.0
+```
+
+Industry demo and benchmark generation:
+```bash
+make industry-packs
+make benchmark
+```
+
+Modern data stack helpers:
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\modules\revenue-intelligence\scripts\run_modern_data_stack_demo.ps1
-```
-
-### 4. Recommended local setup
-
-```powershell
 powershell -ExecutionPolicy Bypass -File .\modules\revenue-intelligence\scripts\setup_envs.ps1
 ```
 
-### 5. dbt local helper
-
-```powershell
-powershell -ExecutionPolicy Bypass -File .\modules\revenue-intelligence\scripts\run_dbt_local.ps1 -Target ci -WithTests
-```
-
-## Main Outputs
-
+## Expected Outputs
 - `reports/showcase/summary.json`
-- `reports/showcase/enterprise_telemetry.sqlite`
+- `reports/showcase/solution_profile.json`
+- `reports/showcase/data_quality_scorecard.json`
+- `reports/showcase/executive_insights.json`
 - `reports/showcase/top_actions.csv`
-- `reports/showcase/drift_report.json`
-- `reports/showcase/action_adoption_metrics.json`
+- `dist/executive-review-pack/`
+- `dist/client-proposal-pack/`
+- `dist/client-microsite/`
+- `dist/deal-rooms/<deal-slug>/`
+- `dist/deal-rooms/<deal-slug>/approvals/`
+- `dist/deal-rooms/<deal-slug>/publication/`
+- `dist/github-pages/<deal-slug>/`
+- `dist/deal-rooms/<deal-slug>/sales-enablement/`
+- `dist/deal-rooms/<deal-slug>/sales-enablement/exports/`
+- `dist/release-evidence-pack-<tag>.tar.gz`
+- `dist/industry-demo-packs/<profile>/`
+- `dist/benchmarks/industry_benchmark.csv`
 
-## Evidence and Documentation
+## Technology Baseline
+- Python with Pandas, scikit-learn, Streamlit, FastAPI, Pandera, Prefect, and MLflow
+- dbt project inside `modules/revenue-intelligence/dbt`
+- contract validation in `packages/common/contracts`
+- semantic metric catalog in `config/semantic_metrics.json`
+- telemetry connectors for SQLite and DuckDB
+- monitoring and action adoption tracking in `platform_observability`
 
+## Governance And GenAI
+Executive insight generation is implemented as a controlled, auditable layer:
+- deterministic fallback instead of gimmick chat UX
+- outputs generated from validated metrics and thresholds
+- prompts, rules, and artifacts persisted for review
+- governed usage documented in [docs/genai-governance.md](./docs/genai-governance.md)
+
+Key governance docs:
+- [docs/README.md](./docs/README.md)
+- [docs/commands-reference.md](./docs/commands-reference.md)
 - [docs/proof.md](./docs/proof.md)
 - [docs/executive-brief.md](./docs/executive-brief.md)
 - [docs/kpi-scorecard.md](./docs/kpi-scorecard.md)
+- [docs/semantic-metric-layer.md](./docs/semantic-metric-layer.md)
+- [docs/privacy-and-lgpd-policy.md](./docs/privacy-and-lgpd-policy.md)
+- [docs/data-retention-matrix.md](./docs/data-retention-matrix.md)
+- [docs/client-data-onboarding-template.md](./docs/client-data-onboarding-template.md)
+- [docs/tenant-secrets.md](./docs/tenant-secrets.md)
+- [docs/sso.md](./docs/sso.md)
 - [docs/governance-raci.md](./docs/governance-raci.md)
 - [docs/compliance-checklist.md](./docs/compliance-checklist.md)
-- [docs/dbt-docs-publishing.md](./docs/dbt-docs-publishing.md)
+- [LICENSE](./LICENSE)
+- [NOTICE](./NOTICE)
 
-Published dbt docs URL: https://samuelmaia-analytics.github.io/revenue-intelligence-platform-suite/
+## Tenant Secrets And Client Isolation
+The platform now includes a tenant-aware secrets layer with masked readiness reporting:
+- template-driven secret requirements in `config/secrets/templates/`
+- real secret paths ignored by Git
+- per-client and per-environment secret resolution
+- masked readiness output in `reports/showcase/tenant_secret_status.json`
+- API visibility through `/profiles/{profile_id}/secret-status`
 
-## Where to Click in the App
+Validation:
+```bash
+make tenant-secrets-check
+CLIENT_PROFILE=healthtech_growth DEPLOYMENT_ENV=production make tenant-secrets-check
+```
 
-- Open `Executive KPI Board`
-- Review `Leadership Actions This Week`
-- Use `Action Adoption Monitoring` to log outcomes by `action_id`
+## Release And Roadmap
+- Current release: `v1.0.0`
+- Quarterly notes: [docs/releases/2026-Q1.md](./docs/releases/2026-Q1.md)
+- Productization backlog: [docs/productization-roadmap.md](./docs/productization-roadmap.md)
+- Docker guide: [docs/docker-compose.md](./docs/docker-compose.md)
+- Release evidence: [docs/release-evidence-pack.md](./docs/release-evidence-pack.md)
 
-## Next Milestones
-
-1. Replace the SQLite mock with live enterprise warehouse or API connectors.
-2. Add automated drift monitoring for model and KPI quality.
-3. Publish action-outcome deltas with accepted and in-progress adoption evidence.
+## Why This Strengthens Commercial Positioning
+This repository now behaves like a sellable analytics platform template because it combines:
+- executive problem framing
+- multi-client and white-label configuration
+- governed KPI and semantic metric definitions
+- reusable delivery assets for proposals, reviews, and deal rooms
+- operational proof for recurring-service delivery

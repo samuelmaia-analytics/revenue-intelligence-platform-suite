@@ -1,172 +1,57 @@
-> This repository is part of the **Revenue-Intelligence-Platform-Suite**
-> Main platform: ../../README.md
+# Revenue Intelligence Platform
 
-# Revenue Intelligence Platform - Executive Analytics & ML System
+Revenue Intelligence Platform is a portfolio-grade revenue analytics case built to show how analytics engineering, business semantics, predictive modeling, and executive storytelling can work together in one product. It transforms customer behavior, transaction history, and marketing spend into a commercial decision system for growth and retention.
 
-[![Python](https://img.shields.io/badge/Python-3.11-3776AB?logo=python&logoColor=white)](https://www.python.org/)
-[![Streamlit](https://img.shields.io/badge/Streamlit-1.43-FF4B4B?logo=streamlit&logoColor=white)](https://streamlit.io/)
-[![scikit-learn](https://img.shields.io/badge/scikit--learn-1.6-F7931E?logo=scikitlearn&logoColor=white)](https://scikit-learn.org/)
-[![Docker](https://img.shields.io/badge/Docker-ready-2496ED?logo=docker&logoColor=white)](https://www.docker.com/)
-[![License](https://img.shields.io/badge/License-MIT-black.svg)](LICENSE)
+## At A Glance
+| Area | Summary |
+|---|---|
+| Primary use case | Revenue command layer for growth, retention, and executive review |
+| Core strengths | Semantic metrics, predictive scoring, layered pipeline, executive storytelling |
+| Primary buyers | CRO, RevOps, Customer Success leadership, strategy teams |
+| Platform role | Flagship module for `Revenue Command Center` |
 
-## Language
-- English: [README.md](README.md)
-- Portugues (BR): [README.pt-BR.md](README.pt-BR.md)
-- Portugues (PT): [README.pt-PT.md](README.pt-PT.md)
+## Why This Project Matters
 
-## Product Preview
+Most analytics projects stop at dashboards or notebooks. This one is intentionally positioned as a more senior implementation:
 
-![Executive Overview](docs/assets/executive-overview.svg)
-![Action List](docs/assets/action-list.svg)
+- clear separation between ingestion, transformation, semantic modeling, orchestration, and presentation
+- reusable KPI definitions instead of logic duplicated across reports and UI
+- data quality checks and structured logging as first-class concerns
+- an executive-facing application built on top of prepared analytical artifacts
 
-## What Problem It Solves
+The result is not just an analysis. It is a decision product.
 
-- Commercial teams need one prioritized view of who to retain, upsell, or deprioritize.
-- Finance and growth need transparent unit economics (`LTV/CAC`) by channel to reallocate spend fast.
-- Leadership needs a single weekly board pack with KPI trends, risk signals, and top actions.
+## Business Context
 
-## Summary
+Commercial and revenue teams usually need fast answers to a few recurring questions:
 
-- [Product Preview](#product-preview)
-- [What Problem It Solves](#what-problem-it-solves)
-- [Live App](#live-app)
-- [Executive Summary](#executive-summary)
-- [Business Outcomes](#business-outcomes)
-- [Scope and Capabilities](#scope-and-capabilities)
-- [Architecture](#architecture)
-- [Modern Data Stack Architecture](#modern-data-stack-architecture)
-- [Data Lineage](#data-lineage)
-- [Repository Structure](#repository-structure)
-- [Data Source](#data-source)
-- [Star Schema (Gold)](#star-schema-gold)
-- [SQL Organization](#sql-organization)
-- [Local Run (Windows / PowerShell)](#local-run-windows--powershell)
-- [One-Command Demo](#one-command-demo)
-- [CLI](#cli)
-- [Engineering Quality](#engineering-quality)
-- [CI](#ci)
-- [Docker](#docker)
-- [Main Outputs](#main-outputs)
-- [Streamlit Cloud](#streamlit-cloud)
+- Where is revenue growing, slowing down, or leaking?
+- Which acquisition channels are efficient enough to keep funding?
+- Which customer segments show the highest churn exposure?
+- Which accounts deserve retention, upsell, nurture, or spend reduction actions first?
 
-## Live App
+This project consolidates those questions into a reproducible pipeline and an executive decision layer.
 
-Streamlit Cloud:
-- https://revenue-intelligence-platform.streamlit.app/
+## What The Product Delivers
 
-## Executive Summary
-
-Revenue Intelligence Platform is an end-to-end decision system that converts customer behavior data into commercial priorities.
-
-This version includes a mature layered data architecture (`raw -> bronze -> silver -> gold`) with a formal Star Schema and structured SQL domains for analytics.
-It also includes a Modern Data Stack path (`python ingestion -> warehouse -> dbt -> analytics layer -> Streamlit`).
+- executive visibility into `Revenue`, `Growth Rate`, `ARPU`, `Retention`, and `Churn`
+- channel-level unit economics using `CAC`, `LTV`, `LTV/CAC`, contribution margin, and payback
+- customer prioritization with modeled churn risk and next-purchase propensity
+- simulated business impact for recommended commercial actions
+- an application flow designed for leadership review, not analyst-only exploration
 
 ## Business Outcomes
+- faster weekly and monthly revenue reviews with fewer KPI definition disputes
+- clearer prioritization of retention and channel-allocation decisions
+- reusable semantic definitions that reduce rework across dashboards and reports
+- stronger executive trust because analytics outputs are prepared, validated, and narratively framed
 
-- Prioritized customer action list with estimated financial impact
-- Channel efficiency visibility with `LTV/CAC` and unit economics
-- Customer-level churn risk and next purchase probability
-- Executive narrative for weekly business reviews
+## Architecture Decisions
 
-## Business Questions Answered
-
-- What is the monthly recurring revenue trend across channels and segments?
-- Which marketing channels drive the highest lifetime value efficiency?
-- Which customers are at highest risk of churn right now?
-- How efficient is acquisition spend versus customer value generated?
-
-## Scope and Capabilities
-
-- Data ingestion from Kaggle source with synthetic fallback
-- Layered pipeline: raw, bronze, silver, gold
-- Feature engineering and customer-level scoring
-- Star schema outputs for analytics interoperability
-- KPI layer: LTV, CAC, RFM, Cohort Retention, Unit Economics
-- ML layer: churn + next purchase prediction
-- Recommendation engine for next best action
-- Executive Streamlit dashboard with governance and exports
-  (`Executive Overview`, `Risk & Growth`, `Action List`)
-- Structured SQL domains (`ddl/` and `analytics/`)
-
-## Architecture
-
-```mermaid
-flowchart LR
-    A[Kaggle Source Dataset] --> B[Raw Layer]
-    B --> C[Bronze - auditable ingestion]
-    C --> D[Silver - cleaning and standardization]
-    D --> E[Gold - Star Schema]
-    E --> F[Analytics Layer]
-    E --> G[ML Layer]
-    G --> H[Recommendation Engine]
-    F --> I[Executive Dashboard]
-    H --> I
-    I --> J[Docker / Cloud Deployment]
-```
-
-## Modern Data Stack Architecture
-
-```mermaid
-flowchart LR
-    DS[data_sources] --> PI[python ingestion]
-    PI --> WH[BigQuery or Snowflake]
-    WH --> DBT[dbt models<br/>staging -> intermediate -> marts]
-    DBT --> AL[analytics layer]
-    AL --> ST[Streamlit dashboards]
-```
-
-### What was added
-
-- `dbt/` project with layered models (`staging`, `intermediate`, `marts`)
-- Optional warehouse loader in Python pipeline for `BigQuery` and `Snowflake`
-- Configurable runtime via environment variables for warehouse target and credentials
-
-## Data Lineage
-
-```mermaid
-flowchart TB
-    subgraph R[Raw]
-        R1[customers.csv]
-        R2[orders.csv]
-        R3[marketing_spend.csv]
-    end
-
-    subgraph B[Bronze]
-        B1[bronze_customers.csv]
-        B2[bronze_orders.csv]
-        B3[bronze_marketing_spend.csv]
-    end
-
-    subgraph S[Silver]
-        S1[silver_customers.csv]
-        S2[silver_orders.csv]
-        S3[silver_marketing_spend.csv]
-    end
-
-    subgraph G[Gold]
-        G1[dim_customers.csv]
-        G2[dim_date.csv]
-        G3[dim_channel.csv]
-        G4[fact_orders.csv]
-    end
-
-    subgraph P[Processed]
-        P1[scored_customers.csv]
-        P2[recommendations.csv]
-        P3[executive_report.json]
-        P4[business_outcomes.json]
-        P5[top_10_actions.csv]
-    end
-
-    R --> B --> S --> G
-    S --> P
-    G --> P
-```
-
-## Repository Structure
+The project is organized with a layered analytics-engineering structure:
 
 ```text
-revenue-intelligence-platform/
+modules/revenue-intelligence/
 |- app/
 |  \- streamlit_app.py
 |- data/
@@ -175,264 +60,169 @@ revenue-intelligence-platform/
 |  |- silver/
 |  |- gold/
 |  \- processed/
-|- notebooks/
+|- docs/
+|  \- architecture.md
+|- logs/
 |- src/
-|- sql/
-|  |- ddl/
-|  \- analytics/
-|- dbt/
-|  |- models/staging/
-|  |- models/intermediate/
-|  \- models/marts/
+|  |- analytics/
+|  |- core/
+|  |- dashboard/
+|  |- ingestion/
+|  |- models/
+|  |- orchestration/
+|  |- quality/
+|  |- transform/
+|  |- config.py
+|  |- metrics.py
+|  \- pipeline.py
+|- tests/
+|- .env.example
 |- main.py
-|- requirements.txt
-|- requirements-dev.txt
-|- requirements-dbt.txt
-|- requirements-warehouse.txt
-|- pytest.ini
-|- Dockerfile
-|- README.md
-\- README.pt-BR.md
+|- run_pipeline.py
+\- README.md
 ```
 
-## Data Source
+Detailed architecture: [docs/architecture.md](/C:/Users/samue/PycharmProjects/revenue-intelligence-platform-suite/modules/revenue-intelligence/docs/architecture.md)
 
-Primary file:
-- `data/raw/E-commerce Customer Behavior - Sheet1.csv`
+Key design choices:
 
-Source:
-- Kaggle dataset: `E-commerce Customer Behavior Dataset`
+- `src/analytics/semantic_layer.py` centralizes KPI definitions and business formulas
+- `src/quality/validation.py` enforces required columns, null checks, duplicate checks, and consistency
+- `src/orchestration/pipeline.py` coordinates the end-to-end pipeline with stage-level logs
+- `src/dashboard/service.py` keeps analytical logic out of Streamlit
+- `app/streamlit_app.py` is intentionally focused on executive consumption and narrative
 
-Automatically mapped into:
-- `customers.csv`
-- `orders.csv`
-- `marketing_spend.csv`
+## Key Metrics
 
-Then normalized into:
-- `data/bronze/*.csv`
-- `data/silver/*.csv`
-- `data/gold/dim_*.csv` and `data/gold/fact_*.csv`
+Business definitions are centralized in the semantic layer:
 
-## Star Schema (Gold)
+- `Revenue`: total order value generated by the portfolio
+- `Growth Rate`: period-over-period revenue variation
+- `ARPU`: average revenue per active customer
+- `Retention`: active customers divided by cohort size
+- `Churn`: `1 - retention` or predicted churn risk depending on the view
+- `LTV`: expected lifetime value derived from ARPU, churn, and margin assumptions
+- `CAC`: acquisition cost by channel
+- `LTV/CAC`: efficiency indicator for capital allocation
 
-- Dimensions: `dim_date`, `dim_customers`, `dim_channel`
-- Fact: `fact_orders`
-- Standardized measures: `order_amount`, `order_count`
+This is one of the strongest seniority upgrades in the project because it removes KPI ambiguity and makes the business layer reusable.
 
+## End-to-End Flow
+
+1. Ingestion reads the Kaggle source or creates deterministic synthetic fallback data.
+2. Bronze stores auditable raw copies with ingestion metadata.
+3. Silver standardizes schema and validates quality rules.
+4. Feature engineering prepares customer-level analytical attributes.
+5. Gold publishes a star schema for downstream analytical use.
+6. Modeling scores churn and next-purchase probability.
+7. The semantic layer computes KPIs, unit economics, and action prioritization.
+8. Streamlit reads prepared artifacts through a backend service layer.
+
+## Architecture Flow
 ```mermaid
-erDiagram
-    DIM_CUSTOMERS ||--o{ FACT_ORDERS : customer_id
-    DIM_DATE ||--o{ FACT_ORDERS : date_key
-    DIM_CHANNEL ||--o{ FACT_ORDERS : channel_key
-
-    DIM_CUSTOMERS {
-        int customer_id PK
-        date signup_date
-        string channel
-        string segment
-    }
-
-    DIM_DATE {
-        int date_key PK
-        date date
-        int year
-        int month
-        int week_of_year
-        string day_of_week
-    }
-
-    DIM_CHANNEL {
-        int channel_key PK
-        string channel
-    }
-
-    FACT_ORDERS {
-        string order_id PK
-        int customer_id FK
-        int channel_key FK
-        int date_key FK
-        date order_date
-        float order_amount
-        int order_count
-    }
+flowchart LR
+  A[Ingestion] --> B[Bronze]
+  B --> C[Silver]
+  C --> D[Gold]
+  D --> E[Semantic Layer]
+  E --> F[Scoring And Prioritization]
+  F --> G[Executive App]
 ```
 
-## SQL Organization
+## Executive App Flow
 
-- `sql/ddl/`: schema creation scripts per table/domain
-- `sql/analytics/`: executive queries (revenue KPIs, channel efficiency, churn watchlist)
-- `sql/create_tables.sql`: consolidated bootstrap script
+The dashboard is organized as a leadership review flow:
 
-## Local Run (Windows / PowerShell)
+1. `Overview`: revenue posture, action mix, and channel efficiency
+2. `Trend`: revenue trend, ARPU trend, and cohort retention
+3. `Segmentation`: churn by segment, purchase propensity by channel, portfolio map
+4. `Insights`: top opportunities, simulated business impact, prioritized action list
+
+This structure makes the project stronger as a portfolio case because it demonstrates not only analysis, but also narrative design for decision-making.
+
+## Local Execution
 
 ```powershell
 py -3.11 -m venv .venv
 .\.venv\Scripts\activate
 python -m pip install --upgrade pip
 python -m pip install -r requirements.txt
-python main.py
+Copy-Item .env.example .env
+python run_pipeline.py
 python -m streamlit run .\app\streamlit_app.py
 ```
 
-Recommended setup (separate envs for app and dbt):
-
-```powershell
-powershell -ExecutionPolicy Bypass -File .\scripts\setup_envs.ps1
-```
-
-- app/pipeline env: `.venv`
-- dbt env: `.venv-dbt`
-
-Environment overrides:
-- `RIP_DATA_DIR`
-- `RIP_SEED`
-- `RIP_LOG_LEVEL`
-- `RIP_APP_LANG_MODE` (`bilingual` or `international`)
-- `RIP_WAREHOUSE_PROVIDER` (`none`, `bigquery`, `snowflake`)
-- `RIP_WAREHOUSE_DATASET`
-- `RIP_WAREHOUSE_SCHEMA`
-- `RIP_BQ_PROJECT`, `RIP_BQ_LOCATION`
-- `RIP_SF_ACCOUNT`, `RIP_SF_USER`, `RIP_SF_PASSWORD`, `RIP_SF_WAREHOUSE`, `RIP_SF_DATABASE`, `RIP_SF_ROLE`
-
-## One-Command Demo
-
-Run end-to-end with one command:
-
-```powershell
-powershell -ExecutionPolicy Bypass -File .\scripts\run_modern_data_stack_demo.ps1
-```
-
-Run with BigQuery + dbt:
-
-```powershell
-powershell -ExecutionPolicy Bypass -File .\scripts\run_modern_data_stack_demo.ps1 -Target bigquery -RunDbt
-```
-
-Run with Snowflake + dbt:
-
-```powershell
-powershell -ExecutionPolicy Bypass -File .\scripts\run_modern_data_stack_demo.ps1 -Target snowflake -RunDbt
-```
-
-Notes:
-- The script uses `.venv` for app/pipeline and `.venv-dbt` for dbt.
-- For `-RunDbt`, it creates `dbt/profiles.yml` from `profiles.yml.example` when missing.
-- For warehouse targets, required credentials must be exported as environment variables.
-
-## dbt Models
-
-Install:
-
-```powershell
-powershell -ExecutionPolicy Bypass -File .\scripts\setup_envs.ps1
-```
-
-Run:
-
-```powershell
-powershell -ExecutionPolicy Bypass -File .\scripts\run_dbt_local.ps1 -Target ci -WithTests
-```
-
-Snowflake target:
-
-```powershell
-powershell -ExecutionPolicy Bypass -File .\scripts\run_dbt_local.ps1 -Target snowflake -WithTests
-```
-
-Documentation and quality checks in dbt:
-- model and column descriptions are declared in schema YAML files
-- core data tests include `not_null`, `unique`, `relationships`, and `accepted_values`
-
-dbt docs publish:
-- Workflow: `.github/workflows/dbt-docs.yml`
-- Output: GitHub Pages (lineage + model docs)
-- Setup guide: `docs/dbt-docs-publishing.md`
-- Published URL: `https://samuelmaia-analytics.github.io/revenue-intelligence-platform-suite/`
-- CI guardrail: `dbt-parse` job in `.github/workflows/ci.yml`
-
-## CLI
+Alternative CLI:
 
 ```powershell
 python -m src.pipeline run
 python -m src.pipeline run --seed 123 --log-level DEBUG
 ```
 
-## Engineering Quality
+## Reliability And Engineering Quality
 
-```powershell
-.\.venv\Scripts\python.exe -m pip install -r requirements-dev.txt
-.\.venv\Scripts\python.exe -m black .
-.\.venv\Scripts\python.exe -m ruff check . --fix
-.\.venv\Scripts\python.exe -m pytest -q
-pre-commit install
-pre-commit run --all-files
-```
+The refactored version adds the controls expected in a professional analytics project:
 
-Current quality gates:
-- `tests/test_output_contract.py` validates output file generation and minimum Gold schema columns.
-- `main.py` bootstraps pipeline execution with `PipelineConfig.from_env(...)` for deterministic runtime settings.
+- structured JSON logging by pipeline stage in `logs/pipeline.log`
+- centralized runtime configuration through environment variables
+- quality validation for required columns, nulls, duplicates, and referential consistency
+- tests for semantic KPIs, transformations, reporting outputs, and contracts
+- separation between analytical backend and presentation layer
 
-## Docker
+Reference config: [.env.example](/C:/Users/samue/PycharmProjects/revenue-intelligence-platform-suite/modules/revenue-intelligence/.env.example)
 
-```bash
-docker build -t revenue-intelligence .
-docker run -p 8501:8501 revenue-intelligence
-```
+## Results
 
-## Main Outputs
+Core generated outputs:
 
 - `data/processed/scored_customers.csv`
 - `data/processed/recommendations.csv`
 - `data/processed/cohort_retention.csv`
 - `data/processed/unit_economics.csv`
-- `data/processed/executive_report.json` (main app report with KPIs, model metrics and top 20 actions)
-- `data/processed/executive_summary.json` (compact executive summary)
-- `data/processed/business_outcomes.json` (business KPIs, LTV/CAC by channel and baseline-vs-scenario simulation)
-- `data/processed/top_10_actions.csv` (top 10 prioritized actions with uplift, cost, net impact and simulated ROI)
-- `data/processed/metrics_report.json` (auxiliary ML metrics artifact)
-- `data/processed/dim_customers.csv`
-- `data/processed/dim_date.csv`
-- `data/processed/dim_channel.csv`
-- `data/processed/fact_orders.csv`
+- `data/processed/business_outcomes.json`
+- `data/processed/executive_report.json`
+- `data/processed/top_10_actions.csv`
+- `data/processed/data_quality_report.json`
 
-## Streamlit Cloud
+## Portfolio Positioning
 
-- Main file path: `app/streamlit_app.py`
-- Dependency file: `requirements.txt`
-- Kaggle CSV is versioned in `data/raw/` for deterministic cloud runs
-- App language mode:
-  - `RIP_APP_LANG_MODE=bilingual`: language switcher with `Portuguese (BR)` and `International (EN)`
-  - `RIP_APP_LANG_MODE=international`: app locked to English only
+This project is strongest when presented as:
 
-## CI
+- an analytics engineering case with layered data architecture
+- a revenue analytics case with clear business semantics
+- a decision-support product with predictive scoring and prioritization
+- a demonstration of seniority through structure, robustness, and executive communication
 
-GitHub Actions workflow at `.github/workflows/ci.yml` runs:
-- `pip check` (dependency consistency)
-- `ruff`
-- `black --check`
-- `pytest -q`
+## Role, Trade-Offs, And Next Steps
 
-Pipeline hardening:
-- pip cache enabled via `actions/setup-python`
-- `concurrency` enabled (`cancel-in-progress: true`)
-- minimal workflow permissions (`contents: read`)
+### Role Framing
 
-```mermaid
-flowchart LR
-    A[checkout] --> B[setup-python 3.11 + pip cache]
-    B --> C[install requirements]
-    C --> D[pip check]
-    D --> E[ruff]
-    E --> F[black --check]
-    F --> G[pytest -q]
-```
+This project can be presented as the work of someone operating across analytics engineering, applied analytics, and product thinking:
 
-## Where it fits in the platform
-- Layer: App + ML + Serving
-- Inputs: CRM/ERP extracts, sales transactions, marketing spend, customer behavior events
-- Outputs: Executive dashboards, prioritized action lists, revenue intelligence metrics and model scores
+- structuring the pipeline and analytical layers
+- defining reusable business metrics
+- adding quality and observability controls
+- separating backend analytics from presentation
+- translating analytical outputs into an executive narrative
 
+### Main Technical Decisions
 
+- keep the pipeline modular so each layer has a clear responsibility
+- centralize business logic in a semantic layer instead of duplicating formulas
+- validate data before downstream analytics and scoring
+- treat logging and reproducibility as part of the product, not as optional extras
+- keep Streamlit focused on consumption, filtering, and storytelling
 
+### Trade-Offs
 
+- the project favors clarity and reproducibility over heavy infrastructure complexity
+- the semantic layer is implemented in Python for accessibility, even though it could later evolve into dbt or warehouse-native metrics
+- the modeling layer is intentionally pragmatic and interpretable rather than optimized for maximum experimentation depth
 
+### Next Steps
+
+- publish curated screenshots or a short walkthrough GIF of the executive app
+- add benchmark scenarios for retention and channel reallocation decisions
+- extend the semantic layer to warehouse-native models and dbt tests
+- add CI artifacts for data quality and model monitoring outputs
+- expose the top decisions in an API or scheduled executive report

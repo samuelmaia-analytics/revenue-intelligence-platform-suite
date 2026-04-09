@@ -31,9 +31,11 @@ Do not open public issues for sensitive vulnerabilities.
 - Keep dependencies updated and pinned where possible.
 - Restrict datasets to anonymized/sanitized samples in-repo.
 - Review CI workflows for least-privilege permissions.
+- Validate governance, compliance, and repository control files in CI.
 
 ## Data Handling
 
 - PII should not be committed to this repository.
 - Any customer-like data must be anonymized before local or CI usage.
 - Contracts and quality checks should reject invalid/sensitive payloads where applicable.
+- Client-facing artifacts such as proposal packs, deal rooms, and GTM exports should remain free of raw personal data.

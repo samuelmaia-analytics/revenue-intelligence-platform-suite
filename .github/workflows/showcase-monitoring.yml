@@ -33,12 +33,17 @@ jobs:
         env:
           TELEMETRY_BACKEND: ${{ matrix.telemetry_backend }}
         run: python scripts/run_showcase_demo.py
+      - name: Validate showcase monitoring artifacts
+        run: python scripts/validate_showcase_artifacts.py
       - name: Upload monitoring artifacts
         uses: actions/upload-artifact@v4
         with:
           name: showcase-monitoring-${{ matrix.telemetry_backend }}
           path: |
             reports/showcase/summary.json
+            reports/showcase/solution_profile.json
+            reports/showcase/data_quality_scorecard.json
+            reports/showcase/executive_insights.json
             reports/showcase/monthly_revenue.csv
             reports/showcase/top_actions.csv
             reports/showcase/drift_report.json

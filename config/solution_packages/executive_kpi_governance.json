@@ -1,0 +1,6 @@
+{
+  "package_id": "executive_kpi_governance",
+  "display_name": "Executive KPI Governance",
+  "primary_modules": ["kpi_targets", "quality_scorecard", "governance_view"],
+  "delivery_model": "Semantic KPI governance + scorecards"
+}

@@ -4,16 +4,20 @@
 
 Define who is accountable for business outcomes and who operates each platform domain.
 
+Related governance flow: [docs/diagrams/governance-flow.md](./diagrams/governance-flow.md)
+
 ## RACI Matrix
 
 | Domain | Responsible (R) | Accountable (A) | Consulted (C) | Informed (I) |
 |---|---|---|---|---|
 | Executive KPI scorecard | Analytics Eng | Revenue Lead | Retention Lead, Growth Lead | Stakeholders |
 | Data contracts and schema changes | Data Platform | Data Platform | Analytics Eng, ML Lead | Stakeholders |
+| Privacy and LGPD compliance review | Data Platform | Executive Sponsor | Legal/Privacy, Analytics Eng | Stakeholders |
 | Churn model lifecycle | ML Lead | Retention Lead | Data Platform, CRM Ops | Stakeholders |
 | Recommendation playbooks | CRM Ops | Growth Lead | Revenue Lead, ML Lead | Stakeholders |
 | Pipeline orchestration reliability | Data Platform | Data Platform | Analytics Eng | Stakeholders |
 | Executive dashboard narrative | Analytics Eng | Revenue Lead | Growth Lead | Stakeholders |
+| Proposal, deal-room, and sales-enablement outputs | Analytics Eng | Revenue Lead | Growth Lead, RevOps | Stakeholders |
 
 ## Ownership by Repository Area
 
@@ -31,4 +35,5 @@ Define who is accountable for business outcomes and who operates each platform d
 
 1. Owner triage within 24h.
 2. Data Platform/ML review for technical incidents.
-3. Revenue Lead decision for scope and priority conflicts.
+3. Executive sponsor or privacy/legal review for compliance incidents.
+4. Revenue Lead decision for scope and priority conflicts.

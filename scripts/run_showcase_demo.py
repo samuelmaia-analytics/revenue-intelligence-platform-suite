@@ -10,6 +10,14 @@ import pandas as pd
 ROOT = Path(__file__).resolve().parents[1]
 
 try:
+    from common import (
+        build_data_quality_scorecard,
+        build_recommended_actions,
+        build_tenant_secret_status,
+        build_solution_profile,
+        generate_executive_insight_report,
+        load_solution_configuration,
+    )
     from common.contracts import validate_contract
     from platform_connectors import (
         DuckDBTelemetryConnector,
@@ -23,6 +31,14 @@ except ModuleNotFoundError:
         sys.path.insert(0, str(ROOT))
     if str(ROOT / "packages") not in sys.path:
         sys.path.insert(0, str(ROOT / "packages"))
+    from common import (
+        build_data_quality_scorecard,
+        build_recommended_actions,
+        build_tenant_secret_status,
+        build_solution_profile,
+        generate_executive_insight_report,
+        load_solution_configuration,
+    )
     from common.contracts import validate_contract
     from platform_connectors import (
         DuckDBTelemetryConnector,
@@ -41,6 +57,9 @@ OUTPUT_DIR = ROOT / "reports" / "showcase"
 TELEMETRY_DB_PATH = OUTPUT_DIR / "enterprise_telemetry.sqlite"
 TELEMETRY_DUCKDB_PATH = OUTPUT_DIR / "enterprise_telemetry.duckdb"
 TELEMETRY_BACKEND = os.getenv("TELEMETRY_BACKEND", "sqlite").strip().lower()
+CLIENT_PROFILE = os.getenv("CLIENT_PROFILE", "saas_b2b").strip().lower()
+DEPLOYMENT_ENV = os.getenv("DEPLOYMENT_ENV", "showcase").strip().lower()
+SOLUTION_PACKAGE = os.getenv("SOLUTION_PACKAGE", "revenue_command_center").strip().lower()
 
 
 def build_risk_score(df: pd.DataFrame) -> pd.DataFrame:
@@ -71,6 +90,11 @@ def build_risk_score(df: pd.DataFrame) -> pd.DataFrame:
 
 def main() -> None:
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    solution_config = load_solution_configuration(
+        client_profile=CLIENT_PROFILE,
+        deployment_env=DEPLOYMENT_ENV,
+        solution_package=SOLUTION_PACKAGE,
+    )
 
     sales_df = pd.read_csv(SALES_PATH)
     sales_df["ORDERDATE"] = pd.to_datetime(sales_df["ORDERDATE"], errors="coerce")
@@ -122,6 +146,35 @@ def main() -> None:
     monthly_revenue.to_csv(OUTPUT_DIR / "monthly_revenue.csv", index=False)
     top_actions.to_csv(OUTPUT_DIR / "top_actions.csv", index=False)
     monitoring = write_monitoring_outputs(OUTPUT_DIR, monthly_revenue)
+    solution_profile = build_solution_profile(
+        client_name=solution_config.get("client_name", "Flagship Demo Client"),
+        industry=solution_config.get("industry", "SaaS"),
+        deployment_env=DEPLOYMENT_ENV,
+        package_id=SOLUTION_PACKAGE,
+        telemetry_backend=TELEMETRY_BACKEND,
+        configuration=solution_config,
+        profile_id=CLIENT_PROFILE,
+    )
+    quality_scorecard = build_data_quality_scorecard(
+        summary=summary,
+        monthly_revenue=monthly_revenue,
+        risk_df=risk_df,
+        model_metrics=model_metrics,
+        customer_file_path=CUSTOMER_PATH,
+        sales_file_path=SALES_PATH,
+    )
+    recommended_actions = build_recommended_actions(top_actions)
+    executive_insights = generate_executive_insight_report(
+        summary=summary,
+        scorecard=quality_scorecard,
+        recommended_actions=recommended_actions,
+        package_id=SOLUTION_PACKAGE,
+        thresholds=solution_config.get("thresholds"),
+    )
+    tenant_secret_status = build_tenant_secret_status(
+        client_profile=CLIENT_PROFILE,
+        deployment_env=DEPLOYMENT_ENV,
+    )
 
     errors = validate_contract(summary, "showcase_summary.schema.json")
     if errors:
@@ -129,11 +182,23 @@ def main() -> None:
 
     with (OUTPUT_DIR / "summary.json").open("w", encoding="utf-8") as fp:
         json.dump(summary, fp, indent=2)
+    with (OUTPUT_DIR / "solution_profile.json").open("w", encoding="utf-8") as fp:
+        json.dump(solution_profile, fp, indent=2)
+    with (OUTPUT_DIR / "data_quality_scorecard.json").open("w", encoding="utf-8") as fp:
+        json.dump(quality_scorecard, fp, indent=2)
+    with (OUTPUT_DIR / "executive_insights.json").open("w", encoding="utf-8") as fp:
+        json.dump(executive_insights, fp, indent=2)
+    with (OUTPUT_DIR / "tenant_secret_status.json").open("w", encoding="utf-8") as fp:
+        json.dump(tenant_secret_status, fp, indent=2)
 
     print("Showcase demo artifacts generated:")
     print(f"- {OUTPUT_DIR / 'monthly_revenue.csv'}")
     print(f"- {OUTPUT_DIR / 'top_actions.csv'}")
     print(f"- {OUTPUT_DIR / 'summary.json'}")
+    print(f"- {OUTPUT_DIR / 'solution_profile.json'}")
+    print(f"- {OUTPUT_DIR / 'data_quality_scorecard.json'}")
+    print(f"- {OUTPUT_DIR / 'executive_insights.json'}")
+    print(f"- {OUTPUT_DIR / 'tenant_secret_status.json'}")
     print(f"- {telemetry_artifact}")
     print(f"- {OUTPUT_DIR / 'drift_report.json'}")
     print(f"- {OUTPUT_DIR / 'action_adoption_metrics.json'}")

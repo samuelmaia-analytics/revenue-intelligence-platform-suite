@@ -1,0 +1,11 @@
+{
+  "title": "action_adoption_event.v1",
+  "type": "object",
+  "required": ["action_id", "timestamp", "outcome", "metadata"],
+  "properties": {
+    "action_id": { "type": "string" },
+    "timestamp": { "type": "string" },
+    "outcome": { "type": "string" },
+    "metadata": { "type": "object" }
+  }
+}

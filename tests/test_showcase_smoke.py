@@ -115,13 +115,25 @@ def test_showcase_main_generates_contract_valid_summary(tmp_path: Path, monkeypa
     summary_path = output_dir / "summary.json"
     top_actions_path = output_dir / "top_actions.csv"
     telemetry_path = output_dir / "enterprise_telemetry.sqlite"
+    solution_profile_path = output_dir / "solution_profile.json"
+    data_quality_scorecard_path = output_dir / "data_quality_scorecard.json"
+    executive_insights_path = output_dir / "executive_insights.json"
 
     assert summary_path.exists()
     assert top_actions_path.exists()
     assert telemetry_path.exists()
+    assert solution_profile_path.exists()
+    assert data_quality_scorecard_path.exists()
+    assert executive_insights_path.exists()
 
     summary = json.loads(summary_path.read_text(encoding="utf-8"))
+    solution_profile = json.loads(solution_profile_path.read_text(encoding="utf-8"))
+    quality_scorecard = json.loads(data_quality_scorecard_path.read_text(encoding="utf-8"))
+    executive_insights = json.loads(executive_insights_path.read_text(encoding="utf-8"))
     assert not validate_contract(summary, "showcase_summary.schema.json")
     assert summary["latest_month"] == "2026-02"
     assert summary["latest_revenue_usd"] == 1500.0
     assert summary["top_50_value_at_risk_usd"] <= summary["total_value_at_risk_usd"]
+    assert solution_profile["multi_tenant_ready"] is True
+    assert quality_scorecard["status"] in {"healthy", "watch", "critical"}
+    assert executive_insights["generation_mode"] == "deterministic_fallback"

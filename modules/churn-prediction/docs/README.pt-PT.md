@@ -1,116 +1,27 @@
-# Churn Prediction (PT-PT)
+# Documentacao Do Churn Prediction
 
-## Troca de Idioma
-- README principal: [../README.md](../README.md)
+## Proposito
+Este conjunto de documentos apoia o modulo `churn-prediction` com navegacao por idioma e contexto de implementacao.
+
+## Pontos Principais
+- README do modulo: [../README.md](../README.md)
 - English: [README.en.md](README.en.md)
-- Portugues (PT): [README.pt-PT.md](README.pt-PT.md)
+- Portugues (BR): [README.pt-BR.md](README.pt-BR.md)
 
-## Resumo Executivo
-- Problema de negocio: churn de clientes reduz a retencao de receita.
-- Publico-alvo: lideranca de retencao, CRM e growth.
-- North Star Metric: Net Revenue Retained (NRR).
-- Potencial financeiro: +$252,3K ao recuperar 5% do leakage.
+## Sobre O Modulo
+`churn-prediction` e o componente de modelacao de risco de churn da plataforma. Existe para identificar exposicao de cancelamento, apoiar a priorizacao de retencao e fornecer sinais modelados para fluxos executivos de revisao.
 
-## Métricas de Negócio
-- Receita Líquida: **$32,87M**
-- Leakage de Desconto: **$5,05M**
-- North Star (NRR): **86,69%**
-- Upside com 5% de recuperação: **+$252,3K**
-
-## Sumario
-- [Resumo Executivo](#resumo-executivo)
-- [Metricas de Negocio](#metricas-de-negocio)
-- [Metodologia](#metodologia)
-- [Executar Localmente](#executar-localmente)
-- [Qualidade e Contratos](#qualidade-e-contratos)
-- [CI e Metricas de Produto](#ci-e-metricas-de-produto)
-- [Processo de Release](#processo-de-release)
-- [Contato](#contato)
-
-## Visão do Projeto
-Este projeto demonstra um fluxo completo de dados aplicado a vendas da Amazon:
-- ingestão automatizada via Kaggle Hub;
-- limpeza com regras de consistência;
-- análise exploratória e visualizações executivas;
-- dashboard Streamlit com foco em decisão e storytelling de negócio.
-
-## Notas de Implementação
-- Pacote principal: `src/churn_prediction/`
-- Lógica de negócio partilhada no monorepo: `packages/portfolio_analytics_shared/`
-- Namespace legado para compatibilidade: `src/amazon_sales_analysis/`
-
-## Diferenciais para Recrutadores e Leads
-- Estrutura em camadas, orientada à manutenção.
-- Pipeline reproduzível (`scripts/run_pipeline.py`).
-- Qualidade de dados validada por testes.
-- App com filtros de negócio e métricas acionáveis.
-
-## Fonte do Dataset
-- Kaggle: `aliiihussain/amazon-sales-dataset`
-- Link: https://www.kaggle.com/datasets/aliiihussain/amazon-sales-dataset
-
-## Executar Localmente
-```bash
-python -m venv .venv
-.venv\Scripts\activate
-pip install -r requirements.txt
-python scripts/run_pipeline.py
-streamlit run app/streamlit_app.py
+## Arquitetura Em Alto Nivel
+```mermaid
+flowchart LR
+  A[Dados Brutos De Clientes] --> B[Preparacao]
+  B --> C[Engenharia De Features]
+  C --> D[Modelacao]
+  D --> E[Scores De Risco]
+  E --> F[Dashboard E Artefactos Da Plataforma]
 ```
 
-## Qualidade e Contratos
-- Contrato do dataset bruto: `contracts/sales_dataset.contract.json`
-- Contrato de métricas: `contracts/product_metrics.contract.json`
-- Gates no pipeline:
-  - validação de esquema de entrada
-  - validações de domínio no dataset limpo
-  - geração de métricas em `reports/metrics/product_metrics.json`
-
-### Comandos de Qualidade
-```bash
-pip install -r requirements-dev.txt
-black --check .
-isort --check-only .
-ruff check .
-mypy src scripts
-pytest
-```
-
-## CI e Métricas de Produto
-- Workflow: `.github/workflows/ci.yml`
-- Gates: formatação, lint, tipagem, testes e cobertura (`>=70%`)
-- Artefatos de CI:
-  - `reports/metrics/coverage.xml`
-  - `reports/metrics/pytest-results.xml`
-
-A cobertura deste módulo é medida sobre `src/churn_prediction`, que é o pacote canónico para evolução do projeto.
-
-## Processo de Release
-1. Atualizar o `CHANGELOG.md` com a nova versão.
-2. Atualizar versão:
-   ```bash
-   python scripts/bump_version.py 0.2.0
-   ```
-3. Criar tag e enviar:
-   ```bash
-   git tag v0.2.0
-   git push origin main --tags
-   ```
-4. O workflow `.github/workflows/release.yml` valida coerência de versão/changelog e publica o release.
-
-## Stack
-Python, Pandas, Plotly, Streamlit, Seaborn, Matplotlib, Pytest.
-
-## Contato
-- GitHub: https://github.com/samuelmaia-analytics
-- LinkedIn: https://linkedin.com/in/samuelmaia-analytics
-- Email: smaia2@gmail.com
-
-
-
-
-
-
-
-
-
+## Ordem Recomendada De Leitura
+1. Ler [../README.md](../README.md) para o posicionamento do modulo.
+2. Rever contratos, reports e scripts na raiz do modulo.
+3. Ligar o modulo a suite principal em [../../../README.md](../../../README.md).

@@ -1,0 +1,19 @@
+{
+  "platform_name": "Revenue Intelligence Platform Suite",
+  "defaults": {
+    "currency": "USD",
+    "locale": "en-US",
+    "telemetry_backend": "sqlite",
+    "dashboard_theme": "executive"
+  },
+  "governance": {
+    "contract_policy": "release-versioned",
+    "scorecard_target": 85,
+    "freshness_sla_days": 30
+  },
+  "navigation": {
+    "show_solution_packages": true,
+    "show_quality_scorecard": true,
+    "show_action_register": true
+  }
+}

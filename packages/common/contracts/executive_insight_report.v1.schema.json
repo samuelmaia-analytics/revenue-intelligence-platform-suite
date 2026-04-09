@@ -1,0 +1,26 @@
+{
+  "title": "executive_insight_report.v1",
+  "type": "object",
+  "required": [
+    "report_version",
+    "generation_mode",
+    "llm_enabled",
+    "package",
+    "thresholds",
+    "prompt_policy",
+    "recommended_actions",
+    "insights",
+    "generated_at"
+  ],
+  "properties": {
+    "report_version": { "type": "string" },
+    "generation_mode": { "type": "string" },
+    "llm_enabled": { "type": "boolean" },
+    "package": { "type": "object" },
+    "thresholds": { "type": "object" },
+    "prompt_policy": { "type": "object" },
+    "recommended_actions": { "type": "array" },
+    "insights": { "type": "array" },
+    "generated_at": { "type": "string" }
+  }
+}

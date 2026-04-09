@@ -17,6 +17,7 @@ def _find_repo_root(start: Path) -> Path:
 
 ROOT = _find_repo_root(Path(__file__).resolve())
 try:
+    from common import enforce_streamlit_sso
     from platform_connectors import (
         DuckDBTelemetryConnector,
         SQLiteTelemetryConnector,
@@ -29,6 +30,7 @@ except ModuleNotFoundError:
         sys.path.insert(0, str(ROOT))
     if str(ROOT / "packages") not in sys.path:
         sys.path.insert(0, str(ROOT / "packages"))
+    from common import enforce_streamlit_sso
     from platform_connectors import (
         DuckDBTelemetryConnector,
         SQLiteTelemetryConnector,
@@ -38,6 +40,7 @@ except ModuleNotFoundError:
     from platform_observability import ActionAdoptionLogger
 
 st.set_page_config(page_title="Executive KPI Board", layout="wide")
+identity = enforce_streamlit_sso(st)
 
 if st.button("Voltar para Revenue-Intelligence-Platform-Suite"):
     st.switch_page("app.py")
@@ -45,6 +48,7 @@ if st.button("Voltar para Revenue-Intelligence-Platform-Suite"):
 with st.sidebar:
     if st.button("Home: Revenue-Intelligence-Platform-Suite"):
         st.switch_page("app.py")
+    st.caption("Copyright (c) 2026 Samuel Maia. Proprietary executive analytics platform.")
 
 SALES_PATH = ROOT / "modules" / "analise-vendas-python" / "dados_processados" / "vendas_simples.csv"
 CUSTOMER_PATH = (
@@ -52,6 +56,10 @@ CUSTOMER_PATH = (
 )
 METRICS_PATH = ROOT / "modules" / "revenue-intelligence" / "data" / "processed" / "metrics_report.json"
 SHOWCASE_SUMMARY_PATH = ROOT / "reports" / "showcase" / "summary.json"
+SHOWCASE_INSIGHTS_PATH = ROOT / "reports" / "showcase" / "executive_insights.json"
+SHOWCASE_SCORECARD_PATH = ROOT / "reports" / "showcase" / "data_quality_scorecard.json"
+SHOWCASE_PROFILE_PATH = ROOT / "reports" / "showcase" / "solution_profile.json"
+SEMANTIC_METRICS_PATH = ROOT / "config" / "semantic_metrics.json"
 TELEMETRY_DB_PATH = ROOT / "reports" / "showcase" / "enterprise_telemetry.sqlite"
 TELEMETRY_DUCKDB_PATH = ROOT / "reports" / "showcase" / "enterprise_telemetry.duckdb"
 SHOWCASE_OUTPUT_DIR = ROOT / "reports" / "showcase"
@@ -72,6 +80,14 @@ def load_showcase_summary() -> dict:
     if not SHOWCASE_SUMMARY_PATH.exists():
         return {}
     with SHOWCASE_SUMMARY_PATH.open("r", encoding="utf-8") as fp:
+        return json.load(fp)
+
+
+@st.cache_data(show_spinner=False)
+def load_json_artifact(path: Path) -> dict:
+    if not path.exists():
+        return {}
+    with path.open("r", encoding="utf-8") as fp:
         return json.load(fp)
 
 
@@ -109,6 +125,10 @@ def build_risk_score(df: pd.DataFrame) -> pd.DataFrame:
 try:
     sales_df, customer_df, model_metrics = load_data()
     showcase_summary = load_showcase_summary()
+    executive_insights = load_json_artifact(SHOWCASE_INSIGHTS_PATH)
+    quality_scorecard = load_json_artifact(SHOWCASE_SCORECARD_PATH)
+    solution_profile = load_json_artifact(SHOWCASE_PROFILE_PATH)
+    semantic_catalog = load_json_artifact(SEMANTIC_METRICS_PATH)
     telemetry_df = load_enterprise_telemetry()
 except Exception as exc:
     st.error("Could not load real module data. Check repository paths and file integrity.")
@@ -136,7 +156,13 @@ if telemetry_df.empty:
         pass
 
 st.title("Executive KPI Board")
-st.caption("Real integrated data from platform modules.")
+st.caption("Real integrated data from platform modules, framed as an executive operating system.")
+st.warning(
+    "This Streamlit application is publicly viewable for demonstration purposes. "
+    "The platform, generated assets, and source repository remain proprietary to Samuel Maia."
+)
+if identity.get("authenticated"):
+    st.caption(f"SSO session: {identity.get('display_name')} | groups={', '.join(identity.get('groups', [])) or 'n/a'}")
 
 st.sidebar.header("Scenario Controls")
 segment = st.sidebar.selectbox(
@@ -173,6 +199,32 @@ col2.metric("NRR (Telemetry)", f"{current_nrr*100:.1f}%")
 col3.metric("Gross Revenue Churn (Telemetry)", f"{gross_churn*100:.1f}%")
 col4.metric("Value at Risk", f"${value_at_risk:,.0f}")
 col5.metric("Expected Recovery", f"${expected_recovery:,.0f}", delta=f"ROI {roi*100:.0f}%")
+
+if solution_profile:
+    st.info(
+        f"Solution package: {solution_profile.get('package', {}).get('name', 'n/a')} | "
+        f"Industry adaptation: {solution_profile.get('industry', 'n/a')} | "
+        f"Telemetry backend: {solution_profile.get('telemetry_backend', 'n/a')}"
+    )
+    st.caption(
+        f"Client profile: {solution_profile.get('client_name', 'n/a')} | "
+        f"Executive buyer: {solution_profile.get('executive_buyer', 'n/a')}"
+    )
+
+st.markdown("---")
+st.subheader("Executive Narrative")
+insight_cols = st.columns(3)
+insights = executive_insights.get("insights", []) if executive_insights else []
+for idx in range(3):
+    with insight_cols[idx]:
+        if idx < len(insights):
+            insight = insights[idx]
+            st.markdown(f"**{insight['headline']}**")
+            st.write(insight["detail"])
+            st.caption(f"Recommended move: {insight['recommended_action']}")
+        else:
+            st.markdown("**Additional insight slot**")
+            st.write("Generate showcase artifacts to populate more executive signals.")
 
 st.markdown("---")
 st.subheader("KPI Target vs Actual")
@@ -273,6 +325,11 @@ top_cols = [
 ]
 top_priorities = risk_view.sort_values("Expected Recovery (USD)", ascending=False)[top_cols].head(12)
 st.dataframe(top_priorities, width="stretch")
+
+if executive_insights.get("recommended_actions"):
+    st.subheader("Recommended Actions")
+    actions_df = pd.DataFrame(executive_insights["recommended_actions"])
+    st.dataframe(actions_df, width="stretch", hide_index=True)
 
 st.subheader("Leadership Actions This Week")
 action_counts = (
@@ -382,6 +439,8 @@ st.markdown("---")
 a, b, c = st.columns(3)
 with a:
     st.subheader("Pipeline Health")
+    status = quality_scorecard.get("status", "not_generated").title()
+    st.write(f"- Scorecard status: **{status}**")
     st.write(f"- Source rows (sales): **{len(sales_df):,}**")
     st.write(f"- Source rows (customers): **{len(customer_df):,}**")
     st.write("- Data contracts: **Loaded from module repos**")
@@ -402,8 +461,52 @@ with c:
     st.write(f"- Customer file updated: **{pd.to_datetime(customer_file_mtime, unit='s').date()}**")
     st.write(f"- Dashboard generated at: **{pd.Timestamp.utcnow().strftime('%Y-%m-%d %H:%M UTC')}**")
 
+if quality_scorecard:
+    st.markdown("---")
+    st.subheader("Data Quality Scorecard")
+    quality_cols = st.columns(4)
+    quality_cols[0].metric("Overall Score", f"{quality_scorecard.get('overall_score', 0):.1f}")
+    quality_cols[1].metric(
+        "Critical Accounts",
+        str(quality_scorecard.get("dimensions", {}).get("critical_accounts", 0)),
+    )
+    freshness_days = quality_scorecard.get("dimensions", {}).get("freshness_days")
+    quality_cols[2].metric("Freshness Gap (days)", "n/a" if freshness_days is None else str(freshness_days))
+    quality_cols[3].metric(
+        "Churn AUC",
+        f"{quality_scorecard.get('dimensions', {}).get('churn_auc_temporal_test', 0.0):.3f}",
+    )
+    checks_df = pd.DataFrame(quality_scorecard.get("checks", []))
+    if not checks_df.empty:
+        st.dataframe(checks_df, width="stretch", hide_index=True)
+
+if semantic_catalog.get("metrics"):
+    st.markdown("---")
+    st.subheader("Semantic Metric Layer")
+    semantic_df = pd.DataFrame(semantic_catalog["metrics"])[
+        ["display_name", "domain", "grain", "formula", "executive_use"]
+    ]
+    st.dataframe(semantic_df, width="stretch", hide_index=True)
+
+if showcase_summary:
+    st.markdown("---")
+    st.subheader("Realized Outcomes Tracking")
+    adoption_metrics = load_json_artifact(SHOWCASE_OUTPUT_DIR / "action_adoption_metrics.json")
+    outcome_cols = st.columns(4)
+    outcome_cols[0].metric("Adoption Rate", f"{adoption_metrics.get('adoption_rate', 0.0)*100:.1f}%")
+    outcome_cols[1].metric("Accepted Actions", str(adoption_metrics.get("accepted_events", 0)))
+    outcome_cols[2].metric(
+        "Accepted Recovery Value",
+        f"${adoption_metrics.get('accepted_expected_recovery_usd', 0.0):,.0f}",
+    )
+    outcome_cols[3].metric(
+        "In Progress Recovery Value",
+        f"${adoption_metrics.get('in_progress_expected_recovery_usd', 0.0):,.0f}",
+    )
+
 st.markdown("---")
 st.caption(
+    "Copyright (c) 2026 Samuel Maia. Proprietary platform. "
     "Author: [LinkedIn](https://linkedin.com/in/samuelmaia-analytics) | "
     "[GitHub](https://github.com/samuelmaia-analytics)"
 )

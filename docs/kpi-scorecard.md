@@ -1,48 +1,41 @@
-# KPI Scorecard - Revenue and Retention
+# KPI Scorecard
 
 ## How To Use
+- update current values weekly
+- review targets monthly with executive sponsors
+- keep a named owner and action plan for every KPI outside guardrail
 
-- Atualize semanalmente os valores atuais.
-- Revise metas mensalmente com leadership.
-- Mantenha owner e plano de acao para cada KPI fora da meta.
-
-## Executive KPIs
-
+## Executive KPI Template
 | KPI | Formula | Baseline | Target 6M | Target 12M | Current | Status | Owner |
 |---|---|---:|---:|---:|---:|---|---|
-| Net Revenue Retention (NRR) | (MRR retained + expansion - contraction) / starting MRR | 86.69% | 90.00% | 94.00% | 86.69% | Risk | Revenue Lead |
+| Net Revenue Retention | retained + expansion - contraction / starting revenue | 86.69% | 90.00% | 94.00% | 86.69% | Risk | Revenue Lead |
 | Gross Revenue Churn | lost revenue / starting revenue | 13.31% | 10.50% | 8.00% | 13.31% | Risk | Retention Lead |
-| Churn Model Precision@K | true churn in top-K / K | 0.62 | 0.70 | 0.78 | 0.62 | Risk | ML Lead |
-| Action Adoption Rate | actions executed / actions recommended | 28% | 45% | 60% | 28% | Risk | CRM Ops |
+| Churn Precision@K | true churn in top-K / K | 0.62 | 0.70 | 0.78 | 0.62 | Risk | ML Lead |
+| Action Adoption Rate | executed actions / recommended actions | 28% | 45% | 60% | 28% | Risk | CRM Ops |
 | Incremental Revenue | observed uplift - control group | $0 | $120K | $350K | $0 | Off Track | Growth Lead |
-| Time-to-Insight | tempo da ingestao ate insight acionavel | 2 days | 8 hours | 2 hours | 2 days | Risk | Analytics Eng |
-| Data Contract Pass Rate | contracts aprovados / total contracts | 92% | 97% | 99% | 92% | Risk | Data Platform |
-| Pipeline Reliability | runs bem-sucedidos / runs totais | 95% | 98% | 99.5% | 95% | Risk | Data Platform |
+| Time-to-Insight | time from ingestion to actionable output | 2 days | 8 hours | 2 hours | 2 days | Risk | Analytics Engineering |
+| Data Contract Pass Rate | passed contracts / total contracts | 92% | 97% | 99% | 92% | Risk | Data Platform |
+| Pipeline Reliability | successful runs / total runs | 95% | 98% | 99.5% | 95% | Risk | Data Platform |
 
-## Baseline Notes
+## Notes
+- baseline values are starter targets for executive steering
+- replace them with production telemetry after the first operating cycle
+- recommended cadence: weekly current-state review, monthly target review
 
-- Baseline values marked here are initial executive targets for steering cadence.
-- Replace with production telemetry after first monthly review cycle.
-- Recommended refresh cadence: weekly `Current`, monthly `Target` review.
-
-## Weekly Review Block (Template)
+## Weekly Review Template
 
 ### Wins
-
-- Monorepo consolidation completed with 5 integrated modules.
-- Executive dashboard baseline running with unified architecture narrative.
+- executive KPI baseline is live
+- monitoring and scorecard artifacts are publishable
 
 ### Risks
-
-- KPI telemetry still partially manual in some modules.
-- Action adoption depends on playbook rollout in CRM/Sales ops.
+- some telemetry remains demo-oriented in showcase mode
+- recommendation adoption still depends on process rollout in the client workflow
 
 ### Decisions Needed
+- approve next-step investment in automation and connector depth
+- confirm owners for KPI remediation where trust or freshness is below target
 
-- Approve retention campaign budget for top-risk segments.
-- Approve owner allocation for KPI data automation.
-
-### Actions Next 7 Days
-
-- Connect scorecard KPIs to automated metric exports in CI artifacts.
-- Publish executive dashboard demo URL in flagship README.
+### Actions For The Next 7 Days
+- connect scorecard metrics to recurring export and release evidence
+- review action-adoption telemetry and close owner gaps

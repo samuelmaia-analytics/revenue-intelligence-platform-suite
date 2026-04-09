@@ -1,3 +1,4 @@
+import sys
 from pathlib import Path
 
 import streamlit as st
@@ -12,6 +13,19 @@ def _find_repo_root(start: Path) -> Path:
 
 st.set_page_config(page_title="Modules Access", layout="wide")
 
+try:
+    import common  # noqa: F401
+except ModuleNotFoundError:
+    ROOT = _find_repo_root(Path(__file__).resolve())
+    if str(ROOT) not in sys.path:
+        sys.path.insert(0, str(ROOT))
+    if str(ROOT / "packages") not in sys.path:
+        sys.path.insert(0, str(ROOT / "packages"))
+
+from common import enforce_streamlit_sso  # noqa: E402
+
+identity = enforce_streamlit_sso(st)
+
 if st.button("Voltar para Revenue-Intelligence-Platform-Suite"):
     st.switch_page("app.py")
 
@@ -23,6 +37,8 @@ ROOT = _find_repo_root(Path(__file__).resolve())
 
 st.title("Modules Access")
 st.caption("Single place to access all integrated repositories and demos.")
+if identity.get("authenticated"):
+    st.caption(f"SSO session: {identity.get('display_name')} | groups={', '.join(identity.get('groups', [])) or 'n/a'}")
 
 modules = [
     {

@@ -1,0 +1,26 @@
+{
+  "client_name": "Healthtech Growth Client",
+  "industry": "Healthtech",
+  "executive_buyer": "COO / VP Customer Success",
+  "kpi_focus": ["Retention Exposure", "Lifecycle Usage Decline", "Revenue Recovery"],
+  "brand": {
+    "theme_name": "Healthtech Growth",
+    "primary_color": "#0f5f8c",
+    "secondary_color": "#10243d",
+    "accent_soft": "#dceffd",
+    "hero_gradient_start": "#d7efff",
+    "hero_gradient_end": "#eefaf6"
+  },
+  "narrative": {
+    "headline": "Detect lifecycle risk before it becomes revenue leakage.",
+    "value_proposition": "Connect retention exposure, usage decline, and executive interventions in one operating layer."
+  },
+  "thresholds": {
+    "nrr_floor": 0.88,
+    "gross_churn_ceiling": 0.08
+  },
+  "connectors": {
+    "crm": "hubspot_compatible",
+    "product_usage": "fhir_event_adapter"
+  }
+}

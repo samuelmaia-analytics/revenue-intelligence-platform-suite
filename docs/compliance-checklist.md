@@ -1,8 +1,7 @@
 # Compliance Checklist (LGPD/GDPR Baseline)
 
 ## Purpose
-
-Provide a practical baseline for data governance in analytics and ML workflows.
+Provide a practical baseline for privacy, data governance, and control readiness in analytics, ML, executive outputs, and client-facing commercial assets.
 
 ## Data Governance Controls
 
@@ -11,6 +10,7 @@ Provide a practical baseline for data governance in analytics and ML workflows.
 - [ ] Retention policy documented for each dataset.
 - [ ] Access control defined for sensitive data paths.
 - [ ] Data contracts include sensitive-field rules where needed.
+- [ ] Client-facing artifacts reviewed to prevent exposure of personal or sensitive data.
 
 ## Privacy Controls
 
@@ -18,6 +18,7 @@ Provide a practical baseline for data governance in analytics and ML workflows.
 - [ ] Pseudonymization strategy documented for identifiers.
 - [ ] Re-identification risk reviewed before sharing outputs.
 - [ ] Consent requirements reviewed with business/legal stakeholders.
+- [ ] LGPD legal basis documented for any operational onboarding outside showcase mode.
 
 ## Model and Analytics Controls
 
@@ -31,6 +32,7 @@ Provide a practical baseline for data governance in analytics and ML workflows.
 - [ ] Versioned pipelines and model artifacts tracked.
 - [ ] KPI scorecard updates logged with date and owner.
 - [ ] Incident and remediation notes recorded for data/ML failures.
+- [ ] Release evidence and deal-room artifacts mapped to owner and review cadence.
 
 ## Review Cadence
 

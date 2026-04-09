@@ -1,0 +1,11 @@
+{
+  "environment_name": "showcase",
+  "serving": {
+    "api_base_url": "http://localhost:8000",
+    "streamlit_port": 8501
+  },
+  "telemetry": {
+    "mode": "demo_artifacts",
+    "write_reports": true
+  }
+}

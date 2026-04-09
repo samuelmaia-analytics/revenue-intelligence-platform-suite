@@ -1,0 +1,11 @@
+{
+  "environment_name": "production",
+  "serving": {
+    "api_base_url": "https://api.example-client.com",
+    "streamlit_port": 8501
+  },
+  "telemetry": {
+    "mode": "managed_runtime",
+    "write_reports": false
+  }
+}

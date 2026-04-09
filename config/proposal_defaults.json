@@ -1,0 +1,31 @@
+{
+  "commercial_defaults": {
+    "proposal_currency": "USD",
+    "setup_fee_range": "$25k-$60k",
+    "monthly_service_range": "$6k-$18k",
+    "implementation_timeline": "4-8 weeks",
+    "delivery_modes": [
+      "advisory plus build",
+      "accelerator implementation",
+      "recurring analytics managed service"
+    ]
+  },
+  "scope_options": {
+    "foundation": [
+      "Executive KPI board",
+      "Showcase adaptation",
+      "Contracts and scorecard baseline"
+    ],
+    "growth": [
+      "Recommended actions",
+      "Action adoption monitoring",
+      "Executive review pack"
+    ],
+    "premium": [
+      "Client proposal pack",
+      "API serving layer",
+      "Release evidence pack",
+      "White-label adaptation"
+    ]
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "package_id": "commercial_performance_analytics",
+  "display_name": "Commercial Performance Analytics",
+  "primary_modules": ["channel_analysis", "seller_performance", "opportunity_mapping"],
+  "delivery_model": "Commercial diagnostics + executive review pack"
+}

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#111827"/>
+  <rect x="50" y="50" width="1100" height="530" rx="24" fill="#ffffff"/>
+  <text x="90" y="120" font-family="Arial, sans-serif" font-size="42" fill="#111827">Data Quality Scorecard Placeholder</text>
+  <text x="90" y="170" font-family="Arial, sans-serif" font-size="24" fill="#4b5563">Use this slot for freshness, quality, and governance screenshots.</text>
+  <circle cx="230" cy="330" r="110" fill="#d1fae5"/>
+  <text x="180" y="345" font-family="Arial, sans-serif" font-size="44" fill="#065f46">85+</text>
+  <rect x="420" y="250" width="620" height="50" rx="12" fill="#e5e7eb"/>
+  <rect x="420" y="320" width="620" height="50" rx="12" fill="#e5e7eb"/>
+  <rect x="420" y="390" width="620" height="50" rx="12" fill="#e5e7eb"/>
+</svg>

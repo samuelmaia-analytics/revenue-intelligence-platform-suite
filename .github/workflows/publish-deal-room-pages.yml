@@ -1,0 +1,67 @@
+name: publish-deal-room-pages
+
+on:
+  workflow_dispatch:
+    inputs:
+      proposal_client_name:
+        description: "Client name used in the proposal and published deal room"
+        required: true
+        default: "Flagship Client"
+      deal_name:
+        description: "Deal room name"
+        required: true
+        default: "Flagship Client"
+      approval_signoffs:
+        description: "JSON object keyed by stage_id with approval status, approver_name, decision_at, and notes"
+        required: false
+        default: ""
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+
+      - name: Build GitHub Pages publication bundle
+        env:
+          PROPOSAL_CLIENT_NAME: ${{ inputs.proposal_client_name }}
+          DEAL_NAME: ${{ inputs.deal_name }}
+          APPROVAL_SIGNOFFS: ${{ inputs.approval_signoffs }}
+          PUBLISH_BASE_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}
+        run: |
+          python scripts/check_repository_controls.py
+          python scripts/run_showcase_demo.py
+          python scripts/prepare_github_pages_publication.py
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist/github-pages
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

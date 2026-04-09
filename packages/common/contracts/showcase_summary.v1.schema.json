@@ -1,0 +1,26 @@
+{
+  "title": "showcase_summary.v1",
+  "type": "object",
+  "required": [
+    "latest_month",
+    "latest_revenue_usd",
+    "nrr_latest",
+    "gross_churn_latest",
+    "total_value_at_risk_usd",
+    "top_50_value_at_risk_usd",
+    "churn_auc_temporal_test",
+    "next_purchase_auc_temporal_test",
+    "telemetry_source"
+  ],
+  "properties": {
+    "latest_month": { "type": "string" },
+    "latest_revenue_usd": { "type": "number" },
+    "nrr_latest": { "type": "number" },
+    "gross_churn_latest": { "type": "number" },
+    "total_value_at_risk_usd": { "type": "number" },
+    "top_50_value_at_risk_usd": { "type": "number" },
+    "churn_auc_temporal_test": { "type": "number" },
+    "next_purchase_auc_temporal_test": { "type": "number" },
+    "telemetry_source": { "type": "string" }
+  }
+}

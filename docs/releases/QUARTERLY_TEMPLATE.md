@@ -11,9 +11,14 @@ Period: YYYY-MM-DD to YYYY-MM-DD
 
 ## Monitoring Evidence
 - `reports/showcase/summary.json`
+- `reports/showcase/solution_profile.json`
+- `reports/showcase/data_quality_scorecard.json`
+- `reports/showcase/executive_insights.json`
 - `reports/showcase/drift_report.json`
 - `reports/showcase/action_adoption_metrics.json`
 - `reports/showcase/monitoring_summary.json`
+- `dist/executive-review-pack/executive_review_pack.md`
+- `dist/release-evidence-pack-<tag>.tar.gz`
 
 ## Risks and Follow-ups
 1. Primary risk observed from monitoring outputs.

@@ -1,0 +1,6 @@
+{
+  "package_id": "revenue_command_center",
+  "display_name": "Revenue Command Center",
+  "primary_modules": ["executive_kpi_board", "action_register", "scenario_analysis"],
+  "delivery_model": "Executive board + action telemetry"
+}

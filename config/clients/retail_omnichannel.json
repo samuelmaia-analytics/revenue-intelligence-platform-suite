@@ -1,0 +1,26 @@
+{
+  "client_name": "Retail Omnichannel Client",
+  "industry": "Retail",
+  "executive_buyer": "Commercial Director / Growth Lead",
+  "kpi_focus": ["Repeat Purchase Risk", "Channel Efficiency", "AOV", "Campaign Recovery"],
+  "brand": {
+    "theme_name": "Retail Performance",
+    "primary_color": "#b45309",
+    "secondary_color": "#1f2937",
+    "accent_soft": "#ffedd5",
+    "hero_gradient_start": "#ffedd5",
+    "hero_gradient_end": "#f3f4f6"
+  },
+  "narrative": {
+    "headline": "Turn omnichannel performance data into commercial action.",
+    "value_proposition": "Expose channel leakage, repeat-purchase risk, and recovery opportunities with executive clarity."
+  },
+  "thresholds": {
+    "nrr_floor": 0.85,
+    "gross_churn_ceiling": 0.12
+  },
+  "connectors": {
+    "commerce": "shopify_compatible",
+    "marketing": "meta_google_ads_adapter"
+  }
+}

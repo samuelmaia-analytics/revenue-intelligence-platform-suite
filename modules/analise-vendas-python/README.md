@@ -6,7 +6,7 @@
 - Portugues (BR): [README.md](README.md)
 - Portugues (PT): [README.pt-PT.md](README.pt-PT.md)
 
-# 📊 Sales Analytics Dashboard – End-to-End Data Project
+# Sales Analytics Dashboard
 
 ![Python](https://img.shields.io/badge/Python-3.10+-blue)
 ![Pandas](https://img.shields.io/badge/Pandas-Data%20Processing-green)
@@ -17,13 +17,16 @@
 ![Pytest](https://img.shields.io/badge/Tests-Pytest-yellow)
 ![License](https://img.shields.io/badge/License-MIT-lightgrey)
 
-🚀 **Deploy:**  
-https://sales-analytics-dashboardd.streamlit.app/
+Demo: https://sales-analytics-dashboardd.streamlit.app/  
+Repository: https://github.com/samuelmaiapro/analise-vendas-python
 
-📂 **Repositório:**  
-https://github.com/samuelmaiapro/analise-vendas-python
-
----
+## At A Glance
+| Area | Summary |
+|---|---|
+| Primary use case | Operational sales analytics for transactional datasets |
+| Core strengths | KPI summarization, Pareto concentration, YoY analysis, Streamlit delivery |
+| Primary buyers | Sales leadership, commercial ops, business analysts |
+| Platform role | Supports `Commercial Performance Analytics` |
 
 ## Summary
 - Executive Summary
@@ -38,22 +41,26 @@ Projeto **end-to-end de Sales Analytics**, estruturado como um caso real de neg�
 
 O sistema transforma dados transacionais em decisões estratégicas por meio de:
 
-- 📈 Análise de crescimento periódico  
-- 🧾 Métricas executivas consolidadas  
-- 🧩 Análise de concentração (Pareto automático)  
-- 📅 Comparação Year-over-Year (YoY)  
-- 📊 Visualizações interativas  
+- análise de crescimento periódico
+- métricas executivas consolidadas
+- análise de concentração com Pareto automático
+- comparação Year-over-Year (YoY)
+- visualizações interativas
 
----
+## Business Outcomes
+- acelerar revisões comerciais com KPIs e tendências prontos para liderança
+- identificar concentração excessiva de receita por produto, categoria ou dimensão
+- mostrar sazonalidade e comparações YoY sem trabalho manual em planilhas
+- reforçar a oferta da plataforma para contextos de vendas com datasets transacionais leves
 
-# 📊 Fonte de Dados
+## Data Source
 
-## 1️⃣ Upload Dinâmico de CSV
+### Dynamic CSV Upload
 - Seleção automática de coluna de data  
 - Seleção automática de coluna de valor  
 - Compatível com qualquer dataset transacional  
 
-## 2️⃣ Dataset Base Utilizado
+### Base Dataset
 
 Kaggle – Sample Sales Data  
 https://www.kaggle.com/datasets/kyanyoga/sample-sales-data  
@@ -65,27 +72,23 @@ Principais resultados identificados:
 - Top 3 linhas de produto representam **~70% da receita**
 - Pico sazonal identificado em **novembro**
 
-## 3️⃣ Dados Simulados
+### Simulated Fallback Data
 
 Fallback automático com:
 - Tendência de crescimento  
 - Sazonalidade anual  
 - Ruído estatístico controlado  
 
----
+## Executive Metrics
 
-# 🧾 Métricas Executivas
+- Receita Total
+- Pico Sazonal
+- Concentração Top 3 por dimensão
+- Crescimento Médio
+- Melhor e Pior Período
+- YoY mensal
 
-- Receita Total  
-- Pico Sazonal (detecção automática)  
-- Concentração Top 3 por dimensão  
-- Crescimento Médio  
-- Melhor e Pior Período  
-- YoY (Year-over-Year) mensal  
-
----
-
-# 🧩 Pareto Automático
+## Pareto Analysis
 
 O sistema gera automaticamente:
 
@@ -96,9 +99,7 @@ O sistema gera automaticamente:
 
 Permite identificar concentração de receita e risco de dependência.
 
----
-
-# 📅 Comparação YoY
+## YoY Comparison
 
 Cálculo automático de:
 
@@ -109,9 +110,7 @@ Cálculo automático de:
 
 Permite avaliar crescimento sustentável e sazonalidade estrutural.
 
----
-
-# 🔄 Pipeline de Dados
+## Data Flow
 
 ```mermaid
 flowchart LR
@@ -124,40 +123,33 @@ flowchart LR
     F --> G
     G --> H[Deploy Streamlit]
 ```
-# 🏗 Arquitetura
+## Architecture Notes
 
 Estruturado com foco em separação de responsabilidades:
 
-Funções utilitárias isoladas
+- funções utilitárias isoladas
+- cálculos desacoplados
+- funções dedicadas para Pareto e YoY
+- cache inteligente (`@st.cache_data`)
+- tratamento seguro de tipos
+- fallback robusto de dados
 
-Cálculos desacoplados
+## Executive Business Case
 
-Funções dedicadas para Pareto e YoY
-
-Cache inteligente (@st.cache_data)
-
-Tratamento seguro de tipos (datetime / numeric)
-
-Fallback robusto de dados
-
-# 🎯 Executive Business Case
-# 🔴 Risco Identificado
-
+### Risk Identified
 Alta concentração de receita (~70%) em poucas linhas de produto.
 
-# 🟢 Oportunidade
-
+### Opportunity
 Crescimento médio mensal consistente (~14%).
 
-# 🟡 Estratégia Recomendada
-
+### Recommended Strategy
 Diversificação de portfólio
 
 Planejamento antecipado para pico sazonal (Q4)
 
 Padronização e governança de KPIs
 
-# 🛠 Stack Tecnológica
+## Technology Stack
 
 Python
 
@@ -173,7 +165,7 @@ Docker
 
 Pytest
 
-▶ Execução
+## Run
 Local
 ```
 streamlit run app.py
@@ -182,7 +174,8 @@ Docker
 ```
 docker-compose up --build
 ```
-# 🚀 Roadmap
+
+## Roadmap
 
 Integração com banco de dados
 
@@ -194,7 +187,7 @@ Deploy escalável em cloud
 
 Camada semântica de métricas
 
-# 🧠 Diferencial Estratégico
+## Strategic Differentiation
 
 Este projeto demonstra:
 
@@ -205,8 +198,6 @@ Tradução de dados em decisões executivas
 Arquitetura preparada para evolução
 
 Maturidade analítica e visão estratégica
-
-⭐ Se este projeto foi útil ou inspirador, considere deixar uma estrela.
 
 ## Where it fits in the platform
 - Layer: App + Analytics

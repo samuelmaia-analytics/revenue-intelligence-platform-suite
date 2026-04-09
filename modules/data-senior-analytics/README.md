@@ -17,8 +17,17 @@ Business-focused analytics project that turns raw tabular files into decision-re
 
 Live demo: https://data-analytics-sr.streamlit.app
 
+## At A Glance
+| Area | Summary |
+|---|---|
+| Primary use case | Structured business reporting from CSV/XLSX sources |
+| Core strengths | Layered pipeline, governance, dashboard delivery, reproducibility |
+| Primary buyers | Business operations, finance, PMO, analytics teams |
+| Platform role | Accelerator for lower-complexity but governance-sensitive analytics delivery |
+
 ## Summary
 - [Executive Summary](#executive-summary)
+- [Architecture Flow](#architecture-flow)
 - [Impact](#impact)
 - [Screenshots / Demo](#screenshots--demo)
 - [Architecture Proof](#architecture-proof)
@@ -30,10 +39,26 @@ Live demo: https://data-analytics-sr.streamlit.app
 - Approach: layered pipeline (`raw -> bronze -> silver -> gold`) with ingestion, transformation, EDA, and dashboard delivery.
 - Results: CI-gated analytics repo with data governance, output contracts, and reproducible execution.
 
+## Architecture Flow
+```mermaid
+flowchart LR
+  A[CSV Or XLSX Inputs] --> B[Ingestion]
+  B --> C[Bronze]
+  C --> D[Silver]
+  D --> E[Gold Outputs]
+  E --> F[Dashboard And Business Consumption]
+```
+
 ## Impact
 - Metrics: CI automation enforces lint + format + tests + coverage (`>=70%`) on every PR.
 - Assumptions: input is CSV/XLSX from business users, with mixed quality and partial missing values.
 - Outcomes: faster insight turnaround with stable output schema for dashboard and stakeholder consumption.
+
+## Business Outcomes
+- replace fragile spreadsheet-only workflows with a governed analytical pipeline
+- shorten time-to-insight for operational teams working on ad hoc tabular inputs
+- standardize output schemas for downstream dashboard and reporting consumption
+- demonstrate that lighter-weight business analytics can still follow platform-grade controls
 
 ## Screenshots / Demo
 ![Dashboard Preview](assets/images/dashboard-preview.png)
@@ -62,6 +87,11 @@ make test
 make run
 ```
 
+## Where It Fits In The Platform
+- role: business analytics accelerator for structured tabular workflows
+- package adjacency: `Executive KPI Governance` and `Commercial Performance Analytics`
+- platform value: proves the suite can handle lower-complexity business data with the same governance discipline used in flagship modules
+
 ## Environment Variables
 Copy `.env.example` to `.env` and adjust values for your environment.
 
@@ -84,13 +114,13 @@ Copy `.env.example` to `.env` and adjust values for your environment.
 - Changelog: [CHANGELOG.md](CHANGELOG.md)
 - Release notes: see [CHANGELOG.md](CHANGELOG.md).
 
+## Platform Mapping
+- layer: Pipeline + App + Quality
+- inputs: business CSV/XLSX datasets from operational teams
+- outputs: decision-ready insights, curated datasets, governance-checked dashboard outputs
+
 ## License
 Licensed under MIT. See [LICENSE](LICENSE).
-
-## Where it fits in the platform
-- Layer: Pipeline + App + Quality
-- Inputs: Business CSV/XLSX datasets from operational teams
-- Outputs: Decision-ready insights, curated datasets, governance-checked dashboard outputs
 
 
 

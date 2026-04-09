@@ -73,12 +73,21 @@ def build_action_adoption_metrics(action_log_csv_path: Path) -> dict[str, Any]:
             "generated_at": pd.Timestamp.utcnow().isoformat(),
         }
 
+    metadata = (
+        events["metadata_json"].fillna("{}").apply(json.loads)
+        if "metadata_json" in events.columns
+        else pd.Series([{}] * len(events))
+    )
+    expected_recovery = metadata.apply(lambda item: float(item.get("expected_recovery_usd", 0.0))).fillna(0.0)
     counts = events["outcome"].value_counts()
     total = int(len(events))
     accepted = int(counts.get("accepted", 0))
     in_progress = int(counts.get("in_progress", 0))
     rejected = int(counts.get("rejected", 0))
     adoption_rate = accepted / total if total else 0.0
+    accepted_expected_recovery = float(expected_recovery[events["outcome"] == "accepted"].sum())
+    in_progress_expected_recovery = float(expected_recovery[events["outcome"] == "in_progress"].sum())
+    total_expected_recovery = float(expected_recovery.sum())
 
     return {
         "status": "ok",
@@ -87,6 +96,9 @@ def build_action_adoption_metrics(action_log_csv_path: Path) -> dict[str, Any]:
         "in_progress_events": in_progress,
         "rejected_events": rejected,
         "adoption_rate": round(float(adoption_rate), 4),
+        "accepted_expected_recovery_usd": round(accepted_expected_recovery, 2),
+        "in_progress_expected_recovery_usd": round(in_progress_expected_recovery, 2),
+        "total_expected_recovery_usd": round(total_expected_recovery, 2),
         "generated_at": pd.Timestamp.utcnow().isoformat(),
     }
 

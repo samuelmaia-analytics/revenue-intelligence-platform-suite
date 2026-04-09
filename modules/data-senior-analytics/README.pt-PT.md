@@ -30,6 +30,16 @@ Live demo: https://data-analytics-sr.streamlit.app
 - Approach: layered pipeline (`raw -> bronze -> silver -> gold`) with ingestion, transformation, EDA, and dashboard delivery.
 - Results: CI-gated analytics repo with data governance, output contracts, and reproducible execution.
 
+## Architecture Flow
+```mermaid
+flowchart LR
+  A[Entradas CSV Ou XLSX] --> B[Ingestao]
+  B --> C[Bronze]
+  C --> D[Silver]
+  D --> E[Gold Outputs]
+  E --> F[Dashboard E Consumo De Negocio]
+```
+
 ## Impact
 - Metrics: CI automation enforces lint + format + tests + coverage (`>=70%`) on every PR.
 - Assumptions: input is CSV/XLSX from business users, with mixed quality and partial missing values.

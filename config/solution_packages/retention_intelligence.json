@@ -1,0 +1,6 @@
+{
+  "package_id": "retention_intelligence",
+  "display_name": "Retention Intelligence",
+  "primary_modules": ["risk_scoring", "recommended_actions", "adoption_monitoring"],
+  "delivery_model": "Risk scoring + save motion governance"
+}

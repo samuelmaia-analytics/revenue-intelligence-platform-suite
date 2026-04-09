@@ -51,7 +51,11 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -e ".[dev]"
+          python scripts/check_repository_controls.py
           python scripts/run_showcase_demo.py
+          python scripts/validate_showcase_artifacts.py
+          python scripts/build_executive_review_pack.py
+          RELEASE_TAG=${{ steps.vars.outputs.tag }} python scripts/build_release_evidence_pack.py
 
       - name: Build showcase sample pack
         shell: bash
@@ -63,9 +67,16 @@ jobs:
           cp reports/showcase/drift_report.json dist/drift_report.json
           cp reports/showcase/action_adoption_metrics.json dist/action_adoption_metrics.json
           cp reports/showcase/monitoring_summary.json dist/monitoring_summary.json
+          cp reports/showcase/solution_profile.json dist/solution_profile.json
+          cp reports/showcase/data_quality_scorecard.json dist/data_quality_scorecard.json
+          cp reports/showcase/executive_insights.json dist/executive_insights.json
+          cp dist/executive-review-pack/executive_review_pack.md dist/executive_review_pack.md
+          cp dist/executive-review-pack/executive_review_pack.json dist/executive_review_pack.json
           tar -czf dist/showcase-sample-pack-${{ steps.vars.outputs.tag }}.tar.gz -C dist \
             summary.json monthly_revenue.csv top_actions.csv drift_report.json \
-            action_adoption_metrics.json monitoring_summary.json
+            action_adoption_metrics.json monitoring_summary.json solution_profile.json \
+            data_quality_scorecard.json executive_insights.json executive_review_pack.md \
+            executive_review_pack.json
 
       - name: Create or update GitHub release
         uses: ncipollo/release-action@v1

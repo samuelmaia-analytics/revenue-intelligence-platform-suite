@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="500" viewBox="0 0 1400 500">
+  <rect width="1400" height="500" fill="#f4f7fb"/>
+  <text x="60" y="70" font-family="Arial, sans-serif" font-size="34" fill="#122033">Platform Blueprint</text>
+  <text x="60" y="108" font-family="Arial, sans-serif" font-size="18" fill="#5b6b81">Reusable executive analytics architecture from source systems to governed executive delivery.</text>
+
+  <g font-family="Arial, sans-serif" font-size="18" font-weight="700" text-anchor="middle">
+    <rect x="60" y="180" width="140" height="72" rx="18" fill="#dbeafe"/><text x="130" y="223" fill="#1d4ed8">Sources</text>
+    <rect x="230" y="180" width="140" height="72" rx="18" fill="#c7f9e9"/><text x="300" y="223" fill="#0f766e">Ingestion</text>
+    <rect x="400" y="180" width="140" height="72" rx="18" fill="#e5e7eb"/><text x="470" y="223" fill="#334155">Bronze</text>
+    <rect x="570" y="180" width="140" height="72" rx="18" fill="#e2e8f0"/><text x="640" y="223" fill="#334155">Silver</text>
+    <rect x="740" y="180" width="140" height="72" rx="18" fill="#fef3c7"/><text x="810" y="223" fill="#b45309">Gold</text>
+    <rect x="910" y="180" width="180" height="72" rx="18" fill="#fde68a"/><text x="1000" y="223" fill="#92400e">Semantic Metrics</text>
+    <rect x="1120" y="180" width="180" height="72" rx="18" fill="#fecaca"/><text x="1210" y="223" fill="#b91c1c">Executive Insights</text>
+  </g>
+
+  <g stroke="#94a3b8" stroke-width="4" fill="none">
+    <path d="M200 216 H230"/>
+    <path d="M370 216 H400"/>
+    <path d="M540 216 H570"/>
+    <path d="M710 216 H740"/>
+    <path d="M880 216 H910"/>
+    <path d="M1090 216 H1120"/>
+  </g>
+
+  <g font-family="Arial, sans-serif" font-size="18" font-weight="700" text-anchor="middle">
+    <rect x="1020" y="340" width="150" height="72" rx="18" fill="#dbeafe"/><text x="1095" y="383" fill="#1d4ed8">Apps And API</text>
+    <rect x="1190" y="340" width="150" height="72" rx="18" fill="#dcfce7"/><text x="1265" y="383" fill="#15803d">Action Telemetry</text>
+    <rect x="760" y="340" width="230" height="72" rx="18" fill="#ede9fe"/><text x="875" y="383" fill="#6d28d9">Governance And Scorecards</text>
+  </g>
+
+  <g stroke="#94a3b8" stroke-width="4" fill="none">
+    <path d="M1210 252 V300"/>
+    <path d="M1210 300 H1095"/>
+    <path d="M1170 376 H1190"/>
+    <path d="M1020 376 H990"/>
+    <path d="M875 340 V288"/>
+    <path d="M875 288 H1000"/>
+    <path d="M875 288 H640"/>
+  </g>
+</svg>

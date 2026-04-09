@@ -1,0 +1,26 @@
+{
+  "client_name": "Flagship Demo Client",
+  "industry": "SaaS",
+  "executive_buyer": "CRO / VP Revenue",
+  "kpi_focus": ["NRR", "Gross Churn", "Revenue at Risk", "Recovery ROI"],
+  "brand": {
+    "theme_name": "SaaS Revenue",
+    "primary_color": "#0f766e",
+    "secondary_color": "#0b1220",
+    "accent_soft": "#dff7f4",
+    "hero_gradient_start": "#d9f7f2",
+    "hero_gradient_end": "#eef6ff"
+  },
+  "narrative": {
+    "headline": "Protect recurring revenue with an executive command layer.",
+    "value_proposition": "Unify revenue risk, action prioritization, and KPI governance for leadership reviews."
+  },
+  "thresholds": {
+    "nrr_floor": 0.9,
+    "gross_churn_ceiling": 0.1
+  },
+  "connectors": {
+    "crm": "salesforce_compatible",
+    "billing": "stripe_compatible"
+  }
+}

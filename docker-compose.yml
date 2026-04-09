@@ -1,0 +1,64 @@
+x-platform-env: &platform-env
+  CLIENT_PROFILE: ${CLIENT_PROFILE:-saas_b2b}
+  DEPLOYMENT_ENV: ${DEPLOYMENT_ENV:-showcase}
+  SOLUTION_PACKAGE: ${SOLUTION_PACKAGE:-revenue_command_center}
+  PLATFORM_SSO_MODE: ${PLATFORM_SSO_MODE:-disabled}
+  PLATFORM_SSO_REQUIRED_GROUPS: ${PLATFORM_SSO_REQUIRED_GROUPS:-}
+
+services:
+  executive-api:
+    build:
+      context: .
+      dockerfile: apps/executive_api/Dockerfile
+    ports:
+      - "8000:8000"
+    environment: *platform-env
+
+  executive-dashboard:
+    build:
+      context: .
+      dockerfile: apps/executive-dashboard/Dockerfile
+    ports:
+      - "8501:8501"
+    environment: *platform-env
+    depends_on:
+      - executive-api
+
+  oauth2-proxy:
+    image: quay.io/oauth2-proxy/oauth2-proxy:v7.7.1
+    profiles: ["protected"]
+    ports:
+      - "4180:4180"
+    environment:
+      OAUTH2_PROXY_PROVIDER: ${OAUTH2_PROXY_PROVIDER:-google}
+      OAUTH2_PROXY_HTTP_ADDRESS: 0.0.0.0:4180
+      OAUTH2_PROXY_REDIRECT_URL: ${OAUTH2_PROXY_REDIRECT_URL:-http://localhost:8080/oauth2/callback}
+      OAUTH2_PROXY_CLIENT_ID: ${OAUTH2_PROXY_CLIENT_ID:-replace-me}
+      OAUTH2_PROXY_CLIENT_SECRET: ${OAUTH2_PROXY_CLIENT_SECRET:-replace-me}
+      OAUTH2_PROXY_COOKIE_SECRET: ${OAUTH2_PROXY_COOKIE_SECRET:-replace-me-32-bytes-minimum}
+      OAUTH2_PROXY_EMAIL_DOMAINS: ${OAUTH2_PROXY_EMAIL_DOMAINS:-example.com}
+      OAUTH2_PROXY_UPSTREAMS: http://executive-dashboard:8501/
+      OAUTH2_PROXY_SET_XAUTHREQUEST: "true"
+      OAUTH2_PROXY_PASS_ACCESS_TOKEN: "false"
+      OAUTH2_PROXY_PASS_AUTHORIZATION_HEADER: "false"
+      OAUTH2_PROXY_SKIP_PROVIDER_BUTTON: "true"
+      OAUTH2_PROXY_COOKIE_SECURE: ${OAUTH2_PROXY_COOKIE_SECURE:-false}
+      OAUTH2_PROXY_REVERSE_PROXY: "true"
+      OAUTH2_PROXY_SCOPE: ${OAUTH2_PROXY_SCOPE:-openid email profile}
+      OAUTH2_PROXY_GOOGLE_ADMIN_EMAIL: ${OAUTH2_PROXY_GOOGLE_ADMIN_EMAIL:-}
+      OAUTH2_PROXY_GOOGLE_GROUP: ${OAUTH2_PROXY_GOOGLE_GROUP:-}
+    depends_on:
+      - executive-dashboard
+      - executive-api
+
+  executive-edge-proxy:
+    image: nginx:1.27-alpine
+    profiles: ["protected"]
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./deploy/nginx/executive-proxy.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - oauth2-proxy
+      - executive-dashboard
+      - executive-api

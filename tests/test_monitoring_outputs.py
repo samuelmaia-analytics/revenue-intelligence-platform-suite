@@ -20,8 +20,18 @@ def test_write_monitoring_outputs_creates_expected_artifacts(tmp_path: Path) -> 
 
     pd.DataFrame(
         [
-            {"action_id": "A1", "timestamp": "2026-03-05T00:00:00Z", "outcome": "accepted"},
-            {"action_id": "A2", "timestamp": "2026-03-05T00:01:00Z", "outcome": "rejected"},
+            {
+                "action_id": "A1",
+                "timestamp": "2026-03-05T00:00:00Z",
+                "outcome": "accepted",
+                "metadata_json": "{\"expected_recovery_usd\": 120.0}",
+            },
+            {
+                "action_id": "A2",
+                "timestamp": "2026-03-05T00:01:00Z",
+                "outcome": "rejected",
+                "metadata_json": "{\"expected_recovery_usd\": 30.0}",
+            },
         ]
     ).to_csv(tmp_path / "action_adoption_log.csv", index=False)
 
@@ -31,6 +41,8 @@ def test_write_monitoring_outputs_creates_expected_artifacts(tmp_path: Path) -> 
     assert (tmp_path / "action_adoption_metrics.json").exists()
     assert (tmp_path / "monitoring_summary.json").exists()
     assert output["action_adoption"]["total_events"] == 2
+    assert output["action_adoption"]["accepted_expected_recovery_usd"] == 120.0
+    assert output["action_adoption"]["total_expected_recovery_usd"] == 150.0
     assert output["drift"]["status"] in {"ok", "insufficient_history"}
 
     with (tmp_path / "monitoring_summary.json").open("r", encoding="utf-8") as fp:

@@ -1,0 +1,60 @@
+{
+  "catalog_version": "1.0.0",
+  "owner": "Analytics Platform",
+  "metrics": [
+    {
+      "metric_id": "latest_revenue_usd",
+      "display_name": "Latest Revenue",
+      "domain": "revenue",
+      "formula": "sum(revenue_usd) for latest closed month",
+      "grain": "month",
+      "source_artifact": "reports/showcase/summary.json",
+      "executive_use": "Track current revenue baseline for executive review."
+    },
+    {
+      "metric_id": "nrr_latest",
+      "display_name": "Net Revenue Retention",
+      "domain": "retention",
+      "formula": "current period retained revenue / prior period revenue proxy",
+      "grain": "month",
+      "source_artifact": "reports/showcase/summary.json",
+      "executive_use": "Monitor retention momentum and expansion resilience."
+    },
+    {
+      "metric_id": "gross_churn_latest",
+      "display_name": "Gross Revenue Churn",
+      "domain": "retention",
+      "formula": "1 - nrr_latest proxy",
+      "grain": "month",
+      "source_artifact": "reports/showcase/summary.json",
+      "executive_use": "Identify whether churn pressure is outside operating guardrails."
+    },
+    {
+      "metric_id": "total_value_at_risk_usd",
+      "display_name": "Total Value at Risk",
+      "domain": "executive_actioning",
+      "formula": "sum(total_spend * risk_score)",
+      "grain": "account",
+      "source_artifact": "reports/showcase/summary.json",
+      "executive_use": "Size the revenue exposure to prioritize interventions."
+    },
+    {
+      "metric_id": "adoption_rate",
+      "display_name": "Action Adoption Rate",
+      "domain": "operating_model",
+      "formula": "accepted_events / total_events",
+      "grain": "event",
+      "source_artifact": "reports/showcase/action_adoption_metrics.json",
+      "executive_use": "Track whether the organization is acting on recommendations."
+    },
+    {
+      "metric_id": "overall_score",
+      "display_name": "Data Quality Score",
+      "domain": "governance",
+      "formula": "composite score based on freshness, churn, and model quality thresholds",
+      "grain": "snapshot",
+      "source_artifact": "reports/showcase/data_quality_scorecard.json",
+      "executive_use": "Qualify whether decision outputs are healthy enough to scale."
+    }
+  ]
+}

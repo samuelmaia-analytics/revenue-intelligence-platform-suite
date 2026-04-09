@@ -12,3 +12,9 @@ reports/showcase/action_adoption_log.jsonl
 modules/revenue-intelligence/dbt/target/
 modules/revenue-intelligence/dbt/dbt_packages/
 modules/revenue-intelligence/dbt/logs/
+config/secrets/global.json
+config/secrets/environments/*.json
+config/secrets/clients/*.json
+config/secrets/tenants/**/*.json
+deploy/oauth2-proxy/*.json
+deploy/oauth2-proxy/*.env

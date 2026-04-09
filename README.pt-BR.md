@@ -1,275 +1,166 @@
-# Revenue-Intelligence-Platform-Suite
+# Revenue Intelligence Platform Suite
 
-Plataforma flagship de decisão para Revenue e Retention.
-Este arquivo é a tradução em Português (BR) do README canonical em inglês.
+Template premium de plataforma analítica executiva para receita, retenção, governança de KPI e productização comercial.
+
+Este arquivo é a versão em Português (BR) do README canônico em inglês.
 
 [![ci](https://github.com/samuelmaia-analytics/revenue-intelligence-platform-suite/actions/workflows/ci.yml/badge.svg)](https://github.com/samuelmaia-analytics/revenue-intelligence-platform-suite/actions/workflows/ci.yml)
 [![publish-release](https://github.com/samuelmaia-analytics/revenue-intelligence-platform-suite/actions/workflows/publish-release.yml/badge.svg)](https://github.com/samuelmaia-analytics/revenue-intelligence-platform-suite/actions/workflows/publish-release.yml)
 [![showcase-monitoring](https://github.com/samuelmaia-analytics/revenue-intelligence-platform-suite/actions/workflows/showcase-monitoring.yml/badge.svg)](https://github.com/samuelmaia-analytics/revenue-intelligence-platform-suite/actions/workflows/showcase-monitoring.yml)
-[![Latest release](https://img.shields.io/github/v/release/samuelmaia-analytics/revenue-intelligence-platform-suite?label=latest%20release)](https://github.com/samuelmaia-analytics/revenue-intelligence-platform-suite/releases/tag/v1.0.0)
 
-App executivo público (live): https://revenue-intelligence-platform.streamlit.app/
+Demo pública: https://revenue-intelligence-platform.streamlit.app/
 
 ## Idioma
 - English: [README.md](README.md)
 - Português (BR): [README.pt-BR.md](README.pt-BR.md)
 - Português (PT): [README.pt-PT.md](README.pt-PT.md)
 
-## Sumário
-- [O Que É](#o-que-e)
-- [Status da Vitrine](#status-da-vitrine)
-- [Demo Executiva](#demo-executiva)
-- [Arquitetura da Plataforma](#arquitetura-da-plataforma)
-- [Arquitetura Modern Data Stack](#arquitetura-modern-data-stack)
-- [Arquitetura de Analytics](#arquitetura-de-analytics)
-- [Como os Repositórios Compõem a Plataforma](#como-os-repositorios-compoem-a-plataforma)
-- [Módulos](#modulos)
-- [Navegação de Portfólio](#navegacao-de-portfolio)
-- [Estrutura do Monorepo](#estrutura-do-monorepo)
-- [Documentos Executivos](#documentos-executivos)
-- [Governança e Segurança](#governanca-e-seguranca)
-- [Casos de Uso](#casos-de-uso)
-- [Quickstart](#quickstart)
-- [Atualização de Subtree](#atualizacao-de-subtree)
-- [Resultados de Negócio](#resultados-de-negocio)
-- [Deltas de Negócio por Release](#deltas-de-negocio-por-release)
-- [Métricas de Negócio](#metricas-de-negocio)
-- [Workflow de Analytics](#workflow-de-analytics)
-- [Destaques do Projeto](#destaques-do-projeto)
-- [Stack Tecnológica](#stack-tecnologica)
+## O Que Este Repositório É
+Esta base deixou de ser apenas uma vitrine técnica. Hoje ela funciona como:
+- plataforma analítica executiva
+- template white-label para múltiplos clientes
+- base para serviço recorrente
+- fábrica de ativos comerciais, executivos e operacionais
 
-## O Que É
+Ela combina:
+- apps executivos e operacionais
+- contracts, observabilidade e quality gates
+- semantic metric layer
+- API executiva em FastAPI
+- demo stack com Docker Compose
+- review pack, proposal pack, microsite, deal room e GTM exports
 
-- Arquitetura em camadas: `raw -> bronze -> silver -> gold`
-- Modelos de negócio: churn, next purchase, LTV e priorização
-- Apps executivos e operacionais com Streamlit
-- Governança técnica com contratos de dados, testes e CI
+## Para Quem É
+- CRO, RevOps, liderança comercial
+- Customer Success e retenção
+- COO, CFO, estratégia e PMO executivo
+- consultorias de analytics e data products
+- empresas SaaS, healthtech, varejo e negócios recorrentes
 
-## Status da Vitrine
+## Resultados de Negócio
+- priorizar risco e recuperação por impacto financeiro
+- acelerar decisões executivas com KPI confiável
+- transformar demo analítica em solução comercial vendável
+- reduzir tempo de adaptação por cliente e por vertical
 
-- README canonical internacional em inglês: [README.md](README.md)
-- Release atual: `v1.0.0` (2026-03-05)
-- Notas de release: [docs/releases/v1.0.0.md](./docs/releases/v1.0.0.md)
-- Notas trimestrais: [docs/releases/2026-Q1.md](./docs/releases/2026-Q1.md)
+## Pacotes de Solução
+- Revenue Command Center
+- Retention Intelligence
+- Executive KPI Governance
+- Commercial Performance Analytics
 
-## Demo Executiva
+Documentação:
+- [docs/solutions/revenue-command-center.md](./docs/solutions/revenue-command-center.md)
+- [docs/solutions/retention-intelligence.md](./docs/solutions/retention-intelligence.md)
+- [docs/solutions/executive-kpi-governance.md](./docs/solutions/executive-kpi-governance.md)
+- [docs/solutions/commercial-performance-analytics.md](./docs/solutions/commercial-performance-analytics.md)
 
-- Dashboard executivo (app flagship): `apps/executive-dashboard/app.py`
-- Demo Revenue Intelligence: https://revenue-intelligence-platform.streamlit.app/
-- Demo Data Senior Analytics: https://data-analytics-sr.streamlit.app
-- Demo Sales Analytics: https://sales-analytics-dashboardd.streamlit.app/
-
-## Arquitetura da Plataforma
-
-```mermaid
-flowchart TD
-  subgraph Sources["Data Sources"]
-    S1[CRM ERP CSV]
-    S2[Ecommerce Sales]
-    S3[Marketing Spend]
-  end
-
-  subgraph Pipeline["Data Platform"]
-    I[Ingestion]
-    Q[Data Quality - Pandera]
-    T[Transforms and Star Schema]
-  end
-
-  subgraph ML["ML Layer"]
-    M1[Churn Model]
-    M2[Next Purchase Model]
-    M3[LTV Segmentation]
-    R[Recommendation Prioritization]
-  end
-
-  subgraph Serving["Serving & Apps"]
-    A1[Batch Scoring]
-    A2[API FastAPI Optional]
-    D1[Executive Streamlit Dashboard]
-    D2[Sales Analytics Streamlit]
-  end
-
-  Sources --> I --> Q --> T
-  T --> M1 --> R --> A1 --> D1
-  T --> M2 --> R
-  T --> M3 --> R
-  A2 --> D1
-  A2 --> D2
-```
-
-## Arquitetura Modern Data Stack
-
-```mermaid
-flowchart LR
-  DS[data_sources] --> PY[python ingestion]
-  PY --> WH[BigQuery / Snowflake]
-  WH --> DBT[dbt models<br/>staging -> intermediate -> marts]
-  DBT --> AN[analytics layer]
-  AN --> ST[Streamlit dashboards]
-```
-
-Implementacao no modulo `modules/revenue-intelligence`, com carga opcional em warehouse e projeto `dbt` completo.
-
-## Arquitetura de Analytics
-
-```mermaid
-flowchart LR
-  A[Coleta e Ingestão de Dados] --> B[Limpeza e Pré-processamento]
-  B --> C[Modelagem Analítica e Feature Engineering]
-  C --> D[Treinamento e Avaliação de Modelos]
-  D --> E[Camada de Insights e KPIs]
-  E --> F[Dashboard Interativo e Suporte à Decisão]
-```
-
-Esta arquitetura representa o pipeline analítico, o fluxo de dados ponta a ponta e a camada de decisão de analytics usada pela plataforma.
-
-## Como os Repositórios Compõem a Plataforma
-
-```mermaid
-flowchart LR
-  R1[Revenue-Intelligence-Platform] --> P[Revenue-Intelligence-Platform-Suite]
-  R2[churn-prediction] --> P
-  R3[amazon-sales-analysis] --> P
-  R4[analise-vendas-python] --> P
-  R5[data-senior-analytics] --> P
-```
-
-## Módulos
-
-| Caminho do Modulo | Repositorio de Origem | Status |
-|---|---|---|
-| [modules/revenue-intelligence](./modules/revenue-intelligence) | Revenue-Intelligence-Platform-End-to-End-Analytics-ML-System | Integrado via subtree |
-| [modules/churn-prediction](./modules/churn-prediction) | churn-prediction | Integrado via subtree |
-| [modules/amazon-sales-analysis](./modules/amazon-sales-analysis) | amazon-sales-analysis | Integrado via subtree |
-| [modules/analise-vendas-python](./modules/analise-vendas-python) | analise-vendas-python | Integrado via subtree |
-| [modules/data-senior-analytics](./modules/data-senior-analytics) | data-senior-analytics | Integrado via subtree |
-
-## Navegação de Portfólio
-
-Esta seção acelera a leitura para recrutadores e líderes, deixando explícito o valor que cada módulo comprova.
-
-| Módulo | O que este projeto prova |
-|---|---|
-| [modules/revenue-intelligence](./modules/revenue-intelligence) | Capacidade de desenhar um sistema completo de retenção de receita com priorização executiva baseada em impacto financeiro. |
-| [modules/churn-prediction](./modules/churn-prediction) | Qualidade de modelagem preditiva de churn com validação temporal e fluxo de scoring aplicável. |
-| [modules/amazon-sales-analysis](./modules/amazon-sales-analysis) | Diagnóstico analítico de e-commerce e identificação reproduzível de vazamentos de receita. |
-| [modules/analise-vendas-python](./modules/analise-vendas-python) | Profundidade em analytics comercial com storytelling orientado a decisão de vendas. |
-| [modules/data-senior-analytics](./modules/data-senior-analytics) | Maturidade em analytics sênior: transformar achados técnicos em decisão executiva e trade-off de negócio. |
-
-## Estrutura do Monorepo
-
+## Arquitetura
 ```text
-revenue-intelligence-platform-suite/
-|- apps/
-|- datasets/
-|- docs/
-|- modules/
-|- packages/
-|- platform/
-|- tests/
-`- pyproject.toml
+sources -> ingestion -> bronze -> silver -> gold -> semantic metrics -> executive insights -> apps -> action telemetry
 ```
 
-## Documentos Executivos
+Camadas principais:
+- ingestão e conectores
+- transformação e promoção de dados
+- semantic layer e business metric layer
+- modelagem e recomendação
+- observabilidade, scorecards e contratos
+- serving executivo e comercial
 
-- [Executive Brief](./docs/executive-brief.md)
-- [KPI Scorecard](./docs/kpi-scorecard.md)
-- [Governance RACI](./docs/governance-raci.md)
+Mais detalhes: [docs/architecture.md](./docs/architecture.md)
 
-## Governança e Segurança
+## Productização Comercial
+Ativos gerados pela plataforma:
+- `reports/showcase/summary.json`
+- `reports/showcase/solution_profile.json`
+- `reports/showcase/data_quality_scorecard.json`
+- `reports/showcase/executive_insights.json`
+- `dist/executive-review-pack/`
+- `dist/client-proposal-pack/`
+- `dist/client-microsite/`
+- `dist/deal-rooms/<deal-slug>/`
+- `dist/deal-rooms/<deal-slug>/sales-enablement/`
 
-- [CODEOWNERS](./.github/CODEOWNERS)
-- [Security Policy](./SECURITY.md)
-- [Compliance Checklist (LGPD/GDPR)](./docs/compliance-checklist.md)
-
-## Casos de Uso
-
-- [Case Study 01 - Churn Retention Prioritization](./docs/case-studies/case-study-01-churn-retention-prioritization.md)
-- [Case Study 02 - Discount Leakage Revenue Recovery](./docs/case-studies/case-study-02-discount-leakage-revenue-recovery.md)
+## Configuração Multi-Cliente
+A configuração está externalizada em:
+- `config/global.json`
+- `config/environments/*.json`
+- `config/clients/*.json`
+- `config/solution_packages/*.json`
+- `config/semantic_metrics.json`
+- `config/proposal_defaults.json`
 
 ## Quickstart
-
+Gerar artefatos do showcase:
 ```bash
-python -m venv .venv
-.venv\Scripts\Activate.ps1
-pip install -e ".[dev]"
+python scripts/run_showcase_demo.py
+```
+
+Subir app executivo:
+```bash
 streamlit run apps/executive-dashboard/app.py
 ```
 
-Demo Modern Data Stack (1 comando):
-
-```powershell
-powershell -ExecutionPolicy Bypass -File .\modules\revenue-intelligence\scripts\run_modern_data_stack_demo.ps1
-```
-
-Setup local recomendado (sem conflito de dependencias entre app e dbt):
-
-```powershell
-powershell -ExecutionPolicy Bypass -File .\modules\revenue-intelligence\scripts\setup_envs.ps1
-```
-
-Execucao local do dbt:
-
-```powershell
-powershell -ExecutionPolicy Bypass -File .\modules\revenue-intelligence\scripts\run_dbt_local.ps1 -Target ci -WithTests
-```
-
-Publicacao de docs dbt no GitHub Pages:
-- Workflow: `.github/workflows/dbt-docs.yml`
-- Guia: [docs/dbt-docs-publishing.md](./docs/dbt-docs-publishing.md)
-- URL publicada: https://samuelmaia-analytics.github.io/revenue-intelligence-platform-suite/
-- Validacao no CI: job `dbt-parse` em `.github/workflows/ci.yml`
-
-## Atualização de Subtree
-
+Subir API executiva:
 ```bash
-git fetch churn-prediction main
-git subtree pull --prefix modules/churn-prediction churn-prediction main --squash
+uvicorn apps.executive_api.main:app --reload
 ```
 
-## Resultados de Negócio
+Subir stack local:
+```bash
+docker compose up --build
+```
 
-- Melhor priorização de clientes de alto valor e alto risco
-- Decisões mais rápidas para retenção e crescimento de receita
-- Reprodutibilidade de pipelines e rastreabilidade de modelos
+## Ativos Executivos e Comerciais
+Executive review pack:
+```bash
+python scripts/build_executive_review_pack.py
+```
 
-## Deltas de Negócio por Release
+Proposal pack:
+```bash
+python scripts/build_client_proposal_pack.py
+```
 
-| Release | Delta de negócio publicado | Evidência |
-|---|---|---|
-| `v1.0.0` | Priorização executiva passou de insights estáticos para decisão orientada por telemetria; exposição atual quantificada em `$144,490.04` de receita em risco e `$29,130.33` no top-50 de contas prioritárias. | [docs/releases/v1.0.0.md](./docs/releases/v1.0.0.md), [reports/showcase/summary.json](./reports/showcase/summary.json) |
-| `2026-Q1` | Base operacional da plataforma consolidada para report trimestral recorrente (contratos, CI em matriz, logs de observabilidade). Rastreamento de adoção já em produção, com baseline inicial de `0` eventos no trimestre. | [docs/releases/2026-Q1.md](./docs/releases/2026-Q1.md), [reports/showcase/action_adoption_metrics.json](./reports/showcase/action_adoption_metrics.json) |
+Microsite por cliente:
+```bash
+python scripts/build_client_microsite.py
+```
 
-## Métricas de Negócio
+Deal room:
+```bash
+PROPOSAL_CLIENT_NAME="Acme Corp" DEAL_NAME="Acme Expansion FY26" python scripts/build_deal_room.py
+```
 
-Example KPIs analyzed in the project:
-- Revenue Growth Rate
-- Customer Lifetime Value (CLV)
-- Customer Churn Rate
-- Average Order Value (AOV)
-- Conversion Rate
+Sales enablement bundle:
+```bash
+PROPOSAL_CLIENT_NAME="Acme Corp" DEAL_NAME="Acme Expansion FY26" python scripts/build_sales_enablement_bundle.py
+```
 
-Business metrics help organizations understand performance trends and support data-driven decision making.
+GTM exports:
+```bash
+PROPOSAL_CLIENT_NAME="Acme Corp" DEAL_NAME="Acme Expansion FY26" python scripts/build_gtm_exports.py
+```
 
-## Workflow de Analytics
+## Documentação-Chave
+- [docs/README.md](./docs/README.md)
+- [docs/productization-roadmap.md](./docs/productization-roadmap.md)
+- [docs/genai-governance.md](./docs/genai-governance.md)
+- [docs/semantic-metric-layer.md](./docs/semantic-metric-layer.md)
+- [docs/release-evidence-pack.md](./docs/release-evidence-pack.md)
+- [docs/proposal-pack.md](./docs/proposal-pack.md)
+- [docs/client-microsite.md](./docs/client-microsite.md)
+- [docs/deal-room.md](./docs/deal-room.md)
+- [docs/sales-enablement-bundle.md](./docs/sales-enablement-bundle.md)
+- [docs/gtm-exports.md](./docs/gtm-exports.md)
 
-1. Data collection and ingestion
-2. Data cleaning and preprocessing
-3. Exploratory data analysis (EDA)
-4. Feature engineering
-5. Machine learning model training
-6. Model evaluation
-7. Business insights generation
-8. Interactive dashboard development
+## Como Isso Melhora o Posicionamento Comercial
+O repositório agora demonstra:
+- capacidade de plataforma
+- clareza de produto
+- governança de métricas
+- experiência executiva
+- readiness para venda consultiva e serviço recorrente
 
-## Destaques do Projeto
-
-- End-to-end analytics workflow
-- Interactive analytics dashboard
-- Business-oriented metrics
-- Predictive analytics model
-- Structured project architecture
-
-## Stack Tecnológica
-
-Python, SQL, Streamlit, scikit-learn, Prefect, Pandera, MLflow, Pytest, Docker.
+Para detalhes completos, use o README canônico em inglês: [README.md](README.md)

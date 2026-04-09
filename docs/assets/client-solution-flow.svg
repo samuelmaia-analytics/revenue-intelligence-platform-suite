@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="360" viewBox="0 0 1400 360">
+  <rect width="1400" height="360" fill="#f8fafc"/>
+  <text x="60" y="70" font-family="Arial, sans-serif" font-size="34" fill="#122033">Client Solution Flow</text>
+  <text x="60" y="108" font-family="Arial, sans-serif" font-size="18" fill="#5b6b81">How industry adaptation becomes a reusable executive client solution.</text>
+
+  <g font-family="Arial, sans-serif" font-size="18" font-weight="700" text-anchor="middle">
+    <rect x="70" y="170" width="220" height="80" rx="20" fill="#dbeafe"/><text x="180" y="218" fill="#1d4ed8">Industry Context</text>
+    <rect x="340" y="170" width="220" height="80" rx="20" fill="#c7f9e9"/><text x="450" y="218" fill="#0f766e">Client Profile</text>
+    <rect x="610" y="170" width="220" height="80" rx="20" fill="#fef3c7"/><text x="720" y="218" fill="#b45309">Solution Package</text>
+    <rect x="880" y="170" width="220" height="80" rx="20" fill="#fecaca"/><text x="990" y="218" fill="#b91c1c">Executive Layer</text>
+    <rect x="1150" y="170" width="200" height="80" rx="20" fill="#ede9fe"/><text x="1250" y="206" fill="#6d28d9">Actions And</text><text x="1250" y="230" fill="#6d28d9">Recurring Motion</text>
+  </g>
+
+  <g stroke="#94a3b8" stroke-width="4" fill="none">
+    <path d="M290 210 H340"/>
+    <path d="M560 210 H610"/>
+    <path d="M830 210 H880"/>
+    <path d="M1100 210 H1150"/>
+  </g>
+</svg>
