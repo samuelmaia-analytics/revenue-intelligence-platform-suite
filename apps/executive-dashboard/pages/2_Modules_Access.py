@@ -8,7 +8,7 @@ if str(APP_DIR) not in sys.path:
     sys.path.insert(0, str(APP_DIR))
 
 from dashboard_theme import apply_dashboard_theme, render_footer, render_hero, render_intro_banner, render_section_label  # noqa: E402
-from dashboard_ui import render_command_bar, render_command_grid, render_global_context, render_module_cards, render_story_block  # noqa: E402
+from dashboard_ui import render_command_bar, render_command_grid, render_global_context, render_module_cards, render_sidebar_nav, render_story_block  # noqa: E402
 
 
 def _find_repo_root(start: Path) -> Path:
@@ -34,14 +34,14 @@ from common import enforce_streamlit_sso  # noqa: E402
 identity = enforce_streamlit_sso(st)
 
 with st.sidebar:
-    st.markdown("### Workspace")
-    st.page_link("app.py", label="Platform Home")
-    st.page_link("pages/1_Executive_KPI_Board.py", label="Executive KPI Board")
-    st.page_link("pages/2_Modules_Access.py", label="Modules Access")
-    st.markdown("### Suite Scope")
-    st.caption("Module catalog, public demos, repositories and trust assets in one executive portal.")
-    st.markdown("### Read Flow")
-    st.caption("Portfolio scope, module footprint, proof assets and direct links.")
+    render_sidebar_nav(
+        st,
+        current_page="modules",
+        mode_label="Product catalog",
+        mode_body="Module catalog, public demos, repositories and trust assets in one executive portal.",
+        flow_label="Read top-down",
+        flow_body="Portfolio scope, module footprint, proof assets and direct links.",
+    )
 
 ROOT = _find_repo_root(Path(__file__).resolve())
 apply_dashboard_theme(st)

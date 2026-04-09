@@ -32,11 +32,11 @@ from dashboard_theme import apply_dashboard_theme, render_footer, render_hero, r
 from dashboard_ui import (  # noqa: E402
     render_command_bar,
     format_percent,
-    render_command_grid,
     render_global_context,
     render_insight_grid,
+    render_kpi_note,
     render_metrics_grid,
-    render_module_cards,
+    render_sidebar_nav,
     render_signal_band,
     render_story_block,
     render_table,
@@ -51,14 +51,14 @@ st.set_page_config(
 identity = enforce_streamlit_sso(st)
 
 with st.sidebar:
-    st.markdown("### Workspace")
-    st.page_link("app.py", label="Platform Home")
-    st.page_link("pages/1_Executive_KPI_Board.py", label="Executive KPI Board")
-    st.page_link("pages/2_Modules_Access.py", label="Modules Access")
-    st.markdown("### Use")
-    st.caption("Premium analytics control tower for recurring revenue, retention and governance.")
-    st.markdown("### Read Flow")
-    st.caption("Context, core KPIs, trust layer, package footprint and executive assets.")
+    render_sidebar_nav(
+        st,
+        current_page="home",
+        mode_label="Executive landing",
+        mode_body="Premium control tower for recurring revenue, retention, and KPI governance.",
+        flow_label="Read top-down",
+        flow_body="Positioning, four core KPIs, trust signals, then the two primary navigation paths.",
+    )
 
 SHOWCASE_DIR = ROOT / "reports" / "showcase"
 
@@ -122,41 +122,21 @@ render_hero(
     ],
 )
 
-render_command_grid(
-    st,
-    [
-        {
-            "label": "Context",
-            "title": "Executive landing zone",
-            "body": "Use this page as the high-level product surface before drilling into KPI execution and module footprint.",
-        },
-        {
-            "label": "Priority",
-            "title": "Start with revenue risk",
-            "body": "Current-state metrics and governance indicators are positioned first so decision quality is obvious before actioning.",
-        },
-        {
-            "label": "Flow",
-            "title": "Navigate by decision layer",
-            "body": "Home frames the platform, KPI Board operationalizes it, and Modules Access shows reusable product breadth.",
-        },
-    ],
-)
 render_command_bar(
     st,
     [
         {
-            "label": "Platform State",
+            "label": "Platform",
             "title": "Executive suite status",
             "value": solution_profile.get("deployment_env", "showcase").title(),
-            "note": "Single surface for revenue, retention, governance and delivery assets.",
+            "note": "Single control layer for revenue, retention, governance and delivery assets.",
             "primary": True,
         },
         {
             "label": "Profiles",
-            "title": "Client adaptations",
+            "title": "Adaptation profiles",
             "value": str(len(client_profiles)),
-            "note": "Reusable profiles already mapped into the suite.",
+            "note": "Reusable client lenses already mapped into the suite.",
         },
         {
             "label": "Trust",
@@ -222,23 +202,24 @@ render_metrics_grid(
 )
 
 if tenant_secret_status:
+    render_section_label(st, "Trust Layer")
     render_signal_band(
         st,
         [
             {
                 "title": "Tenant Readiness",
                 "value": f"{tenant_secret_status.get('configured_secret_count', 0)}/{tenant_secret_status.get('required_secret_count', 0)} configured",
-                "body": "Multi-tenant secrets status is visible at the landing layer to reinforce deployment readiness.",
+                "body": "Secrets readiness stays visible at landing level because deployment hygiene affects decision confidence.",
             },
             {
                 "title": "Freshness Gap",
                 "value": f"{quality_scorecard.get('dimensions', {}).get('freshness_days', 'n/a')} days",
-                "body": "Freshness is kept visible so executive consumers can judge whether outputs are current enough for action.",
+                "body": "Freshness remains adjacent to KPIs so executives know whether the surface is current enough for action.",
             },
             {
                 "title": "Model Quality",
                 "value": f"AUC {quality_scorecard.get('dimensions', {}).get('churn_auc_temporal_test', 0.0):.3f}",
-                "body": "Temporal validation remains attached to the product experience, not hidden inside technical docs.",
+                "body": "Predictive quality is kept in the product surface instead of being buried in technical documentation.",
             },
         ],
     )
@@ -260,9 +241,9 @@ render_insight_grid(
     [
         {
             "eyebrow": "Current State",
-            "title": "The platform is structured as an executive control layer.",
-            "body": "Home, KPI board, modules, proposal assets, evidence packs, and telemetry live as one integrated product surface.",
-            "action": "Use the KPI board for the operational narrative and the modules page for solution footprint.",
+            "title": "This page now works as an executive preface, not as the full operating review.",
+            "body": "The landing layer is intentionally compressed so leadership gets product context, baseline KPIs, trust signals, and clear next steps in one read.",
+            "action": "Use the KPI board for weekly review and the modules page for product breadth.",
         },
         {
             "eyebrow": "Business Signal",
@@ -279,39 +260,26 @@ render_insight_grid(
     ],
 )
 
-render_section_label(st, "Navigation")
-nav_left, nav_right = st.columns([1.05, 1])
-with nav_left:
+render_section_label(st, "Primary Paths")
+path_left, path_right = st.columns(2)
+with path_left:
     render_story_block(
         st,
-        title="Start with the KPI Board",
-        body="Use the flagship board for the full decision flow: current state, trend, exposure, recommended actions, governance, and realized outcomes.",
-        badge="Primary experience",
+        title="KPI Board",
+        body="Open the operating review for trend, exposure, weekly decisions, prioritized actions, and governance confidence.",
+        badge="Primary path",
     )
-    n1, n2 = st.columns(2)
-    with n1:
-        if st.button("Open Executive KPI Board", use_container_width=True):
-            st.switch_page("pages/1_Executive_KPI_Board.py")
-    with n2:
-        if st.button("Open Modules Portal", use_container_width=True):
-            st.switch_page("pages/2_Modules_Access.py")
-with nav_right:
+    if st.button("Open Executive KPI Board", use_container_width=True):
+        st.switch_page("pages/1_Executive_KPI_Board.py")
+with path_right:
     render_story_block(
         st,
-        title="Use this as a client-facing demo suite",
-        body="The experience is designed to support interviews, executive demos, pre-sales, and reusable packaging for analytics services.",
-        badge="Commercially presentable",
+        title="Modules Portal",
+        body="Open the product catalog when the conversation needs breadth, repositories, public demos, and asset coverage.",
+        badge="Secondary path",
     )
-    st.link_button(
-        "Open Revenue Intelligence Demo",
-        "https://revenue-intelligence-platform.streamlit.app/",
-        use_container_width=True,
-    )
-    st.link_button(
-        "Open Data Senior Analytics Demo",
-        "https://data-analytics-sr.streamlit.app",
-        use_container_width=True,
-    )
+    if st.button("Open Modules Portal", use_container_width=True):
+        st.switch_page("pages/2_Modules_Access.py")
 
 render_section_label(st, "Client Adaptation Profiles")
 profiles_df = pd.DataFrame(
@@ -327,92 +295,69 @@ profiles_df = pd.DataFrame(
 )
 render_table(st, profiles_df)
 
-render_section_label(st, "Platform Value")
-value_left, value_right = st.columns([1.2, 1])
+render_section_label(st, "Decision Notes")
+note_left, note_mid, note_right = st.columns(3)
+with note_left:
+    render_kpi_note(
+        st,
+        title="Risk posture",
+        body=f"Current modeled exposure is ${showcase_summary.get('total_value_at_risk_usd', 0):,.0f}, so revenue risk stays as the first read on this surface.",
+        tone="risk",
+    )
+with note_mid:
+    render_kpi_note(
+        st,
+        title="Opportunity",
+        body=f"The top-50 account cohort concentrates ${showcase_summary.get('top_50_value_at_risk_usd', 0):,.0f} in recovery potential for the next save motion.",
+        tone="positive",
+    )
+with note_right:
+    render_kpi_note(
+        st,
+        title="Trust signal",
+        body=f"Quality score is {quality_scorecard.get('overall_score', 0):.1f}, keeping freshness, guardrails and model validity visible to executives.",
+        tone="info",
+    )
+
+render_section_label(st, "Proof of Value")
+value_left, value_right = st.columns([1.15, 1])
 with value_left:
     render_story_block(
         st,
-        title="Why this feels like a product, not a portfolio dashboard",
-        body="Telemetry-backed KPIs, recommended actions, governance scorecards, semantic metrics, deal-room assets, and multi-client adaptation are surfaced as one platform narrative.",
-        badge="Productized analytics",
+        title="Why this reads like a product",
+        body="Telemetry-backed KPIs, decision framing, governance scorecards, semantic metrics and client adaptation are presented as one executive system rather than isolated assets.",
+        badge="Product signal",
     )
 with value_right:
-    render_signal_band(
+    render_story_block(
         st,
-        [
-            {
-                "title": "Decision Cycle",
-                "value": "Weekly",
-                "body": "Optimized for recurring executive review instead of ad hoc exploration.",
-            },
-            {
-                "title": "Primary Buyers",
-                "value": "Revenue + CS + COO",
-                "body": "Built for commercial leadership and executive operating cadences.",
-            },
-            {
-                "title": "Delivery Model",
-                "value": "Board + Actions",
-                "body": "The suite couples KPI review with action registers and evidence artifacts.",
-            },
-        ],
+        title="Executive deliverables",
+        body="Review packs, proposal packs, release evidence and industry-specific demos are positioned as part of the platform surface, not as separate afterthoughts.",
+        badge="Commercial proof",
     )
 
-render_section_label(st, "Solution Packages")
-package_cards = [
-    [
-        {
-            "name": "Revenue Command Center",
-            "category": "Flagship Package",
-            "status": "Primary",
-            "role": "Protect recurring revenue with prioritized action playbooks, exposure framing, and executive weekly operating reviews.",
-            "value": "Buyer: CRO / RevOps",
-            "asset_type": "Board + action register",
-        },
-        {
-            "name": "Retention Intelligence",
-            "category": "Retention Package",
-            "status": "Live",
-            "role": "Surface churn exposure, account risk, and save-motion opportunities for Customer Success and retention leadership.",
-            "value": "Buyer: CS leadership",
-            "asset_type": "Risk + recovery layer",
-        },
-        {
-            "name": "Executive KPI Governance",
-            "category": "Governance Package",
-            "status": "Live",
-            "role": "Standardize definitions, freshness, trust signals, and accountability around executive metrics.",
-            "value": "Buyer: CEO / COO / CFO",
-            "asset_type": "Metric contracts + scorecards",
-        },
-        {
-            "name": "Commercial Performance Analytics",
-            "category": "Commercial Package",
-            "status": "Live",
-            "role": "Improve seller, channel, and segment performance visibility with a clearer operating view for commercial teams.",
-            "value": "Buyer: Sales / Commercial Ops",
-            "asset_type": "Performance analytics",
-        },
-    ]
-]
-render_module_cards(st, package_cards[0])
-
-render_section_label(st, "Executive Deliverables")
-render_story_block(
-    st,
-    title="Board-ready artifacts are part of the platform surface",
-    body="The suite produces review packs, proposal packs, evidence packs, deal rooms, and industry demo assets that reinforce its value as a client solution.",
-    badge="Commercial asset layer",
-)
-deliverables = pd.DataFrame(
-    [
-        {"Deliverable": "Executive Review Pack", "Format": "Markdown / JSON / HTML", "Use": "Board and steering review"},
-        {"Deliverable": "Client Proposal Pack", "Format": "Markdown / JSON / HTML", "Use": "Commercial proposal and pitch asset"},
-        {"Deliverable": "Release Evidence Pack", "Format": "tar.gz", "Use": "Quarterly proof and release artifact"},
-        {"Deliverable": "Industry Demo Packs", "Format": "Per-profile folders", "Use": "Client-specific commercial demos"},
-    ]
-)
-render_table(st, deliverables)
+deliverable_left, deliverable_right = st.columns([1.15, 1])
+with deliverable_left:
+    deliverables = pd.DataFrame(
+        [
+            {"Deliverable": "Executive Review Pack", "Format": "Markdown / JSON / HTML", "Use": "Board and steering review"},
+            {"Deliverable": "Client Proposal Pack", "Format": "Markdown / JSON / HTML", "Use": "Commercial proposal and pitch asset"},
+            {"Deliverable": "Release Evidence Pack", "Format": "tar.gz", "Use": "Quarterly proof and release artifact"},
+            {"Deliverable": "Industry Demo Packs", "Format": "Per-profile folders", "Use": "Client-specific commercial demos"},
+        ]
+    )
+    render_table(st, deliverables)
+with deliverable_right:
+    st.link_button(
+        "Open Revenue Intelligence Demo",
+        "https://revenue-intelligence-platform.streamlit.app/",
+        use_container_width=True,
+    )
+    st.link_button(
+        "Open Data Senior Analytics Demo",
+        "https://data-analytics-sr.streamlit.app",
+        use_container_width=True,
+    )
 
 render_footer(
     st,

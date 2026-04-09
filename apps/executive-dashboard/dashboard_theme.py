@@ -196,6 +196,10 @@ def apply_dashboard_theme(st_module, theme_key: str = DEFAULT_THEME_KEY) -> dict
             padding-right: 0.55rem;
         }}
 
+        [data-testid="stSidebar"] .stPageLink {{
+            margin-bottom: 0.2rem;
+        }}
+
         [data-testid="stSidebarNav"] {{
             padding-top: 0.35rem;
         }}
@@ -235,6 +239,21 @@ def apply_dashboard_theme(st_module, theme_key: str = DEFAULT_THEME_KEY) -> dict
         [data-testid="stSidebar"] [data-testid="stCaptionContainer"],
         [data-testid="stSidebar"] .rip-sidebar-muted {{
             color: rgba(231, 237, 246, 0.78) !important;
+        }}
+
+        .rip-sidebar-group-label {{
+            color: #ffffff !important;
+            font-size: 0.72rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            margin: 0.65rem 0 0.45rem 0;
+        }}
+
+        .rip-sidebar-divider {{
+            height: 1px;
+            background: rgba(255, 255, 255, 0.08);
+            margin: 0.65rem 0;
         }}
 
         .stButton > button,
@@ -542,6 +561,12 @@ def apply_dashboard_theme(st_module, theme_key: str = DEFAULT_THEME_KEY) -> dict
             background: rgba(180, 83, 9, 0.10);
             border-color: rgba(180, 83, 9, 0.14);
             color: var(--rip-warning) !important;
+        }}
+
+        .rip-status-badge.is-info {{
+            background: rgba(29, 78, 216, 0.10);
+            border-color: rgba(29, 78, 216, 0.14);
+            color: var(--rip-info) !important;
         }}
 
         .rip-stat-grid,
@@ -863,6 +888,47 @@ def apply_dashboard_theme(st_module, theme_key: str = DEFAULT_THEME_KEY) -> dict
 
         .rip-command-panel.is-primary .rip-command-note {{
             color: rgba(248, 250, 252, 0.78) !important;
+        }}
+
+        .rip-kpi-note {{
+            border-radius: var(--rip-radius-md);
+            border: 1px solid rgba(15, 23, 42, 0.08);
+            background: rgba(255, 255, 255, 0.92);
+            box-shadow: var(--rip-shadow-soft);
+            padding: 0.9rem 1rem;
+            min-height: 100%;
+        }}
+
+        .rip-kpi-note-title {{
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.10em;
+            margin-bottom: 0.4rem;
+            color: var(--rip-muted) !important;
+        }}
+
+        .rip-kpi-note p {{
+            margin: 0;
+            color: var(--rip-text) !important;
+            line-height: 1.6;
+            font-size: 0.94rem;
+        }}
+
+        .rip-kpi-note.is-risk {{
+            border-left: 4px solid var(--rip-danger);
+        }}
+
+        .rip-kpi-note.is-positive {{
+            border-left: 4px solid var(--rip-success);
+        }}
+
+        .rip-kpi-note.is-warning {{
+            border-left: 4px solid var(--rip-warning);
+        }}
+
+        .rip-kpi-note.is-info {{
+            border-left: 4px solid var(--rip-info);
         }}
 
         .rip-footer {{

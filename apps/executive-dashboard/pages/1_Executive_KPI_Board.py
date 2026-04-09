@@ -17,10 +17,11 @@ from dashboard_ui import (  # noqa: E402
     format_currency,
     format_percent,
     render_command_bar,
-    render_command_grid,
     render_global_context,
     render_insight_grid,
+    render_kpi_note,
     render_metrics_grid,
+    render_sidebar_nav,
     render_signal_band,
     render_story_block,
     render_table,
@@ -62,14 +63,14 @@ st.set_page_config(page_title="Executive KPI Board", layout="wide")
 identity = enforce_streamlit_sso(st)
 
 with st.sidebar:
-    st.markdown("### Workspace")
-    st.page_link("app.py", label="Platform Home")
-    st.page_link("pages/1_Executive_KPI_Board.py", label="Executive KPI Board")
-    st.page_link("pages/2_Modules_Access.py", label="Modules Access")
-    st.markdown("### Scenario Controls")
-    st.caption("Scenario controls for revenue review, action approval and execution monitoring.")
-    st.markdown("### Board Logic")
-    st.caption("Current state, risk, opportunity, action register and trust layer.")
+    render_sidebar_nav(
+        st,
+        current_page="kpi_board",
+        mode_label="Operating review",
+        mode_body="Executive weekly board for revenue trend, risk sizing, action approval and governance confidence.",
+        flow_label="Decision sequence",
+        flow_body="Current state, what changed, decisions this week, action register, then trust layer.",
+    )
 
 SALES_PATH = ROOT / "modules" / "analise-vendas-python" / "dados_processados" / "vendas_simples.csv"
 CUSTOMER_PATH = (
@@ -205,26 +206,6 @@ render_hero(
         f"Telemetry: {TELEMETRY_BACKEND}",
     ],
 )
-render_command_grid(
-    st,
-    [
-        {
-            "label": "Context",
-            "title": "Board-facing control room",
-            "body": "Leadership should read this page top-down: current state, exposure, opportunity, actions and trust layer.",
-        },
-        {
-            "label": "Primary question",
-            "title": "What deserves action now",
-            "body": "The layout highlights which accounts, scenarios and actions should be prioritized first in the executive cadence.",
-        },
-        {
-            "label": "Operating model",
-            "title": "From KPI to follow-through",
-            "body": "Metrics, watchlists, adoption logging and governance remain connected in one review surface.",
-        },
-    ],
-)
 if identity.get("authenticated"):
     st.markdown(
         (
@@ -337,6 +318,13 @@ render_metrics_grid(
     ],
 )
 
+previous_revenue = float(monthly_revenue["SALES"].iloc[-2]) if len(monthly_revenue) >= 2 else current_revenue
+revenue_change = current_revenue - previous_revenue
+nrr_target_gap = current_nrr - 0.92
+top_watchlist = risk_view.sort_values("Revenue at Risk (USD)", ascending=False).head(3)
+top_account_value = float(top_watchlist["Revenue at Risk (USD)"].sum()) if not top_watchlist.empty else 0.0
+decision_focus = "Approve save motion" if roi > 0 else "Reframe intervention plan"
+
 if solution_profile:
     render_signal_band(
         st,
@@ -359,6 +347,30 @@ if solution_profile:
         ],
     )
 
+render_section_label(st, "Operating Review")
+review_left, review_mid, review_right = st.columns(3)
+with review_left:
+    render_kpi_note(
+        st,
+        title="What changed",
+        body=f"Revenue moved {format_currency(revenue_change)} versus the prior month while NRR is running at {format_percent(current_nrr)}.",
+        tone="info" if revenue_change >= 0 else "risk",
+    )
+with review_mid:
+    render_kpi_note(
+        st,
+        title="Decision required",
+        body=f"{decision_focus} because modeled exposure is {format_currency(value_at_risk)} and scenario ROI is {format_percent(roi)}.",
+        tone="positive" if roi > 0 else "risk",
+    )
+with review_right:
+    render_kpi_note(
+        st,
+        title="Leadership watchlist",
+        body=f"The top watchlist concentrates {format_currency(top_account_value)} in exposure across the first three accounts.",
+        tone="warning",
+    )
+
 render_section_label(st, "Executive Context")
 insights = executive_insights.get("insights", []) if executive_insights else []
 render_insight_grid(
@@ -378,7 +390,7 @@ render_insight_grid(
         },
         {
             "eyebrow": "Action Lens",
-            "title": "The board translates exposure into interventions.",
+            "title": "This board is sequenced for weekly decisions, not passive monitoring.",
             "body": f"With a {uplift}% uplift assumption and {format_currency(budget)} budget, the scenario yields {format_currency(expected_recovery)} in potential recovery.",
             "action": "Review the watchlist, approve the top actions, and track adoption weekly.",
         },
@@ -501,61 +513,70 @@ trend_tab, risk_tab, action_tab, governance_tab = st.tabs(
 )
 
 with trend_tab:
-    trend_left, trend_right = st.columns([1.5, 1])
-    with trend_left:
-        render_section_label(st, "Revenue Trend")
+    render_story_block(
+        st,
+        title="Trend Reading",
+        body="The trend layer is intentionally spaced as a clean two-step read: revenue first, then retention quality. This keeps the board closer to an executive operating review than a compressed BI canvas.",
+        badge="State -> trend",
+    )
+    render_section_label(st, "Revenue Trend")
+    st.altair_chart(
+        build_line_chart(
+            monthly_revenue,
+            x="month:N",
+            y="SALES:Q",
+            color="#1d4ed8",
+            y_title="Revenue",
+            tooltip=["month:N", "SALES:Q"],
+        ),
+        use_container_width=True,
+    )
+    render_kpi_note(
+        st,
+        title="Revenue read",
+        body="Use this chart to anchor the review in current momentum before moving into retention quality and action pressure.",
+        tone="info",
+    )
+    render_section_label(st, "NRR Telemetry Trend")
+    if telemetry_df.empty:
+        fallback_nrr = (
+            monthly_revenue["SALES"] / monthly_revenue["SALES"].shift(1)
+        ).fillna(1.0).clip(lower=0.6, upper=1.2)
+        fallback_df = pd.DataFrame(
+            {"month": monthly_revenue["month"], "NRR": (fallback_nrr * 100).round(2)}
+        )
         st.altair_chart(
             build_line_chart(
-                monthly_revenue,
+                fallback_df,
                 x="month:N",
-                y="SALES:Q",
-                color="#1d4ed8",
-                y_title="Revenue",
-                tooltip=["month:N", "SALES:Q"],
+                y="NRR:Q",
+                color="#0f766e",
+                y_title="NRR (%)",
+                tooltip=["month:N", "NRR:Q"],
             ),
-            width="stretch",
+            use_container_width=True,
         )
-    with trend_right:
-        render_story_block(
-            st,
-            title="Trend Reading",
-            body="This block anchors the executive board in a simple question: are we growing with enough retention quality to justify the current plan?",
-            badge="State -> trend",
+        st.info("Telemetry DB not found in host; showing computed fallback NRR trend.")
+    else:
+        nrr_chart_df = telemetry_df.copy()
+        nrr_chart_df["NRR"] = (nrr_chart_df["nrr"] * 100).round(2)
+        st.altair_chart(
+            build_line_chart(
+                nrr_chart_df,
+                x="month:N",
+                y="NRR:Q",
+                color="#0f766e",
+                y_title="NRR (%)",
+                tooltip=["month:N", "NRR:Q"],
+            ),
+            use_container_width=True,
         )
-        render_section_label(st, "NRR Telemetry Trend")
-        if telemetry_df.empty:
-            fallback_nrr = (
-                monthly_revenue["SALES"] / monthly_revenue["SALES"].shift(1)
-            ).fillna(1.0).clip(lower=0.6, upper=1.2)
-            fallback_df = pd.DataFrame(
-                {"month": monthly_revenue["month"], "NRR": (fallback_nrr * 100).round(2)}
-            )
-            st.altair_chart(
-                build_line_chart(
-                    fallback_df,
-                    x="month:N",
-                    y="NRR:Q",
-                    color="#0f766e",
-                    y_title="NRR (%)",
-                    tooltip=["month:N", "NRR:Q"],
-                ),
-                width="stretch",
-            )
-            st.info("Telemetry DB not found in host; showing computed fallback NRR trend.")
-        else:
-            nrr_chart_df = telemetry_df.copy()
-            nrr_chart_df["NRR"] = (nrr_chart_df["nrr"] * 100).round(2)
-            st.altair_chart(
-                build_line_chart(
-                    nrr_chart_df,
-                    x="month:N",
-                    y="NRR:Q",
-                    color="#0f766e",
-                    y_title="NRR (%)",
-                    tooltip=["month:N", "NRR:Q"],
-                ),
-                width="stretch",
-            )
+    render_kpi_note(
+        st,
+        title="Retention read",
+        body="NRR stays isolated here so leadership can judge whether top-line movement is being sustained with enough retention quality.",
+        tone="positive" if current_nrr >= nrr_target else "warning",
+    )
     if showcase_summary:
         st.info(
             "Showcase artifacts loaded from reports/showcase/summary.json "
@@ -570,6 +591,7 @@ risk_view["Recommended Action"] = risk_view["Risk Score"].apply(
 )
 
 top_cols = [
+    "Priority",
     "Customer ID",
     "Membership Type",
     "City",
@@ -578,7 +600,9 @@ top_cols = [
     "Expected Recovery (USD)",
     "Recommended Action",
 ]
-top_priorities = risk_view.sort_values("Expected Recovery (USD)", ascending=False)[top_cols].head(12)
+top_priorities = risk_view.sort_values("Expected Recovery (USD)", ascending=False).head(12).copy()
+top_priorities["Priority"] = [f"P{1 if idx < 3 else 2 if idx < 7 else 3}" for idx in range(len(top_priorities))]
+top_priorities = top_priorities[top_cols]
 
 with risk_tab:
     render_signal_band(
@@ -668,8 +692,10 @@ statuses = ["Approved", "In Progress", "In Progress", "Planned", "Planned", "In 
 register["Owner"] = owners[: len(register)]
 register["ETA"] = etas[: len(register)]
 register["Status"] = statuses[: len(register)]
+register["Priority"] = [f"P{min(index + 1, 3)}" for index in range(len(register))]
 register = register[
     [
+        "Priority",
         "Customer ID",
         "Recommended Action",
         "Expected Recovery (USD)",
@@ -681,9 +707,24 @@ register = register[
 ]
 with action_tab:
     render_section_label(st, "Leadership Actions This Week")
-    action_left, action_right = st.columns([1.1, 1.2])
+    decision_left, decision_right = st.columns([1, 1])
+    with decision_left:
+        render_kpi_note(
+            st,
+            title="Decision required this week",
+            body=f"Approve the top save motion if leadership accepts {format_currency(budget)} of budget for {format_currency(expected_recovery)} in modeled recovery.",
+            tone="positive" if roi > 0 else "risk",
+        )
+    with decision_right:
+        render_kpi_note(
+            st,
+            title="Target pressure",
+            body=f"NRR gap to target is {format_percent(nrr_target_gap)} and should frame how aggressive the action register needs to be this week.",
+            tone="warning" if nrr_target_gap < 0 else "positive",
+        )
+    action_left, action_right = st.columns([1, 1.15])
     with action_left:
-        st.altair_chart(action_chart, width="stretch")
+        st.altair_chart(action_chart, use_container_width=True)
         render_table(st, action_counts[["Action", "Accounts"]])
     with action_right:
         render_story_block(

@@ -50,8 +50,36 @@ def render_status_badge(text: str, tone: str = "neutral") -> str:
         "positive": "is-positive",
         "risk": "is-risk",
         "warning": "is-warning",
+        "info": "is-info",
     }.get(tone, "")
     return f'<span class="rip-status-badge {tone_class}">{_to_html(text)}</span>'
+
+
+def render_sidebar_nav(
+    st_module,
+    *,
+    current_page: str,
+    mode_label: str,
+    mode_body: str,
+    flow_label: str,
+    flow_body: str,
+) -> None:
+    nav_items = [
+        ("app.py", "Home", "home"),
+        ("pages/1_Executive_KPI_Board.py", "KPI Board", "kpi_board"),
+        ("pages/2_Modules_Access.py", "Modules", "modules"),
+    ]
+    st_module.markdown('<div class="rip-sidebar-group-label">Workspace</div>', unsafe_allow_html=True)
+    for page_path, label, page_key in nav_items:
+        st_module.page_link(page_path, label=label)
+    st_module.markdown('<div class="rip-sidebar-divider"></div>', unsafe_allow_html=True)
+    st_module.markdown('<div class="rip-sidebar-group-label">Context</div>', unsafe_allow_html=True)
+    st_module.caption(mode_label)
+    st_module.markdown(f'<div class="rip-sidebar-muted">{_to_html(mode_body)}</div>', unsafe_allow_html=True)
+    st_module.markdown('<div class="rip-sidebar-divider"></div>', unsafe_allow_html=True)
+    st_module.markdown('<div class="rip-sidebar-group-label">Read Flow</div>', unsafe_allow_html=True)
+    st_module.caption(flow_label)
+    st_module.markdown(f'<div class="rip-sidebar-muted">{_to_html(flow_body)}</div>', unsafe_allow_html=True)
 
 
 def render_metrics_grid(st_module, metrics: Iterable[dict[str, object]]) -> None:
@@ -116,6 +144,24 @@ def render_signal_band(st_module, signals: Iterable[dict[str, object]]) -> None:
                 ),
                 unsafe_allow_html=True,
             )
+
+
+def render_kpi_note(st_module, *, title: str, body: str, tone: str = "neutral") -> None:
+    tone_class = {
+        "positive": "is-positive",
+        "risk": "is-risk",
+        "warning": "is-warning",
+        "info": "is-info",
+    }.get(tone, "")
+    st_module.markdown(
+        (
+            f'<div class="rip-kpi-note {tone_class}">'
+            f'<div class="rip-kpi-note-title">{_to_html(title)}</div>'
+            f'<p>{_to_html(body)}</p>'
+            "</div>"
+        ),
+        unsafe_allow_html=True,
+    )
 
 
 def render_story_block(st_module, *, title: str, body: str, badge: str | None = None) -> None:
@@ -240,7 +286,7 @@ def build_line_chart(
     area = base.mark_area(opacity=0.10, color=color)
     line = base.mark_line(color=color, strokeWidth=3, interpolate="monotone")
     points = base.mark_circle(color=color, size=56, opacity=1)
-    return style_altair_chart((area + line + points).properties(height=280))
+    return style_altair_chart((area + line + points).properties(height=340))
 
 
 def build_bar_chart(
@@ -260,7 +306,7 @@ def build_bar_chart(
             y=alt.Y(y, title=y_title, sort="-x"),
             tooltip=tooltip,
         )
-        .properties(height=250)
+        .properties(height=300)
     )
     return style_altair_chart(chart)
 
@@ -269,6 +315,31 @@ def render_table(st_module, df: pd.DataFrame, *, formatters: dict[str, object] |
     styler = df.style.hide(axis="index")
     if formatters:
         styler = styler.format(formatters)
+    if "Priority" in df.columns:
+        priority_colors = {
+            "P1": "#fee2e2",
+            "P2": "#ffedd5",
+            "P3": "#ecfccb",
+        }
+        styler = styler.apply(
+            lambda col: [f"background-color: {priority_colors.get(value, '#ffffff')}" for value in col]
+            if col.name == "Priority"
+            else ["" for _ in col],
+            axis=0,
+        )
+    if "Status" in df.columns:
+        status_colors = {
+            "Approved": "#dcfce7",
+            "In Progress": "#dbeafe",
+            "Planned": "#fef3c7",
+            "Watch": "#fee2e2",
+        }
+        styler = styler.apply(
+            lambda col: [f"background-color: {status_colors.get(value, '#ffffff')}" for value in col]
+            if col.name == "Status"
+            else ["" for _ in col],
+            axis=0,
+        )
     styler = styler.set_table_styles(
         [
             {"selector": "th", "props": [("background-color", "#f8fafc"), ("color", "#5b6474"), ("font-size", "0.78rem"), ("font-weight", "700"), ("text-transform", "uppercase"), ("letter-spacing", "0.08em"), ("border-bottom", "1px solid #d8e1eb")]},
