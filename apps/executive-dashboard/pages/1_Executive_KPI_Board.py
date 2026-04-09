@@ -86,7 +86,18 @@ SEMANTIC_METRICS_PATH = ROOT / "config" / "semantic_metrics.json"
 TELEMETRY_DB_PATH = ROOT / "reports" / "showcase" / "enterprise_telemetry.sqlite"
 TELEMETRY_DUCKDB_PATH = ROOT / "reports" / "showcase" / "enterprise_telemetry.duckdb"
 SHOWCASE_OUTPUT_DIR = ROOT / "reports" / "showcase"
-TELEMETRY_BACKEND = os.getenv("TELEMETRY_BACKEND", "sqlite").strip().lower()
+
+
+def _resolve_telemetry_backend() -> str:
+    configured = os.getenv("TELEMETRY_BACKEND", "").strip().lower()
+    if configured in {"duckdb", "sqlite"}:
+        return configured
+    if TELEMETRY_DUCKDB_PATH.exists():
+        return "duckdb"
+    return "sqlite"
+
+
+TELEMETRY_BACKEND = _resolve_telemetry_backend()
 
 
 def _altair_kwargs() -> dict[str, object]:
