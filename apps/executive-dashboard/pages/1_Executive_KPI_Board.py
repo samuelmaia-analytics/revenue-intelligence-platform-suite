@@ -457,63 +457,63 @@ display_kpis.loc[~pct_mask, ["Target", "Actual", "Gap"]] = (
     display_kpis.loc[~pct_mask, ["Target", "Actual", "Gap"]].round(0)
 )
 
-risk_summary_left, risk_summary_right = st.columns([1.18, 1])
-with risk_summary_left:
-    render_signal_band(
-        st,
-        [
-            {
-                "title": "Revenue Risk",
-                "value": format_currency(value_at_risk),
-                "body": "Current modeled exposure across the selected customer scope.",
-            },
-            {
-                "title": "Recovery Headroom",
-                "value": format_currency(expected_recovery),
-                "body": f"Potential recovery under the active {uplift}% uplift scenario.",
-            },
-            {
-                "title": "Decision ROI",
-                "value": format_percent(roi),
-                "body": "Financial framing for intervention approval.",
-            },
-        ],
-    )
-with risk_summary_right:
+risk_note_left, risk_note_right = st.columns(2)
+with risk_note_left:
     render_story_block(
         st,
         title="Action Recommendation",
         body="The board is intentionally sequenced from current state to exposure, then to approved actions with owners and delivery follow-through.",
         badge="Decision-ready",
     )
+with risk_note_right:
     render_story_block(
         st,
         title="Leadership Focus",
         body="Use this page to align executives on what changed, where the recovery headroom sits, and which actions deserve immediate approval this week.",
         badge="Operating cadence",
     )
+render_signal_band(
+    st,
+    [
+        {
+            "title": "Revenue Risk",
+            "value": format_currency(value_at_risk),
+            "body": "Current modeled exposure across the selected customer scope.",
+        },
+        {
+            "title": "Recovery Headroom",
+            "value": format_currency(expected_recovery),
+            "body": f"Potential recovery under the active {uplift}% uplift scenario.",
+        },
+        {
+            "title": "Decision ROI",
+            "value": format_percent(roi),
+            "body": "Financial framing for intervention approval.",
+        },
+    ],
+)
 
 render_section_label(st, "Target Alignment")
-target_left, target_right = st.columns([1.18, 1])
-with target_left:
-    render_table(
-        st,
-        display_kpis,
-        formatters={"Target": "{:,.1f}", "Actual": "{:,.1f}", "Gap": "{:,.1f}"},
-    )
-with target_right:
+target_note_left, target_note_right = st.columns(2)
+with target_note_left:
     render_story_block(
         st,
         title="Actual vs Target",
         body="Target framing stays next to the leading KPIs so the board reads like an executive review product instead of a descriptive dashboard.",
         badge="Performance frame",
     )
+with target_note_right:
     render_story_block(
         st,
         title="Review Question",
         body="Which KPI is off-plan enough to justify intervention now, and which action produces the cleanest recovery path with available budget?",
         badge="Decision prompt",
     )
+render_table(
+    st,
+    display_kpis,
+    formatters={"Target": "{:,.1f}", "Actual": "{:,.1f}", "Gap": "{:,.1f}"},
+)
 
 trend_tab, risk_tab, action_tab, governance_tab = st.tabs(
     ["Trend & Targets", "Risk & Opportunity", "Prioritized Actions", "Governance & Trust"]
@@ -632,36 +632,34 @@ with risk_tab:
             },
         ],
     )
-    risk_left, risk_right = st.columns([1.35, 1])
-    with risk_left:
-        render_section_label(st, "Retention Exposure Snapshot")
-        render_table(
-            st,
-            top_priorities,
-            formatters={
-                "Risk Score": "{:.2f}",
-                "Revenue at Risk (USD)": "${:,.0f}",
-                "Expected Recovery (USD)": "${:,.0f}",
-            },
-        )
-    with risk_right:
-        render_story_block(
-            st,
-            title="Opportunity Highlights",
-            body="The watchlist ranks accounts by expected recovery, so leadership can move directly from exposure sizing to action approval.",
-            badge="Risk -> opportunity",
-        )
-        watchlist = top_priorities.head(5)[
-            ["Customer ID", "Revenue at Risk (USD)", "Expected Recovery (USD)", "Recommended Action"]
-        ]
-        render_table(
-            st,
-            watchlist,
-            formatters={
-                "Revenue at Risk (USD)": "${:,.0f}",
-                "Expected Recovery (USD)": "${:,.0f}",
-            },
-        )
+    render_story_block(
+        st,
+        title="Opportunity Highlights",
+        body="The watchlist ranks accounts by expected recovery, so leadership can move directly from exposure sizing to action approval.",
+        badge="Risk -> opportunity",
+    )
+    render_section_label(st, "Retention Exposure Snapshot")
+    render_table(
+        st,
+        top_priorities,
+        formatters={
+            "Risk Score": "{:.2f}",
+            "Revenue at Risk (USD)": "${:,.0f}",
+            "Expected Recovery (USD)": "${:,.0f}",
+        },
+    )
+    render_section_label(st, "Top Recovery Watchlist")
+    watchlist = top_priorities.head(5)[
+        ["Priority", "Customer ID", "Revenue at Risk (USD)", "Expected Recovery (USD)", "Recommended Action"]
+    ]
+    render_table(
+        st,
+        watchlist,
+        formatters={
+            "Revenue at Risk (USD)": "${:,.0f}",
+            "Expected Recovery (USD)": "${:,.0f}",
+        },
+    )
     if executive_insights.get("recommended_actions"):
         render_section_label(st, "Prioritized Action Candidates")
         actions_df = pd.DataFrame(executive_insights["recommended_actions"])

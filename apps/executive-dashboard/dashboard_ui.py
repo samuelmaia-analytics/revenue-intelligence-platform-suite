@@ -18,6 +18,16 @@ def _stretch_kwargs(callable_obj) -> dict[str, object]:
     return {"use_container_width": True}
 
 
+def _format_table_value(value: object, formatter: object | None) -> str:
+    if formatter is None:
+        return escape(str(value))
+    if isinstance(formatter, str):
+        return formatter.format(value)
+    if callable(formatter):
+        return str(formatter(value))
+    return escape(str(value))
+
+
 def format_currency(value: float, decimals: int = 0) -> str:
     return f"${value:,.{decimals}f}"
 
@@ -319,40 +329,31 @@ def build_bar_chart(
 
 
 def render_table(st_module, df: pd.DataFrame, *, formatters: dict[str, object] | None = None) -> None:
-    styler = df.style.hide(axis="index")
-    if formatters:
-        styler = styler.format(formatters)
-    if "Priority" in df.columns:
-        priority_colors = {
-            "P1": "#fee2e2",
-            "P2": "#ffedd5",
-            "P3": "#ecfccb",
-        }
-        styler = styler.apply(
-            lambda col: [f"background-color: {priority_colors.get(value, '#ffffff')}" for value in col]
-            if col.name == "Priority"
-            else ["" for _ in col],
-            axis=0,
-        )
-    if "Status" in df.columns:
-        status_colors = {
-            "Approved": "#dcfce7",
-            "In Progress": "#dbeafe",
-            "Planned": "#fef3c7",
-            "Watch": "#fee2e2",
-        }
-        styler = styler.apply(
-            lambda col: [f"background-color: {status_colors.get(value, '#ffffff')}" for value in col]
-            if col.name == "Status"
-            else ["" for _ in col],
-            axis=0,
-        )
-    styler = styler.set_table_styles(
-        [
-            {"selector": "th", "props": [("background-color", "#f8fafc"), ("color", "#5b6474"), ("font-size", "0.78rem"), ("font-weight", "700"), ("text-transform", "uppercase"), ("letter-spacing", "0.08em"), ("border-bottom", "1px solid #d8e1eb")]},
-            {"selector": "td", "props": [("color", "#111827"), ("border-bottom", "1px solid #eef2f6"), ("font-size", "0.92rem")]},
-            {"selector": "tbody tr:hover", "props": [("background-color", "#f8fbff")]},
-            {"selector": "table", "props": [("border-collapse", "collapse"), ("width", "100%")]},
-        ]
+    table_df = df.reset_index(drop=True)
+    formatters = formatters or {}
+    headers = "".join(f"<th>{escape(str(col))}</th>" for col in table_df.columns)
+    rows = []
+    for _, row in table_df.iterrows():
+        cells = []
+        for column, value in row.items():
+            formatted = _format_table_value(value, formatters.get(column))
+            if column == "Priority":
+                tone = str(value).lower()
+                formatted = f'<span class="rip-table-pill is-{escape(tone)}">{escape(str(value))}</span>'
+                cells.append(f'<td class="is-priority">{formatted}</td>')
+            elif column == "Status":
+                tone = escape(str(value).lower().replace(" ", "-"))
+                formatted = f'<span class="rip-table-pill is-{tone}">{escape(str(value))}</span>'
+                cells.append(f'<td class="is-status">{formatted}</td>')
+            else:
+                cells.append(f"<td>{formatted}</td>")
+        rows.append(f"<tr>{''.join(cells)}</tr>")
+    st_module.markdown(
+        (
+            '<div class="rip-table-wrap"><table class="rip-data-table">'
+            f"<thead><tr>{headers}</tr></thead>"
+            f"<tbody>{''.join(rows)}</tbody>"
+            "</table></div>"
+        ),
+        unsafe_allow_html=True,
     )
-    st_module.dataframe(styler, **_stretch_kwargs(st_module.dataframe))

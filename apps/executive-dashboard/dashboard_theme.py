@@ -354,6 +354,78 @@ def apply_dashboard_theme(st_module, theme_key: str = DEFAULT_THEME_KEY) -> dict
             box-shadow: var(--rip-shadow-soft);
         }}
 
+        .rip-table-wrap {{
+            border-radius: var(--rip-radius-md);
+            border: 1px solid var(--rip-border);
+            background: rgba(255, 255, 255, 0.96);
+            box-shadow: var(--rip-shadow-soft);
+            overflow: auto;
+        }}
+
+        .rip-data-table {{
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 720px;
+            background: #ffffff;
+        }}
+
+        .rip-data-table thead th {{
+            background: #f8fafc;
+            color: #5b6474 !important;
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            text-align: left;
+            padding: 0.85rem 0.9rem;
+            border-bottom: 1px solid #d8e1eb;
+            white-space: nowrap;
+        }}
+
+        .rip-data-table tbody td {{
+            color: #111827 !important;
+            font-size: 0.93rem;
+            padding: 0.82rem 0.9rem;
+            border-bottom: 1px solid #eef2f6;
+            background: #ffffff;
+            vertical-align: middle;
+        }}
+
+        .rip-data-table tbody tr:hover td {{
+            background: #f8fbff;
+        }}
+
+        .rip-table-pill {{
+            display: inline-flex;
+            align-items: center;
+            border-radius: 999px;
+            padding: 0.22rem 0.55rem;
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: #111827 !important;
+            background: #eef2f7;
+            white-space: nowrap;
+        }}
+
+        .rip-table-pill.is-p1,
+        .rip-table-pill.is-watch {{
+            background: #fee2e2;
+        }}
+
+        .rip-table-pill.is-p2,
+        .rip-table-pill.is-planned {{
+            background: #ffedd5;
+        }}
+
+        .rip-table-pill.is-p3,
+        .rip-table-pill.is-approved {{
+            background: #dcfce7;
+        }}
+
+        .rip-table-pill.is-in-progress {{
+            background: #dbeafe;
+        }}
+
         div[data-testid="stTabs"] button {{
             border-radius: 999px;
             padding: 0.55rem 0.95rem;
