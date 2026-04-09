@@ -164,8 +164,30 @@ def apply_dashboard_theme(st_module, theme_key: str = DEFAULT_THEME_KEY) -> dict
             min-width: 300px;
         }}
 
-        [data-testid="stSidebar"] * {{
-            color: rgba(248, 250, 252, 0.95) !important;
+        [data-testid="stSidebar"] *,
+        [data-testid="stSidebar"] p,
+        [data-testid="stSidebar"] span,
+        [data-testid="stSidebar"] label,
+        [data-testid="stSidebar"] div,
+        [data-testid="stSidebar"] li,
+        [data-testid="stSidebar"] a,
+        [data-testid="stSidebar"] button,
+        [data-testid="stSidebar"] h1,
+        [data-testid="stSidebar"] h2,
+        [data-testid="stSidebar"] h3,
+        [data-testid="stSidebar"] h4,
+        [data-testid="stSidebar"] [data-testid="stMarkdownContainer"],
+        [data-testid="stSidebar"] [data-testid="stMarkdownContainer"] *,
+        [data-testid="stSidebar"] [data-testid="stCaptionContainer"],
+        [data-testid="stSidebar"] [data-testid="stSidebarNav"],
+        [data-testid="stSidebar"] [data-testid="stSidebarNav"] *,
+        [data-testid="stSidebar"] .stPageLink,
+        [data-testid="stSidebar"] .stPageLink *,
+        [data-testid="stSidebar"] .st-emotion-cache-16txtl3,
+        [data-testid="stSidebar"] .st-emotion-cache-1cypcdb,
+        [data-testid="stSidebar"] .st-emotion-cache-10oheav {{
+            color: #e7edf6 !important;
+            opacity: 1 !important;
         }}
 
         [data-testid="stSidebarUserContent"] {{
@@ -182,15 +204,37 @@ def apply_dashboard_theme(st_module, theme_key: str = DEFAULT_THEME_KEY) -> dict
             border-radius: 14px;
             margin-bottom: 0.25rem;
             padding: 0.45rem 0.55rem;
+            color: #e7edf6 !important;
+            opacity: 1 !important;
         }}
 
         [data-testid="stSidebarNav"] a:hover {{
             background: rgba(255, 255, 255, 0.08);
+            color: #ffffff !important;
+            opacity: 1;
         }}
 
         [data-testid="stSidebarNav"] a[aria-current="page"] {{
             background: linear-gradient(135deg, rgba(20, 83, 45, 0.38), rgba(15, 118, 110, 0.32));
             border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #ffffff !important;
+            opacity: 1;
+        }}
+
+        [data-testid="stSidebar"] .stPageLink a,
+        [data-testid="stSidebar"] .stPageLink a * {{
+            color: #e7edf6 !important;
+            opacity: 1 !important;
+        }}
+
+        [data-testid="stSidebar"] .stPageLink a:hover,
+        [data-testid="stSidebar"] .stPageLink a:hover * {{
+            color: #ffffff !important;
+        }}
+
+        [data-testid="stSidebar"] [data-testid="stCaptionContainer"],
+        [data-testid="stSidebar"] .rip-sidebar-muted {{
+            color: rgba(231, 237, 246, 0.78) !important;
         }}
 
         .stButton > button,
@@ -229,6 +273,32 @@ def apply_dashboard_theme(st_module, theme_key: str = DEFAULT_THEME_KEY) -> dict
             border: 1px solid var(--rip-border) !important;
             background: rgba(255, 255, 255, 0.92) !important;
             box-shadow: none !important;
+        }}
+
+        [data-testid="stSidebar"] .stSelectbox label,
+        [data-testid="stSidebar"] .stMultiSelect label,
+        [data-testid="stSidebar"] .stSlider label,
+        [data-testid="stSidebar"] .stNumberInput label,
+        [data-testid="stSidebar"] .stTextInput label {{
+            color: #f8fafc !important;
+            font-weight: 600 !important;
+        }}
+
+        [data-testid="stSidebar"] .stSelectbox > div[data-baseweb="select"] > div,
+        [data-testid="stSidebar"] .stMultiSelect > div[data-baseweb="select"] > div,
+        [data-testid="stSidebar"] .stTextInput > div > div > input,
+        [data-testid="stSidebar"] .stNumberInput input,
+        [data-testid="stSidebar"] .stDateInput input {{
+            background: #f8fafc !important;
+            color: #111827 !important;
+            border: 1px solid rgba(255, 255, 255, 0.10) !important;
+        }}
+
+        [data-testid="stSidebar"] .stSelectbox div[data-baseweb="select"] span,
+        [data-testid="stSidebar"] .stMultiSelect div[data-baseweb="select"] span,
+        [data-testid="stSidebar"] .stSelectbox div[data-baseweb="select"] div,
+        [data-testid="stSidebar"] .stMultiSelect div[data-baseweb="select"] div {{
+            color: #111827 !important;
         }}
 
         .stSlider [data-baseweb="slider"] {{
