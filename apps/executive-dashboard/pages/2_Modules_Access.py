@@ -3,6 +3,13 @@ from pathlib import Path
 
 import streamlit as st
 
+APP_DIR = Path(__file__).resolve().parents[1]
+if str(APP_DIR) not in sys.path:
+    sys.path.insert(0, str(APP_DIR))
+
+from dashboard_theme import apply_dashboard_theme, render_footer, render_hero, render_intro_banner, render_section_label  # noqa: E402
+from dashboard_ui import render_command_bar, render_command_grid, render_global_context, render_module_cards, render_story_block  # noqa: E402
+
 
 def _find_repo_root(start: Path) -> Path:
     for candidate in (start, *start.parents):
@@ -26,19 +33,69 @@ from common import enforce_streamlit_sso  # noqa: E402
 
 identity = enforce_streamlit_sso(st)
 
-if st.button("Voltar para Revenue-Intelligence-Platform-Suite"):
-    st.switch_page("app.py")
-
 with st.sidebar:
-    if st.button("Home: Revenue-Intelligence-Platform-Suite"):
-        st.switch_page("app.py")
+    st.markdown("### Workspace")
+    st.page_link("app.py", label="Platform Home")
+    st.page_link("pages/1_Executive_KPI_Board.py", label="Executive KPI Board")
+    st.page_link("pages/2_Modules_Access.py", label="Modules Access")
+    st.markdown("### Suite Scope")
+    st.caption("Module catalog, public demos, repositories and trust assets in one executive portal.")
+    st.markdown("### Read Flow")
+    st.caption("Portfolio scope, module footprint, proof assets and direct links.")
 
 ROOT = _find_repo_root(Path(__file__).resolve())
+apply_dashboard_theme(st)
+render_intro_banner(
+    st,
+    title="Modules Access",
+    subtitle="Portal for integrated repositories, public demos, and the technical assets that support the flagship executive platform.",
+    notice="Use this page to navigate the suite footprint during demos, interviews, and client conversations.",
+    eyebrow="UI refresh 2026-04-09",
+)
+render_global_context(
+    st,
+    suite_label="Module Catalog",
+    page_title="Integrated Analytics Suite",
+    summary="Browse the specialized analytics modules that feed the flagship executive platform and demonstrate the breadth of the productized service model.",
+    right_hint="Internal platform portal",
+)
 
-st.title("Modules Access")
-st.caption("Single place to access all integrated repositories and demos.")
+render_hero(
+    st,
+    title="Modules Access",
+    kicker="Integrated Repository Map",
+    subtitle="Single place to access integrated repositories, public demos, and the technical assets that support the flagship executive platform.",
+    chips=["Flagship suite", "Public demos", "Source repositories"],
+)
+render_command_grid(
+    st,
+    [
+        {
+            "label": "Portfolio",
+            "title": "Reusable analytics assets",
+            "body": "Each module strengthens the platform story as a productized analytics suite, not a collection of isolated demos.",
+        },
+        {
+            "label": "Use",
+            "title": "Demo and diligence hub",
+            "body": "Open code, live demos and trust assets from the same screen during interviews, pre-sales and executive walkthroughs.",
+        },
+        {
+            "label": "Signal",
+            "title": "Commercial breadth",
+            "body": "The catalog reinforces that the suite can expand across revenue, churn, commerce and senior analytics delivery motions.",
+        },
+    ],
+)
 if identity.get("authenticated"):
-    st.caption(f"SSO session: {identity.get('display_name')} | groups={', '.join(identity.get('groups', [])) or 'n/a'}")
+    st.markdown(
+        (
+            '<div class="rip-inline-pill">'
+            f"SSO session: {identity.get('display_name')} | groups={', '.join(identity.get('groups', [])) or 'n/a'}"
+            "</div>"
+        ),
+        unsafe_allow_html=True,
+    )
 
 modules = [
     {
@@ -78,34 +135,110 @@ modules = [
     },
 ]
 
-for module in modules:
-    module_exists = (ROOT / module["path"]).exists()
-    st.subheader(module["name"])
-    st.write(module["role"])
-    col1, col2, col3 = st.columns(3)
-    with col1:
-        st.markdown(f"- Monorepo path: `{module['path']}`")
-    with col2:
-        st.write("- Source repo")
-        st.link_button("Open Repository", module["repo"], use_container_width=True)
-    with col3:
-        st.write("- Public demo")
-        if module["demo"]:
-            st.link_button("Open App", module["demo"], use_container_width=True)
-        else:
-            st.caption("Public demo not available.")
-    if not module_exists:
-        st.caption("Module path not found in current deployment.")
-    st.markdown("---")
+module_cards = [
+    {
+        "name": module["name"],
+        "category": "Integrated module",
+        "status": "Available" if (ROOT / module["path"]).exists() else "External only",
+        "status_tone": "positive" if (ROOT / module["path"]).exists() else "warning",
+        "role": module["role"],
+        "value": f"Path: {module['path']}",
+        "asset_type": "Source repo + public demo",
+    }
+    for module in modules
+]
 
-st.subheader("Flagship Governance and Proof")
-st.markdown("- Use case: `docs/showcase-use-case.md`")
-st.markdown("- Proof: `docs/proof.md`")
-st.markdown("- KPI scorecard: `docs/kpi-scorecard.md`")
-st.markdown("- Security: `SECURITY.md`")
+render_command_bar(
+    st,
+    [
+        {
+            "label": "Coverage",
+            "title": "Integrated modules",
+            "value": str(len(modules)),
+            "note": "Portfolio assets surfaced from one executive portal.",
+            "primary": True,
+        },
+        {
+            "label": "Availability",
+            "title": "Local modules",
+            "value": str(sum(1 for module in modules if (ROOT / module["path"]).exists())),
+            "note": "Modules already present inside this monorepo.",
+        },
+        {
+            "label": "Proof",
+            "title": "Public demos",
+            "value": str(sum(1 for module in modules if module["demo"])),
+            "note": "Live links usable in interviews and client walkthroughs.",
+        },
+        {
+            "label": "Commercial Use",
+            "title": "Primary lens",
+            "value": "Product suite",
+            "note": "Framed as reusable analytics offerings, not isolated projects.",
+        },
+    ],
+)
 
-st.markdown("---")
-st.caption(
+render_section_label(st, "Suite Overview")
+overview_left, overview_right = st.columns([1.25, 1])
+with overview_left:
+    render_story_block(
+        st,
+        title="Why the module portal matters",
+        body="This page frames the monorepo as a suite of reusable analytics products rather than isolated experiments. Each module represents an adaptation path, delivery asset, or specialization that can feed the commercial platform motion.",
+        badge="Platform narrative",
+    )
+with overview_right:
+    render_story_block(
+        st,
+        title="How to use this page",
+        body="Use the cards below to navigate the suite footprint during demos, interviews, and client conversations. Jump into the source repo for depth or the public app when you want a live proof point.",
+        badge="Demo-ready",
+    )
+
+render_section_label(st, "Module Catalog")
+render_module_cards(st, module_cards)
+
+catalog_tab, proof_tab = st.tabs(["Module Actions", "Proof & Governance"])
+
+with catalog_tab:
+    for module in modules:
+        module_exists = (ROOT / module["path"]).exists()
+        render_section_label(st, module["name"])
+        detail_left, detail_mid, detail_right = st.columns([1.2, 0.9, 0.9])
+        with detail_left:
+            render_story_block(
+                st,
+                title=module["name"],
+                body=module["role"],
+                badge="In monorepo" if module_exists else "External asset",
+            )
+        with detail_mid:
+            st.link_button(f"Open Repository: {module['name']}", module["repo"], use_container_width=True)
+        with detail_right:
+            if module["demo"]:
+                st.link_button(f"Open Demo: {module['name']}", module["demo"], use_container_width=True)
+            else:
+                st.caption("Public demo not available.")
+
+with proof_tab:
+    render_section_label(st, "Flagship Governance and Proof")
+    proof_left, proof_right = st.columns([1.2, 1])
+    with proof_left:
+        render_story_block(
+            st,
+            title="Governance and trust assets",
+            body="The suite is reinforced by proof docs, KPI scorecards, governance artifacts, and security controls that help it present as a client-ready analytics product.",
+            badge="Trust layer",
+        )
+    with proof_right:
+        st.markdown("- Use case: `docs/showcase-use-case.md`")
+        st.markdown("- Proof: `docs/proof.md`")
+        st.markdown("- KPI scorecard: `docs/kpi-scorecard.md`")
+        st.markdown("- Security: `SECURITY.md`")
+
+render_footer(
+    st,
     "Author: [LinkedIn](https://linkedin.com/in/samuelmaia-analytics) | "
-    "[GitHub](https://github.com/samuelmaia-analytics)"
+    "[GitHub](https://github.com/samuelmaia-analytics)",
 )
