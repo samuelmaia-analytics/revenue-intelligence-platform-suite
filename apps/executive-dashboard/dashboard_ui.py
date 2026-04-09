@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import inspect
 from html import escape
 from typing import Iterable
 
@@ -9,6 +10,12 @@ import pandas as pd
 
 def _to_html(text: object) -> str:
     return escape(str(text), quote=True)
+
+
+def _stretch_kwargs(callable_obj) -> dict[str, object]:
+    if "width" in inspect.signature(callable_obj).parameters:
+        return {"width": "stretch"}
+    return {"use_container_width": True}
 
 
 def format_currency(value: float, decimals: int = 0) -> str:
@@ -348,4 +355,4 @@ def render_table(st_module, df: pd.DataFrame, *, formatters: dict[str, object] |
             {"selector": "table", "props": [("border-collapse", "collapse"), ("width", "100%")]},
         ]
     )
-    st_module.dataframe(styler, use_container_width=True)
+    st_module.dataframe(styler, **_stretch_kwargs(st_module.dataframe))

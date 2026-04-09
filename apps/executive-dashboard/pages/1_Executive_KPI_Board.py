@@ -1,5 +1,6 @@
 import json
 import os
+import inspect
 import sys
 from pathlib import Path
 
@@ -86,6 +87,12 @@ TELEMETRY_DB_PATH = ROOT / "reports" / "showcase" / "enterprise_telemetry.sqlite
 TELEMETRY_DUCKDB_PATH = ROOT / "reports" / "showcase" / "enterprise_telemetry.duckdb"
 SHOWCASE_OUTPUT_DIR = ROOT / "reports" / "showcase"
 TELEMETRY_BACKEND = os.getenv("TELEMETRY_BACKEND", "sqlite").strip().lower()
+
+
+def _altair_kwargs() -> dict[str, object]:
+    if "width" in inspect.signature(st.altair_chart).parameters:
+        return {"width": "stretch"}
+    return {"use_container_width": True}
 
 
 @st.cache_data(show_spinner=False)
@@ -529,7 +536,7 @@ with trend_tab:
             y_title="Revenue",
             tooltip=["month:N", "SALES:Q"],
         ),
-        use_container_width=True,
+        **_altair_kwargs(),
     )
     render_kpi_note(
         st,
@@ -554,7 +561,7 @@ with trend_tab:
                 y_title="NRR (%)",
                 tooltip=["month:N", "NRR:Q"],
             ),
-            use_container_width=True,
+            **_altair_kwargs(),
         )
         st.info("Telemetry DB not found in host; showing computed fallback NRR trend.")
     else:
@@ -569,7 +576,7 @@ with trend_tab:
                 y_title="NRR (%)",
                 tooltip=["month:N", "NRR:Q"],
             ),
-            use_container_width=True,
+            **_altair_kwargs(),
         )
     render_kpi_note(
         st,
@@ -724,7 +731,7 @@ with action_tab:
         )
     action_left, action_right = st.columns([1, 1.15])
     with action_left:
-        st.altair_chart(action_chart, use_container_width=True)
+        st.altair_chart(action_chart, **_altair_kwargs())
         render_table(st, action_counts[["Action", "Accounts"]])
     with action_right:
         render_story_block(
