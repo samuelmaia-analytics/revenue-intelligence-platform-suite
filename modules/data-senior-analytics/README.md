@@ -1,5 +1,5 @@
 > This repository is part of the **Revenue-Intelligence-Platform-Suite**
-> Main platform: ../../README.md
+> Main platform: [../../README.md](../../README.md)
 
 # Data Senior Analytics
 
@@ -8,9 +8,9 @@
 - Portugues (BR): [README.md](README.md)
 - Portugues (PT): [README.pt-PT.md](README.pt-PT.md)
 
-[![CI](https://github.com/samuelmaia-analytics/data-senior-analytics/actions/workflows/ci.yml/badge.svg)](https://github.com/samuelmaia-analytics/data-senior-analytics/actions/workflows/ci.yml)
-[![Coverage](https://codecov.io/gh/samuelmaia-analytics/data-senior-analytics/branch/main/graph/badge.svg)](https://codecov.io/gh/samuelmaia-analytics/data-senior-analytics)
-[![License](https://img.shields.io/github/license/samuelmaia-analytics/data-senior-analytics)](LICENSE)
+[![Module](https://img.shields.io/badge/Module-Data%20Senior%20Analytics-0F172A)](https://github.com/samuelmaia-analytics/data-senior-analytics)
+[![App](https://img.shields.io/badge/Streamlit-Live%20Demo-FF4B4B?logo=streamlit&logoColor=white)](https://data-analytics-sr.streamlit.app)
+[![License](https://img.shields.io/badge/License-MIT-6B7280)](../../LICENSE)
 [![Python](https://img.shields.io/badge/python-3.11%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/downloads/)
 
 Business-focused analytics project that turns raw tabular files into decision-ready insights with a reproducible pipeline and interactive dashboard.
@@ -120,7 +120,7 @@ Copy `.env.example` to `.env` and adjust values for your environment.
 - outputs: decision-ready insights, curated datasets, governance-checked dashboard outputs
 
 ## License
-Licensed under MIT. See [LICENSE](LICENSE).
+Licensed under MIT. See [LICENSE](../../LICENSE).
 
 
 

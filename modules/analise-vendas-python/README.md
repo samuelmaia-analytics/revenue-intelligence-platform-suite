@@ -1,5 +1,5 @@
 > This repository is part of the **Revenue-Intelligence-Platform-Suite**
-> Main platform: ../../README.md
+> Main platform: [../../README.md](../../README.md)
 
 ## Language
 - English: [README.en.md](README.en.md)
@@ -8,14 +8,14 @@
 
 # Sales Analytics Dashboard
 
-![Python](https://img.shields.io/badge/Python-3.10+-blue)
-![Pandas](https://img.shields.io/badge/Pandas-Data%20Processing-green)
-![NumPy](https://img.shields.io/badge/NumPy-Numerical%20Computing-orange)
-![Streamlit](https://img.shields.io/badge/Streamlit-Interactive%20Dashboard-red)
-![Plotly](https://img.shields.io/badge/Plotly-Visualization-purple)
-![Docker](https://img.shields.io/badge/Docker-Containerized-blue)
-![Pytest](https://img.shields.io/badge/Tests-Pytest-yellow)
-![License](https://img.shields.io/badge/License-MIT-lightgrey)
+[![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/downloads/)
+[![Pandas](https://img.shields.io/badge/Pandas-Data%20Processing-150458?logo=pandas&logoColor=white)](https://pandas.pydata.org/)
+[![NumPy](https://img.shields.io/badge/NumPy-Numerical%20Computing-013243?logo=numpy&logoColor=white)](https://numpy.org/)
+[![Streamlit](https://img.shields.io/badge/Streamlit-Interactive%20Dashboard-FF4B4B?logo=streamlit&logoColor=white)](https://streamlit.io/)
+[![Plotly](https://img.shields.io/badge/Plotly-Visualization-3F4F75?logo=plotly&logoColor=white)](https://plotly.com/python/)
+[![Docker](https://img.shields.io/badge/Docker-Containerized-2496ED?logo=docker&logoColor=white)](https://www.docker.com/)
+[![Pytest](https://img.shields.io/badge/Tests-Pytest-0A9EDC?logo=pytest&logoColor=white)](https://docs.pytest.org/)
+[![License](https://img.shields.io/badge/License-MIT-6B7280)](../../LICENSE)
 
 Demo: https://sales-analytics-dashboardd.streamlit.app/  
 Repository: https://github.com/samuelmaiapro/analise-vendas-python

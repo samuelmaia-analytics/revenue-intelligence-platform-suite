@@ -1,5 +1,5 @@
 > This repository is part of the **Revenue-Intelligence-Platform-Suite**
-> Main platform: ../../README.md
+> Main platform: [../../README.md](../../README.md)
 
 # Sales Analytics Dashboard
 
