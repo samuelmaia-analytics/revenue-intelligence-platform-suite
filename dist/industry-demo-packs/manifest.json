@@ -1,0 +1,19 @@
+{
+  "demo_packs": [
+    {
+      "profile": "saas_b2b",
+      "package": "revenue_command_center",
+      "output_dir": "dist\\industry-demo-packs\\saas_b2b"
+    },
+    {
+      "profile": "healthtech_growth",
+      "package": "retention_intelligence",
+      "output_dir": "dist\\industry-demo-packs\\healthtech_growth"
+    },
+    {
+      "profile": "retail_omnichannel",
+      "package": "commercial_performance_analytics",
+      "output_dir": "dist\\industry-demo-packs\\retail_omnichannel"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "latest_month": "2005-05",
+  "latest_revenue_usd": 457861.06,
+  "nrr_latest": 1.2,
+  "gross_churn_latest": 0.0,
+  "total_value_at_risk_usd": 144490.03999999998,
+  "top_50_value_at_risk_usd": 29130.33,
+  "churn_auc_temporal_test": 0.9285714285714286,
+  "next_purchase_auc_temporal_test": 0.6166666666666667,
+  "telemetry_source": "crm-billing-snapshot"
+}

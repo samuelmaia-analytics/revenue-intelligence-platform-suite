@@ -1,0 +1,61 @@
+{
+  "solution_profile_version": "1.0.0",
+  "profile_id": "saas_b2b",
+  "client_name": "Flagship Demo Client",
+  "industry": "SaaS",
+  "deployment_env": "showcase",
+  "package": {
+    "package_id": "revenue_command_center",
+    "name": "Revenue Command Center",
+    "buyer": "CRO / VP Revenue / Revenue Operations",
+    "primary_outcomes": [
+      "Protect expansion and recurring revenue",
+      "Prioritize accounts and actions by financial impact",
+      "Create a weekly executive operating cadence"
+    ],
+    "typical_metrics": [
+      "Revenue at Risk",
+      "NRR",
+      "Expansion Pipeline",
+      "Recovery ROI"
+    ],
+    "delivery_model": "Executive board + action register + telemetry instrumentation"
+  },
+  "telemetry_backend": "sqlite",
+  "multi_tenant_ready": true,
+  "config_layers": [
+    "global",
+    "environment",
+    "client",
+    "solution_package"
+  ],
+  "contract_layers": [
+    "source_contract",
+    "metric_contract",
+    "executive_output_contract"
+  ],
+  "executive_buyer": "CRO / VP Revenue",
+  "kpi_focus": [
+    "NRR",
+    "Gross Churn",
+    "Revenue at Risk",
+    "Recovery ROI"
+  ],
+  "connectors": {
+    "crm": "salesforce_compatible",
+    "billing": "stripe_compatible"
+  },
+  "brand": {
+    "theme_name": "SaaS Revenue",
+    "primary_color": "#0f766e",
+    "secondary_color": "#0b1220",
+    "accent_soft": "#dff7f4",
+    "hero_gradient_start": "#d9f7f2",
+    "hero_gradient_end": "#eef6ff"
+  },
+  "narrative": {
+    "headline": "Protect recurring revenue with an executive command layer.",
+    "value_proposition": "Unify revenue risk, action prioritization, and KPI governance for leadership reviews."
+  },
+  "generated_at": "2026-04-09T00:16:07.555511+00:00"
+}

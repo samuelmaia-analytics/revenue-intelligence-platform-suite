@@ -1,0 +1,21 @@
+{
+  "site_slug": "acme-expansion-fy26",
+  "source": "dist\\deal-rooms\\acme-expansion-fy26\\microsite.html",
+  "target_hint": "/sites/acme-expansion-fy26/index.html",
+  "publish_targets": [
+    "github_pages",
+    "s3_static_site",
+    "netlify_drop"
+  ],
+  "linked_assets": [
+    "client_proposal.html",
+    "client_proposal.md",
+    "client_proposal.json",
+    "executive_review_pack.html",
+    "executive_review_pack.md",
+    "executive_review_pack.json",
+    "microsite.html",
+    "industry_benchmark.csv",
+    "release-evidence-pack-local.tar.gz"
+  ]
+}

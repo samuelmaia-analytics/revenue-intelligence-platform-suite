@@ -1,0 +1,72 @@
+{
+  "deal_name": "Flagship Client",
+  "proposal_client_name": "Flagship Client",
+  "artifact_version": "local",
+  "release_tag": "local",
+  "stage_count": 4,
+  "approved_stage_count": 0,
+  "pending_stage_count": 4,
+  "ready_for_client_delivery": false,
+  "stages": [
+    {
+      "stage_id": "commercial_review",
+      "stage_name": "Commercial Review",
+      "required_role": "Account Lead / Solution Lead",
+      "owner_team": "Commercial",
+      "evidence_required": [
+        "client_proposal.html",
+        "client_proposal.json"
+      ],
+      "status": "pending",
+      "approved": false,
+      "approver_name": null,
+      "decision_at": null,
+      "notes": ""
+    },
+    {
+      "stage_id": "privacy_review",
+      "stage_name": "Privacy And LGPD Review",
+      "required_role": "Privacy / Legal",
+      "owner_team": "Governance",
+      "evidence_required": [
+        "client-data-onboarding-template.md",
+        "tenant_secret_status.json"
+      ],
+      "status": "pending",
+      "approved": false,
+      "approver_name": null,
+      "decision_at": null,
+      "notes": ""
+    },
+    {
+      "stage_id": "technical_readiness",
+      "stage_name": "Technical Readiness Review",
+      "required_role": "Analytics Engineering / Platform",
+      "owner_team": "Delivery",
+      "evidence_required": [
+        "executive_review_pack.json",
+        "release-evidence-pack"
+      ],
+      "status": "pending",
+      "approved": false,
+      "approver_name": null,
+      "decision_at": null,
+      "notes": ""
+    },
+    {
+      "stage_id": "executive_signoff",
+      "stage_name": "Executive Sponsor Sign-off",
+      "required_role": "Executive Sponsor",
+      "owner_team": "Client Leadership",
+      "evidence_required": [
+        "executive_review_pack.html",
+        "microsite.html"
+      ],
+      "status": "pending",
+      "approved": false,
+      "approver_name": null,
+      "decision_at": null,
+      "notes": ""
+    }
+  ]
+}

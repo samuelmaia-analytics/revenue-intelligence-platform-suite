@@ -738,22 +738,20 @@ with action_tab:
             body=f"NRR gap to target is {format_percent(nrr_target_gap)} and should frame how aggressive the action register needs to be this week.",
             tone="warning" if nrr_target_gap < 0 else "positive",
         )
-    action_left, action_right = st.columns([1, 1.15])
-    with action_left:
-        st.altair_chart(action_chart, **_altair_kwargs())
-        render_table(st, action_counts[["Action", "Accounts"]])
-    with action_right:
-        render_story_block(
-            st,
-            title="Prioritized Actions",
-            body="The board converts risk scores into a compact action register with owner, ETA, and expected recovery so leadership can manage follow-through instead of just reviewing charts.",
-            badge="Action layer",
-        )
-        render_table(
-            st,
-            register,
-            formatters={"Expected Recovery (USD)": "${:,.0f}", "Risk Score": "{:.2f}"},
-        )
+    render_story_block(
+        st,
+        title="Prioritized Actions",
+        body="The board converts risk scores into a compact action register with owner, ETA, and expected recovery so leadership can manage follow-through instead of just reviewing charts.",
+        badge="Action layer",
+    )
+    st.altair_chart(action_chart, **_altair_kwargs())
+    render_table(st, action_counts[["Action", "Accounts"]])
+    render_section_label(st, "Action Register")
+    render_table(
+        st,
+        register,
+        formatters={"Expected Recovery (USD)": "${:,.0f}", "Risk Score": "{:.2f}"},
+    )
 
     render_section_label(st, "Scenario Analysis")
     scenario_df = pd.DataFrame(

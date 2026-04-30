@@ -1,0 +1,11 @@
+{
+  "Opportunity": {
+    "Name": "Flagship Client",
+    "StageName": "Proposal/Price Quote",
+    "CloseDate": "2026-12-31",
+    "Amount": "$25k-$60k",
+    "Description": "Run executive walkthrough and confirm scope + connector priorities.",
+    "Industry__c": "SaaS",
+    "Solution_Package__c": "Revenue Command Center"
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "tag": "local",
+  "artifacts": [
+    {
+      "file": "summary.json",
+      "source": "reports\\showcase\\summary.json"
+    },
+    {
+      "file": "solution_profile.json",
+      "source": "reports\\showcase\\solution_profile.json"
+    },
+    {
+      "file": "data_quality_scorecard.json",
+      "source": "reports\\showcase\\data_quality_scorecard.json"
+    },
+    {
+      "file": "executive_insights.json",
+      "source": "reports\\showcase\\executive_insights.json"
+    },
+    {
+      "file": "action_adoption_metrics.json",
+      "source": "reports\\showcase\\action_adoption_metrics.json"
+    },
+    {
+      "file": "monitoring_summary.json",
+      "source": "reports\\showcase\\monitoring_summary.json"
+    },
+    {
+      "file": "executive_review_pack.md",
+      "source": "dist\\executive-review-pack\\executive_review_pack.md"
+    },
+    {
+      "file": "executive_review_pack.html",
+      "source": "dist\\executive-review-pack\\executive_review_pack.html"
+    },
+    {
+      "file": "executive_review_pack.json",
+      "source": "dist\\executive-review-pack\\executive_review_pack.json"
+    },
+    {
+      "file": "client_proposal.md",
+      "source": "dist\\client-proposal-pack\\client_proposal.md"
+    },
+    {
+      "file": "client_proposal.html",
+      "source": "dist\\client-proposal-pack\\client_proposal.html"
+    },
+    {
+      "file": "client_proposal.json",
+      "source": "dist\\client-proposal-pack\\client_proposal.json"
+    },
+    {
+      "file": "index.html",
+      "source": "dist\\client-microsite\\index.html"
+    },
+    {
+      "file": "board_summary.csv",
+      "source": "dist\\executive-review-pack\\board_summary.csv"
+    },
+    {
+      "file": "top_actions.csv",
+      "source": "dist\\executive-review-pack\\top_actions.csv"
+    }
+  ]
+}

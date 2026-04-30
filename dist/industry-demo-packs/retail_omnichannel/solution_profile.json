@@ -1,0 +1,61 @@
+{
+  "solution_profile_version": "1.0.0",
+  "profile_id": "retail_omnichannel",
+  "client_name": "Retail Omnichannel Client",
+  "industry": "Retail",
+  "deployment_env": "showcase",
+  "package": {
+    "package_id": "commercial_performance_analytics",
+    "name": "Commercial Performance Analytics",
+    "buyer": "Sales Leadership / Commercial Operations",
+    "primary_outcomes": [
+      "Improve channel and seller efficiency",
+      "Expose margin leakage and pipeline inefficiencies",
+      "Support forecast reviews with trusted metrics"
+    ],
+    "typical_metrics": [
+      "Channel Efficiency",
+      "AOV",
+      "Conversion",
+      "Pipeline Velocity"
+    ],
+    "delivery_model": "Commercial diagnostics + drill-down dashboards + opportunity mapping"
+  },
+  "telemetry_backend": "sqlite",
+  "multi_tenant_ready": true,
+  "config_layers": [
+    "global",
+    "environment",
+    "client",
+    "solution_package"
+  ],
+  "contract_layers": [
+    "source_contract",
+    "metric_contract",
+    "executive_output_contract"
+  ],
+  "executive_buyer": "Commercial Director / Growth Lead",
+  "kpi_focus": [
+    "Repeat Purchase Risk",
+    "Channel Efficiency",
+    "AOV",
+    "Campaign Recovery"
+  ],
+  "connectors": {
+    "commerce": "shopify_compatible",
+    "marketing": "meta_google_ads_adapter"
+  },
+  "brand": {
+    "theme_name": "Retail Performance",
+    "primary_color": "#b45309",
+    "secondary_color": "#1f2937",
+    "accent_soft": "#ffedd5",
+    "hero_gradient_start": "#ffedd5",
+    "hero_gradient_end": "#f3f4f6"
+  },
+  "narrative": {
+    "headline": "Turn omnichannel performance data into commercial action.",
+    "value_proposition": "Expose channel leakage, repeat-purchase risk, and recovery opportunities with executive clarity."
+  },
+  "generated_at": "2026-04-09T00:16:13.797055+00:00"
+}

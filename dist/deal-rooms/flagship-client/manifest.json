@@ -1,0 +1,50 @@
+{
+  "deal_name": "Flagship Client",
+  "proposal_client_name": "Flagship Client",
+  "room_slug": "flagship-client",
+  "industry": "SaaS",
+  "package": "Revenue Command Center",
+  "approval_status": {
+    "approved_stage_count": 0,
+    "stage_count": 4,
+    "ready_for_client_delivery": false
+  },
+  "artifacts": [
+    {
+      "name": "client_proposal.html",
+      "source": "dist\\client-proposal-pack\\client_proposal.html"
+    },
+    {
+      "name": "client_proposal.md",
+      "source": "dist\\client-proposal-pack\\client_proposal.md"
+    },
+    {
+      "name": "client_proposal.json",
+      "source": "dist\\client-proposal-pack\\client_proposal.json"
+    },
+    {
+      "name": "executive_review_pack.html",
+      "source": "dist\\executive-review-pack\\executive_review_pack.html"
+    },
+    {
+      "name": "executive_review_pack.md",
+      "source": "dist\\executive-review-pack\\executive_review_pack.md"
+    },
+    {
+      "name": "executive_review_pack.json",
+      "source": "dist\\executive-review-pack\\executive_review_pack.json"
+    },
+    {
+      "name": "microsite.html",
+      "source": "dist\\client-microsite\\index.html"
+    },
+    {
+      "name": "industry_benchmark.csv",
+      "source": "dist\\benchmarks\\industry_benchmark.csv"
+    },
+    {
+      "name": "release-evidence-pack-local.tar.gz",
+      "source": "dist\\release-evidence-pack-local.tar.gz"
+    }
+  ]
+}

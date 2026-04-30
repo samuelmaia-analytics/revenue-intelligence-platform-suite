@@ -1,0 +1,29 @@
+[
+  {
+    "profile": "saas_b2b",
+    "industry": "SaaS",
+    "package": "Revenue Command Center",
+    "nrr_target": 0.9,
+    "gross_churn_ceiling": 0.1,
+    "value_at_risk_band_usd": "100k-300k",
+    "quality_score_target": 85
+  },
+  {
+    "profile": "healthtech_growth",
+    "industry": "Healthtech",
+    "package": "Retention Intelligence",
+    "nrr_target": 0.88,
+    "gross_churn_ceiling": 0.08,
+    "value_at_risk_band_usd": "80k-220k",
+    "quality_score_target": 85
+  },
+  {
+    "profile": "retail_omnichannel",
+    "industry": "Retail",
+    "package": "Commercial Performance Analytics",
+    "nrr_target": 0.85,
+    "gross_churn_ceiling": 0.12,
+    "value_at_risk_band_usd": "120k-350k",
+    "quality_score_target": 82
+  }
+]

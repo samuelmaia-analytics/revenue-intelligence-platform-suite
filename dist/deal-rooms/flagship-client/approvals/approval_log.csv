@@ -1,0 +1,5 @@
+stage_id,stage_name,required_role,owner_team,status,approved,approver_name,decision_at,notes
+commercial_review,Commercial Review,Account Lead / Solution Lead,Commercial,pending,False,,,
+privacy_review,Privacy And LGPD Review,Privacy / Legal,Governance,pending,False,,,
+technical_readiness,Technical Readiness Review,Analytics Engineering / Platform,Delivery,pending,False,,,
+executive_signoff,Executive Sponsor Sign-off,Executive Sponsor,Client Leadership,pending,False,,,

@@ -1,0 +1,11 @@
+{
+  "properties": {
+    "dealname": "Flagship Client",
+    "pipeline": "analytics-platform",
+    "dealstage": "proposal",
+    "amount": "$25k-$60k",
+    "description": "Run executive walkthrough and confirm scope + connector priorities.",
+    "industry": "SaaS",
+    "analytics_package": "Revenue Command Center"
+  }
+}

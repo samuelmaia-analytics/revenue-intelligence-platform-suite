@@ -1,0 +1,224 @@
+{
+  "solution_profile": {
+    "solution_profile_version": "1.0.0",
+    "profile_id": "saas_b2b",
+    "client_name": "Flagship Demo Client",
+    "industry": "SaaS",
+    "deployment_env": "showcase",
+    "package": {
+      "package_id": "revenue_command_center",
+      "name": "Revenue Command Center",
+      "buyer": "CRO / VP Revenue / Revenue Operations",
+      "primary_outcomes": [
+        "Protect expansion and recurring revenue",
+        "Prioritize accounts and actions by financial impact",
+        "Create a weekly executive operating cadence"
+      ],
+      "typical_metrics": [
+        "Revenue at Risk",
+        "NRR",
+        "Expansion Pipeline",
+        "Recovery ROI"
+      ],
+      "delivery_model": "Executive board + action register + telemetry instrumentation"
+    },
+    "telemetry_backend": "sqlite",
+    "multi_tenant_ready": true,
+    "config_layers": [
+      "global",
+      "environment",
+      "client",
+      "solution_package"
+    ],
+    "contract_layers": [
+      "source_contract",
+      "metric_contract",
+      "executive_output_contract"
+    ],
+    "executive_buyer": "CRO / VP Revenue",
+    "kpi_focus": [
+      "NRR",
+      "Gross Churn",
+      "Revenue at Risk",
+      "Recovery ROI"
+    ],
+    "connectors": {
+      "crm": "salesforce_compatible",
+      "billing": "stripe_compatible"
+    },
+    "brand": {
+      "theme_name": "SaaS Revenue",
+      "primary_color": "#0f766e",
+      "secondary_color": "#0b1220",
+      "accent_soft": "#dff7f4",
+      "hero_gradient_start": "#d9f7f2",
+      "hero_gradient_end": "#eef6ff"
+    },
+    "narrative": {
+      "headline": "Protect recurring revenue with an executive command layer.",
+      "value_proposition": "Unify revenue risk, action prioritization, and KPI governance for leadership reviews."
+    },
+    "generated_at": "2026-04-08T23:34:05.484705+00:00"
+  },
+  "summary": {
+    "latest_month": "2005-05",
+    "latest_revenue_usd": 457861.06,
+    "nrr_latest": 1.2,
+    "gross_churn_latest": 0.0,
+    "total_value_at_risk_usd": 144490.03999999998,
+    "top_50_value_at_risk_usd": 29130.33,
+    "churn_auc_temporal_test": 0.9285714285714286,
+    "next_purchase_auc_temporal_test": 0.6166666666666667,
+    "telemetry_source": "crm-billing-snapshot"
+  },
+  "scorecard": {
+    "scorecard_version": "1.0.0",
+    "overall_score": 88.7,
+    "status": "healthy",
+    "dimensions": {
+      "freshness_days": 33,
+      "data_currency_days": 7616,
+      "source_rows_sales": 29,
+      "source_rows_customers": 350,
+      "critical_accounts": 26,
+      "nrr_latest": 1.2,
+      "gross_churn_latest": 0.0,
+      "churn_auc_temporal_test": 0.9285714285714286,
+      "next_purchase_auc_temporal_test": 0.6166666666666667
+    },
+    "checks": [
+      {
+        "check": "nrr_floor",
+        "threshold": 0.9,
+        "actual": 1.2,
+        "status": "pass"
+      },
+      {
+        "check": "gross_churn_ceiling",
+        "threshold": 0.1,
+        "actual": 0.0,
+        "status": "pass"
+      },
+      {
+        "check": "freshness_max_days",
+        "threshold": 30,
+        "actual": 33,
+        "status": "fail"
+      }
+    ],
+    "generated_at": "2026-04-08T23:34:05.485640+00:00"
+  },
+  "benchmark": {
+    "profile": "saas_b2b",
+    "industry": "SaaS",
+    "package": "Revenue Command Center",
+    "nrr_target": 0.9,
+    "gross_churn_ceiling": 0.1,
+    "value_at_risk_band_usd": "100k-300k",
+    "quality_score_target": 85
+  },
+  "insights": {
+    "report_version": "1.0.0",
+    "generation_mode": "deterministic_fallback",
+    "llm_enabled": false,
+    "package": {
+      "package_id": "revenue_command_center",
+      "name": "Revenue Command Center",
+      "buyer": "CRO / VP Revenue / Revenue Operations",
+      "primary_outcomes": [
+        "Protect expansion and recurring revenue",
+        "Prioritize accounts and actions by financial impact",
+        "Create a weekly executive operating cadence"
+      ],
+      "typical_metrics": [
+        "Revenue at Risk",
+        "NRR",
+        "Expansion Pipeline",
+        "Recovery ROI"
+      ],
+      "delivery_model": "Executive board + action register + telemetry instrumentation"
+    },
+    "thresholds": {
+      "nrr_floor": 0.9,
+      "gross_churn_ceiling": 0.1,
+      "quality_score_floor": 85.0,
+      "freshness_max_days": 30,
+      "roi_floor": 0.15
+    },
+    "prompt_policy": {
+      "prompt_template_version": "deterministic-v1",
+      "auditability": "Rules, thresholds, and output artifacts are persisted for review.",
+      "allowed_use": "Drafting executive insights from validated metrics only."
+    },
+    "recommended_actions": [
+      {
+        "account_id": "440",
+        "recommended_action": "Executive Save Offer",
+        "revenue_at_risk_usd": 653.64,
+        "expected_recovery_usd": 52.29,
+        "priority": "P1"
+      },
+      {
+        "account_id": "428",
+        "recommended_action": "Executive Save Offer",
+        "revenue_at_risk_usd": 648.0,
+        "expected_recovery_usd": 51.84,
+        "priority": "P1"
+      },
+      {
+        "account_id": "416",
+        "recommended_action": "Executive Save Offer",
+        "revenue_at_risk_usd": 642.36,
+        "expected_recovery_usd": 51.39,
+        "priority": "P1"
+      },
+      {
+        "account_id": "404",
+        "recommended_action": "Executive Save Offer",
+        "revenue_at_risk_usd": 636.73,
+        "expected_recovery_usd": 50.94,
+        "priority": "P1"
+      },
+      {
+        "account_id": "392",
+        "recommended_action": "Executive Save Offer",
+        "revenue_at_risk_usd": 631.09,
+        "expected_recovery_usd": 50.49,
+        "priority": "P1"
+      }
+    ],
+    "insights": [
+      {
+        "type": "opportunity",
+        "headline": "A concentrated recovery pocket exists in the top priority accounts.",
+        "detail": "Top-50 accounts represent $29,130 in revenue at risk.",
+        "recommended_action": "Run an executive save sprint on the top accounts and monitor adoption outcomes weekly."
+      }
+    ],
+    "generated_at": "2026-04-08T23:34:05.486795+00:00"
+  },
+  "proposal_client_name": "Flagship Demo Client",
+  "commercial_structure": {
+    "setup_fee": "$25k-$60k",
+    "monthly_service": "$6k-$18k",
+    "timeline": "4-8 weeks"
+  },
+  "scope_options": {
+    "foundation": [
+      "Executive KPI board",
+      "Showcase adaptation",
+      "Contracts and scorecard baseline"
+    ],
+    "growth": [
+      "Recommended actions",
+      "Action adoption monitoring",
+      "Executive review pack"
+    ],
+    "premium": [
+      "Client proposal pack",
+      "API serving layer",
+      "Release evidence pack",
+      "White-label adaptation"
+    ]
+  }
+}

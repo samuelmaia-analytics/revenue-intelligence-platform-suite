@@ -7,9 +7,15 @@
     "theme_name": "Retail Performance",
     "primary_color": "#b45309",
     "secondary_color": "#1f2937",
-    "accent_soft": "#ffedd5",
-    "hero_gradient_start": "#ffedd5",
-    "hero_gradient_end": "#f3f4f6"
+    "accent_color": "#ea580c",
+    "accent_soft": "rgba(255, 255, 255, 0.16)",
+    "surface_color": "#fffaf5",
+    "surface_alt_color": "#ffedd5",
+    "text_color": "#1f2937",
+    "muted_color": "#6b7280",
+    "border_color": "#fed7aa",
+    "hero_gradient_start": "#1f2937",
+    "hero_gradient_end": "#b45309"
   },
   "narrative": {
     "headline": "Turn omnichannel performance data into commercial action.",

@@ -7,9 +7,15 @@
     "theme_name": "Healthtech Growth",
     "primary_color": "#0f5f8c",
     "secondary_color": "#10243d",
-    "accent_soft": "#dceffd",
-    "hero_gradient_start": "#d7efff",
-    "hero_gradient_end": "#eefaf6"
+    "accent_color": "#3b82f6",
+    "accent_soft": "rgba(255, 255, 255, 0.16)",
+    "surface_color": "#f8fafc",
+    "surface_alt_color": "#dbeafe",
+    "text_color": "#0f172a",
+    "muted_color": "#475569",
+    "border_color": "#bfdbfe",
+    "hero_gradient_start": "#10243d",
+    "hero_gradient_end": "#0f5f8c"
   },
   "narrative": {
     "headline": "Detect lifecycle risk before it becomes revenue leakage.",

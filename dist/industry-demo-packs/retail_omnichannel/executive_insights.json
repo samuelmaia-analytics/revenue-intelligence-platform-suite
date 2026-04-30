@@ -1,0 +1,80 @@
+{
+  "report_version": "1.0.0",
+  "generation_mode": "deterministic_fallback",
+  "llm_enabled": false,
+  "package": {
+    "package_id": "commercial_performance_analytics",
+    "name": "Commercial Performance Analytics",
+    "buyer": "Sales Leadership / Commercial Operations",
+    "primary_outcomes": [
+      "Improve channel and seller efficiency",
+      "Expose margin leakage and pipeline inefficiencies",
+      "Support forecast reviews with trusted metrics"
+    ],
+    "typical_metrics": [
+      "Channel Efficiency",
+      "AOV",
+      "Conversion",
+      "Pipeline Velocity"
+    ],
+    "delivery_model": "Commercial diagnostics + drill-down dashboards + opportunity mapping"
+  },
+  "thresholds": {
+    "nrr_floor": 0.85,
+    "gross_churn_ceiling": 0.12,
+    "quality_score_floor": 85.0,
+    "freshness_max_days": 30,
+    "roi_floor": 0.15
+  },
+  "prompt_policy": {
+    "prompt_template_version": "deterministic-v1",
+    "auditability": "Rules, thresholds, and output artifacts are persisted for review.",
+    "allowed_use": "Drafting executive insights from validated metrics only."
+  },
+  "recommended_actions": [
+    {
+      "account_id": "440",
+      "recommended_action": "Executive Save Offer",
+      "revenue_at_risk_usd": 653.64,
+      "expected_recovery_usd": 52.29,
+      "priority": "P1"
+    },
+    {
+      "account_id": "428",
+      "recommended_action": "Executive Save Offer",
+      "revenue_at_risk_usd": 648.0,
+      "expected_recovery_usd": 51.84,
+      "priority": "P1"
+    },
+    {
+      "account_id": "416",
+      "recommended_action": "Executive Save Offer",
+      "revenue_at_risk_usd": 642.36,
+      "expected_recovery_usd": 51.39,
+      "priority": "P1"
+    },
+    {
+      "account_id": "404",
+      "recommended_action": "Executive Save Offer",
+      "revenue_at_risk_usd": 636.73,
+      "expected_recovery_usd": 50.94,
+      "priority": "P1"
+    },
+    {
+      "account_id": "392",
+      "recommended_action": "Executive Save Offer",
+      "revenue_at_risk_usd": 631.09,
+      "expected_recovery_usd": 50.49,
+      "priority": "P1"
+    }
+  ],
+  "insights": [
+    {
+      "type": "opportunity",
+      "headline": "A concentrated recovery pocket exists in the top priority accounts.",
+      "detail": "Top-50 accounts represent $29,130 in revenue at risk.",
+      "recommended_action": "Run an executive save sprint on the top accounts and monitor adoption outcomes weekly."
+    }
+  ],
+  "generated_at": "2026-04-09T00:16:13.799330+00:00"
+}

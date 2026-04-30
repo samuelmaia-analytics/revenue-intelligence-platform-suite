@@ -1,0 +1,43 @@
+{
+  "parent": {
+    "database_id": "replace-with-notion-database-id"
+  },
+  "properties": {
+    "Name": {
+      "title": [
+        {
+          "text": {
+            "content": "Flagship Client"
+          }
+        }
+      ]
+    },
+    "Client": {
+      "rich_text": [
+        {
+          "text": {
+            "content": "Flagship Demo Client"
+          }
+        }
+      ]
+    },
+    "Package": {
+      "rich_text": [
+        {
+          "text": {
+            "content": "Revenue Command Center"
+          }
+        }
+      ]
+    },
+    "Next Step": {
+      "rich_text": [
+        {
+          "text": {
+            "content": "Run executive walkthrough and confirm scope + connector priorities."
+          }
+        }
+      ]
+    }
+  }
+}

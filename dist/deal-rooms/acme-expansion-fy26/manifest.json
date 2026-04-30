@@ -1,0 +1,45 @@
+{
+  "deal_name": "Acme Expansion FY26",
+  "proposal_client_name": "Acme Corp",
+  "room_slug": "acme-expansion-fy26",
+  "industry": "Retail",
+  "package": "Commercial Performance Analytics",
+  "artifacts": [
+    {
+      "name": "client_proposal.html",
+      "source": "dist\\client-proposal-pack\\client_proposal.html"
+    },
+    {
+      "name": "client_proposal.md",
+      "source": "dist\\client-proposal-pack\\client_proposal.md"
+    },
+    {
+      "name": "client_proposal.json",
+      "source": "dist\\client-proposal-pack\\client_proposal.json"
+    },
+    {
+      "name": "executive_review_pack.html",
+      "source": "dist\\executive-review-pack\\executive_review_pack.html"
+    },
+    {
+      "name": "executive_review_pack.md",
+      "source": "dist\\executive-review-pack\\executive_review_pack.md"
+    },
+    {
+      "name": "executive_review_pack.json",
+      "source": "dist\\executive-review-pack\\executive_review_pack.json"
+    },
+    {
+      "name": "microsite.html",
+      "source": "dist\\client-microsite\\index.html"
+    },
+    {
+      "name": "industry_benchmark.csv",
+      "source": "dist\\benchmarks\\industry_benchmark.csv"
+    },
+    {
+      "name": "release-evidence-pack-local.tar.gz",
+      "source": "dist\\release-evidence-pack-local.tar.gz"
+    }
+  ]
+}

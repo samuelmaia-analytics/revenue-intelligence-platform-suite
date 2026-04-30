@@ -1,0 +1,37 @@
+{
+  "scorecard_version": "1.0.0",
+  "overall_score": 88.7,
+  "status": "healthy",
+  "dimensions": {
+    "freshness_days": 33,
+    "data_currency_days": 7617,
+    "source_rows_sales": 29,
+    "source_rows_customers": 350,
+    "critical_accounts": 26,
+    "nrr_latest": 1.2,
+    "gross_churn_latest": 0.0,
+    "churn_auc_temporal_test": 0.9285714285714286,
+    "next_purchase_auc_temporal_test": 0.6166666666666667
+  },
+  "checks": [
+    {
+      "check": "nrr_floor",
+      "threshold": 0.9,
+      "actual": 1.2,
+      "status": "pass"
+    },
+    {
+      "check": "gross_churn_ceiling",
+      "threshold": 0.1,
+      "actual": 0.0,
+      "status": "pass"
+    },
+    {
+      "check": "freshness_max_days",
+      "threshold": 30,
+      "actual": 33,
+      "status": "fail"
+    }
+  ],
+  "generated_at": "2026-04-09T00:16:13.798130+00:00"
+}

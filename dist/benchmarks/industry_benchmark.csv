@@ -1,0 +1,4 @@
+profile,industry,package,nrr_target,gross_churn_ceiling,value_at_risk_band_usd,quality_score_target
+saas_b2b,SaaS,Revenue Command Center,0.9,0.1,100k-300k,85
+healthtech_growth,Healthtech,Retention Intelligence,0.88,0.08,80k-220k,85
+retail_omnichannel,Retail,Commercial Performance Analytics,0.85,0.12,120k-350k,82

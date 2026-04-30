@@ -1,0 +1,11 @@
+Customer ID,Gender,Age,City,Membership Type,Total Spend,Items Purchased,Average Rating,Discount Applied,Days Since Last Purchase,Satisfaction Level,Risk Score,Revenue at Risk (USD),Recommended Action
+440,Male,27,Miami,Silver,710.4,13,4.1,True,63,Unsatisfied,0.9201006512729426,653.64,Executive Save Offer
+428,Male,27,Miami,Silver,710.4,13,4.1,True,62,Unsatisfied,0.9121641433364344,648.0,Executive Save Offer
+416,Male,27,Miami,Silver,710.4,13,4.1,True,61,Unsatisfied,0.9042276353999266,642.36,Executive Save Offer
+404,Male,27,Miami,Silver,710.4,13,4.1,True,60,Unsatisfied,0.8962911274634187,636.73,Executive Save Offer
+392,Male,27,Miami,Silver,710.4,13,4.1,True,59,Unsatisfied,0.8883546195269107,631.09,Executive Save Offer
+380,Male,27,Miami,Silver,710.4,13,4.1,True,58,Unsatisfied,0.8804181115904028,625.45,Executive Save Offer
+368,Male,27,Miami,Silver,710.4,13,4.1,True,57,Unsatisfied,0.8724816036538949,619.81,Executive Save Offer
+344,Male,27,Miami,Silver,720.4,13,4.0,True,55,Unsatisfied,0.8575953649665905,617.81,Executive Save Offer
+105,Male,27,Miami,Silver,720.4,13,4.0,True,55,Unsatisfied,0.8575953649665905,617.81,Executive Save Offer
+356,Male,27,Miami,Silver,700.4,13,4.1,True,56,Unsatisfied,0.8635583185316755,604.84,Executive Save Offer

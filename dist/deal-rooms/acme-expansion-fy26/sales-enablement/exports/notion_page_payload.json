@@ -1,0 +1,43 @@
+{
+  "parent": {
+    "database_id": "replace-with-notion-database-id"
+  },
+  "properties": {
+    "Name": {
+      "title": [
+        {
+          "text": {
+            "content": "Acme Expansion FY26"
+          }
+        }
+      ]
+    },
+    "Client": {
+      "rich_text": [
+        {
+          "text": {
+            "content": "Acme Corp"
+          }
+        }
+      ]
+    },
+    "Package": {
+      "rich_text": [
+        {
+          "text": {
+            "content": "Commercial Performance Analytics"
+          }
+        }
+      ]
+    },
+    "Next Step": {
+      "rich_text": [
+        {
+          "text": {
+            "content": "Run executive walkthrough and confirm scope + connector priorities."
+          }
+        }
+      ]
+    }
+  }
+}

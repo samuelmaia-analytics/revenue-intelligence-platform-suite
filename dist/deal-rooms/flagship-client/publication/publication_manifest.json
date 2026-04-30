@@ -1,0 +1,53 @@
+{
+  "deal_name": "Flagship Client",
+  "proposal_client_name": "Flagship Client",
+  "room_slug": "flagship-client",
+  "publish_target": "github_pages",
+  "publish_base_url": "https://example.github.io/revenue-intelligence-platform-suite",
+  "landing_url": "https://example.github.io/revenue-intelligence-platform-suite/flagship-client/index.html",
+  "ready_for_external_publication": false,
+  "approval_status": {
+    "approved_stage_count": 0,
+    "stage_count": 4,
+    "ready_for_client_delivery": false
+  },
+  "published_assets": [
+    {
+      "file_name": "index.html",
+      "source": "dist\\deal-rooms\\flagship-client\\microsite.html",
+      "published_path": "dist\\deal-rooms\\flagship-client\\publication\\site\\index.html",
+      "public_url": "https://example.github.io/revenue-intelligence-platform-suite/flagship-client/index.html"
+    },
+    {
+      "file_name": "executive_review_pack.html",
+      "source": "dist\\deal-rooms\\flagship-client\\executive_review_pack.html",
+      "published_path": "dist\\deal-rooms\\flagship-client\\publication\\site\\executive_review_pack.html",
+      "public_url": "https://example.github.io/revenue-intelligence-platform-suite/flagship-client/executive_review_pack.html"
+    },
+    {
+      "file_name": "client_proposal.html",
+      "source": "dist\\deal-rooms\\flagship-client\\client_proposal.html",
+      "published_path": "dist\\deal-rooms\\flagship-client\\publication\\site\\client_proposal.html",
+      "public_url": "https://example.github.io/revenue-intelligence-platform-suite/flagship-client/client_proposal.html"
+    }
+  ],
+  "exposure_policy": {
+    "allowed_assets": [
+      "index.html",
+      "executive_review_pack.html",
+      "client_proposal.html"
+    ],
+    "restricted_assets": [
+      "client_proposal.json",
+      "executive_review_pack.json",
+      "release-evidence-pack",
+      "crm_handoff.json"
+    ],
+    "copyright_notice": "Copyright (c) 2026 Samuel Maia. Public visibility does not grant reuse, redistribution, sublicensing, or derivative rights."
+  },
+  "publication_targets": [
+    "github_pages",
+    "s3_static_site",
+    "netlify_drop"
+  ]
+}

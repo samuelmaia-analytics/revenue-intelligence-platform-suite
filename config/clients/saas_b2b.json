@@ -7,9 +7,15 @@
     "theme_name": "SaaS Revenue",
     "primary_color": "#0f766e",
     "secondary_color": "#0b1220",
-    "accent_soft": "#dff7f4",
-    "hero_gradient_start": "#d9f7f2",
-    "hero_gradient_end": "#eef6ff"
+    "accent_color": "#c0843d",
+    "accent_soft": "rgba(255, 255, 255, 0.16)",
+    "surface_color": "#f8fafc",
+    "surface_alt_color": "#e2e8f0",
+    "text_color": "#0f172a",
+    "muted_color": "#475569",
+    "border_color": "#cbd5e1",
+    "hero_gradient_start": "#0b1220",
+    "hero_gradient_end": "#134e4a"
   },
   "narrative": {
     "headline": "Protect recurring revenue with an executive command layer.",

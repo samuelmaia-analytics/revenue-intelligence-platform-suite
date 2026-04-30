@@ -1,0 +1,21 @@
+{
+  "site_slug": "flagship-client",
+  "source": "dist\\deal-rooms\\flagship-client\\microsite.html",
+  "target_hint": "/sites/flagship-client/index.html",
+  "publish_targets": [
+    "github_pages",
+    "s3_static_site",
+    "netlify_drop"
+  ],
+  "linked_assets": [
+    "client_proposal.html",
+    "client_proposal.md",
+    "client_proposal.json",
+    "executive_review_pack.html",
+    "executive_review_pack.md",
+    "executive_review_pack.json",
+    "microsite.html",
+    "industry_benchmark.csv",
+    "release-evidence-pack-local.tar.gz"
+  ]
+}

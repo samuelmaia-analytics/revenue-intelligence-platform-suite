@@ -1,0 +1,11 @@
+{
+  "Opportunity": {
+    "Name": "Acme Expansion FY26",
+    "StageName": "Proposal/Price Quote",
+    "CloseDate": "2026-12-31",
+    "Amount": "$25k-$60k",
+    "Description": "Run executive walkthrough and confirm scope + connector priorities.",
+    "Industry__c": "Retail",
+    "Solution_Package__c": "Commercial Performance Analytics"
+  }
+}

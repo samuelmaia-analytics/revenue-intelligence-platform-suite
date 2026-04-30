@@ -1,0 +1,17 @@
+{
+  "deal_name": "Flagship Client",
+  "client_name": "Flagship Demo Client",
+  "industry": "SaaS",
+  "buyer": "CRO / VP Revenue",
+  "package": "Revenue Command Center",
+  "setup_fee": "$25k-$60k",
+  "monthly_service": "$6k-$18k",
+  "timeline": "4-8 weeks",
+  "value_at_risk_usd": 144490.03999999998,
+  "quality_score": 88.7,
+  "top_insight": "A concentrated recovery pocket exists in the top priority accounts.",
+  "approval_stage_count": 4,
+  "approved_stage_count": 0,
+  "ready_for_client_delivery": false,
+  "recommended_next_step": "Run executive walkthrough and confirm scope + connector priorities."
+}

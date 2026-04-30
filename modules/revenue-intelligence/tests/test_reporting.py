@@ -40,6 +40,7 @@ def test_executive_report_contains_required_sections(tmp_path: Path) -> None:
     assert "top_kpis" in report
     assert "base_size" in report
     assert "data_refresh_utc" in report
+    assert "semantic_layer" in report
     assert "recommendations_top_20" in report
     assert len(report["recommendations_top_20"]) == 3
 

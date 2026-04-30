@@ -1,0 +1,11 @@
+{
+  "properties": {
+    "dealname": "Acme Expansion FY26",
+    "pipeline": "analytics-platform",
+    "dealstage": "proposal",
+    "amount": "$25k-$60k",
+    "description": "Run executive walkthrough and confirm scope + connector priorities.",
+    "industry": "Retail",
+    "analytics_package": "Commercial Performance Analytics"
+  }
+}

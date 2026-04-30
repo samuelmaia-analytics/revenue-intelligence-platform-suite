@@ -1,7 +1,13 @@
+from __future__ import annotations
+
 from pathlib import Path
 
 import numpy as np
 import pandas as pd
+
+from src.core.logging import get_logger
+
+LOGGER = get_logger("revenue_intelligence.ingestion")
 
 CHANNELS = ["Organic", "Paid Search", "Social Ads", "Referral", "Partnership"]
 KAGGLE_FILE = "E-commerce Customer Behavior - Sheet1.csv"
@@ -54,14 +60,9 @@ def generate_synthetic_data(
                 }
             )
 
-    orders = pd.DataFrame(order_rows)
-    orders = orders.sort_values("order_date").reset_index(drop=True)
-
+    orders = pd.DataFrame(order_rows).sort_values("order_date").reset_index(drop=True)
     marketing = pd.DataFrame(
-        {
-            "channel": CHANNELS,
-            "marketing_spend": [42000, 68000, 52000, 18000, 26000],
-        }
+        {"channel": CHANNELS, "marketing_spend": [42000, 68000, 52000, 18000, 26000]}
     )
     return customers, orders, marketing
 
@@ -179,8 +180,16 @@ def save_raw_datasets(raw_dir: Path, seed: int = 42) -> tuple[Path, Path, Path]:
     kaggle_path = raw_dir / KAGGLE_FILE
     if kaggle_path.exists():
         customers, orders, marketing = _build_from_kaggle_dataset(kaggle_path, seed=seed)
+        LOGGER.info(
+            "Kaggle raw dataset detected and normalized.",
+            extra={"stage": "ingestion", "artifact": str(kaggle_path), "status": "success"},
+        )
     else:
         customers, orders, marketing = generate_synthetic_data(seed=seed)
+        LOGGER.info(
+            "Synthetic fallback dataset generated.",
+            extra={"stage": "ingestion", "rows": len(customers), "status": "success"},
+        )
 
     customers_path = raw_dir / "customers.csv"
     orders_path = raw_dir / "orders.csv"
@@ -189,7 +198,6 @@ def save_raw_datasets(raw_dir: Path, seed: int = 42) -> tuple[Path, Path, Path]:
     customers.to_csv(customers_path, index=False)
     orders.to_csv(orders_path, index=False)
     marketing.to_csv(marketing_path, index=False)
-
     return customers_path, orders_path, marketing_path
 
 
@@ -218,4 +226,8 @@ def build_bronze_layer(
     orders.to_csv(bronze_orders_path, index=False)
     marketing.to_csv(bronze_marketing_path, index=False)
 
+    LOGGER.info(
+        "Bronze layer materialized.",
+        extra={"stage": "ingestion", "rows": len(customers) + len(orders), "status": "success"},
+    )
     return bronze_customers_path, bronze_orders_path, bronze_marketing_path

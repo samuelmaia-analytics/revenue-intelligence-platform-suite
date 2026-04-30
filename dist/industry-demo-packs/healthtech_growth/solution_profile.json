@@ -1,0 +1,60 @@
+{
+  "solution_profile_version": "1.0.0",
+  "profile_id": "healthtech_growth",
+  "client_name": "Healthtech Growth Client",
+  "industry": "Healthtech",
+  "deployment_env": "showcase",
+  "package": {
+    "package_id": "retention_intelligence",
+    "name": "Retention Intelligence",
+    "buyer": "Chief Customer Officer / VP Customer Success",
+    "primary_outcomes": [
+      "Detect churn exposure before revenue is lost",
+      "Rank save plays by account and segment",
+      "Track save motion adoption and realized recovery"
+    ],
+    "typical_metrics": [
+      "Gross Churn",
+      "Retention Exposure",
+      "Save Rate",
+      "Recovery Value"
+    ],
+    "delivery_model": "Risk scoring + recommended actions + action outcome monitoring"
+  },
+  "telemetry_backend": "sqlite",
+  "multi_tenant_ready": true,
+  "config_layers": [
+    "global",
+    "environment",
+    "client",
+    "solution_package"
+  ],
+  "contract_layers": [
+    "source_contract",
+    "metric_contract",
+    "executive_output_contract"
+  ],
+  "executive_buyer": "COO / VP Customer Success",
+  "kpi_focus": [
+    "Retention Exposure",
+    "Lifecycle Usage Decline",
+    "Revenue Recovery"
+  ],
+  "connectors": {
+    "crm": "hubspot_compatible",
+    "product_usage": "fhir_event_adapter"
+  },
+  "brand": {
+    "theme_name": "Healthtech Growth",
+    "primary_color": "#0f5f8c",
+    "secondary_color": "#10243d",
+    "accent_soft": "#dceffd",
+    "hero_gradient_start": "#d7efff",
+    "hero_gradient_end": "#eefaf6"
+  },
+  "narrative": {
+    "headline": "Detect lifecycle risk before it becomes revenue leakage.",
+    "value_proposition": "Connect retention exposure, usage decline, and executive interventions in one operating layer."
+  },
+  "generated_at": "2026-04-09T00:16:10.697908+00:00"
+}
