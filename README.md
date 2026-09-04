@@ -6,9 +6,19 @@
 
 **Idioma:** `Português (BR)` | [English](README.en.md) | [Português (PT)](README.pt-PT.md)
 
-> Plataforma de Revenue Intelligence para transformar dados de receita, retenção e desempenho comercial em indicadores governados, prioridades de ação e suporte à decisão executiva.
+> Empresas que acompanham receita, retenção e desempenho comercial costumam lidar com métricas espalhadas, definições inconsistentes e dificuldade para transformar sinais em prioridade de ação. Para enfrentar esse problema, construí uma plataforma de Revenue Intelligence que conecta ingestão, transformação, métricas governadas, qualidade, observabilidade, insights executivos, aplicações e acompanhamento de ações. O resultado é uma arquitetura reutilizável em que diferentes consumidores usam a mesma camada de métricas e regras, reduzindo ambiguidade e favorecendo decisões mais consistentes.
 
 **[→ Acessar demonstração](https://revenue-intelligence-platform.streamlit.app/)**
+
+---
+
+## Método CAR
+
+**Contexto:** decisões de receita e retenção perdem confiabilidade quando KPIs, regras e sinais de risco ficam espalhados em diferentes dashboards ou processos manuais.
+
+**Ação:** desenvolvi uma plataforma com Python, SQL, dbt, Streamlit, FastAPI, Prefect, DuckDB e controles de qualidade, observabilidade, governança e privacidade, além de uma camada semântica para padronizar métricas e apoiar diferentes pacotes de solução.
+
+**Resultado:** a arquitetura centraliza sinais de receita e retenção, reutiliza definições governadas entre diferentes consumidores e permite priorizar riscos e oportunidades com uma base analítica mais consistente. Como projeto de portfólio, demonstra capacidade implementada sem atribuir resultados financeiros não medidos em uma empresa real.
 
 ---
 
