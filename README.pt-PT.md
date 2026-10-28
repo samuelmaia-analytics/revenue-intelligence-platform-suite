@@ -2,17 +2,17 @@
 
 Template premium de plataforma analítica executiva para receita, retenção, governação de KPI e productização comercial.
 
-Este ficheiro é a versão em Português (PT) do README canónico em inglês.
+Este ficheiro é a versão em Português (PT) do README principal em português do Brasil.
 
 [![Platform](https://img.shields.io/badge/Platform-Revenue%20Intelligence-0F172A)](https://github.com/samuelmaia-analytics/revenue-intelligence-platform-suite)
 [![App](https://img.shields.io/badge/Streamlit-Demo%20Publica-FF4B4B?logo=streamlit&logoColor=white)](https://revenue-intelligence-platform.streamlit.app/)
 [![Python](https://img.shields.io/badge/Python-3.11%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/downloads/)
-[![License](https://img.shields.io/badge/Licenca-Proprietaria-6B7280)](./LICENSE)
+[![License](https://img.shields.io/badge/License-CC_BY--NC_4.0-lightgrey.svg)](./LICENSE)
 
 Demo pública: https://revenue-intelligence-platform.streamlit.app/
 
 ## Idioma
-- English: [README.md](README.md)
+- English: [README.en.md](README.en.md)
 - Português (BR): [README.pt-BR.md](README.pt-BR.md)
 - Português (PT): [README.pt-PT.md](README.pt-PT.md)
 
@@ -164,7 +164,7 @@ O repositório demonstra agora:
 - experiência executiva
 - readiness para venda consultiva e serviço recorrente
 
-Para detalhe completo, use o README canónico em inglês: [README.md](README.md)
+Para detalhe completo, use o README principal em português do Brasil: [README.md](README.md)
 
 ## License
 
@@ -175,3 +175,10 @@ https://creativecommons.org/licenses/by-nc/4.0/
 
 [![License: CC BY-NC 4.0](https://licensebuttons.net/l/by-nc/4.0/88x31.png)](https://creativecommons.org/licenses/by-nc/4.0/)
 
+## Autor
+
+**Samuel de Andrade Maia — Engenheiro de Dados Pleno | Analytics Engineer**
+
+Atuo na **Avanade** desde **20/10/2026**, em Engenharia de Dados. Este é um **projeto pessoal de portfólio**; suas implementações, dados e resultados não representam entregas da Avanade ou de seus clientes.
+
+[LinkedIn](https://www.linkedin.com/in/samuelmaia-analytics/) · [Portfólio](https://samuelmaia-analytics.github.io/samuelmaia-analytics/) · [Currículo em PDF](https://samuelmaia-analytics.github.io/samuelmaia-analytics/assets/Samuel_Maia_Curriculo.pdf)

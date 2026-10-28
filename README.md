@@ -12,13 +12,9 @@
 
 ---
 
-## Método CAR
+## Resultados e capacidades
 
-**Contexto:** decisões de receita e retenção perdem confiabilidade quando KPIs, regras e sinais de risco ficam espalhados em diferentes dashboards ou processos manuais.
-
-**Ação:** desenvolvi uma plataforma com Python, SQL, dbt, Streamlit, FastAPI, Prefect, DuckDB e controles de qualidade, observabilidade, governança e privacidade, além de uma camada semântica para padronizar métricas e apoiar diferentes pacotes de solução.
-
-**Resultado:** a arquitetura centraliza sinais de receita e retenção, reutiliza definições governadas entre diferentes consumidores e permite priorizar riscos e oportunidades com uma base analítica mais consistente. Como projeto de portfólio, demonstra capacidade implementada sem atribuir resultados financeiros não medidos em uma empresa real.
+a arquitetura centraliza sinais de receita e retenção, reutiliza definições governadas entre diferentes consumidores e permite priorizar riscos e oportunidades com uma base analítica mais consistente. Como projeto de portfólio, demonstra capacidade implementada sem atribuir resultados financeiros não medidos em uma empresa real.
 
 ---
 
@@ -208,9 +204,11 @@ Para detalhes de implementação, consulte:
 
 ## Autor
 
-**Samuel Maia** — Analista de Dados | Analytics Engineer
+**Samuel de Andrade Maia — Engenheiro de Dados Pleno | Analytics Engineer**
 
-Projeto de portfólio voltado à aplicação prática de Data Analytics, Analytics Engineering, governança, qualidade de dados e suporte à decisão de negócio.
+Atuo na **Avanade** desde **20/10/2026**, em Engenharia de Dados. Este é um **projeto pessoal de portfólio**; suas implementações, dados e resultados não representam entregas da Avanade ou de seus clientes.
+
+[LinkedIn](https://www.linkedin.com/in/samuelmaia-analytics/) · [Portfólio](https://samuelmaia-analytics.github.io/samuelmaia-analytics/) · [Currículo em PDF](https://samuelmaia-analytics.github.io/samuelmaia-analytics/assets/Samuel_Maia_Curriculo.pdf)
 
 ---
 
